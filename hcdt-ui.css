@@ -1,0 +1,191 @@
+/* HCDT Toolkit — shared interface
+   Type (guide p.9): Helvetica Neue for Latin, Spoqa Han Sans Neo for Korean. Regular body, Bold headings.
+   Color (guide p.8): HCDT Purple as the only interface accent; UNIST Navy for official marks.
+   Light only on purpose: these are print and brand tools, colors are judged on white. */
+
+@font-face{font-family:'HX Helvetica';font-weight:400;font-display:swap;src:url('assets/helvetica-400.otf') format('opentype');unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:'HX Helvetica';font-weight:500 900;font-display:swap;src:url('assets/helvetica-700.otf') format('opentype');unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:'HX Spoqa';font-weight:400;font-display:swap;src:url('assets/spoqa-400.woff2') format('woff2')}
+@font-face{font-family:'HX Spoqa';font-weight:500 900;font-display:swap;src:url('assets/spoqa-700.woff2') format('woff2')}
+
+:root:root:root{
+  --hx-bg:#FFFFFF; --hx-soft:#F4F3F7; --hx-line:#E2E0E8; --hx-line-strong:#C9C6D3;
+  --hx-fg:#17151C; --hx-muted:#6B6878; --hx-accent:#6B00FF; --hx-accent-fg:#FFFFFF; --hx-accent-soft:#EFE6FF;
+  --hx-navy:#001B54; --hx-warn:#B4400C; --hx-warn-bg:#FFF1E6;
+  --hx-font:'HX Helvetica','HX Spoqa','Helvetica Neue',Helvetica,Arial,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --hx-h:52px; --hx-r:6px; --hx-r2:8px; --hx-max:1280px;
+  /* every tool's own token names point at the same palette */
+  --bg:var(--hx-bg); --panel:var(--hx-bg); --fg:var(--hx-fg); --muted:var(--hx-muted); --line:var(--hx-line);
+  --accent:var(--hx-accent); --accent-fg:var(--hx-accent-fg); --accent-soft:var(--hx-accent-soft);
+  --stage:var(--hx-soft); --soft:var(--hx-soft); --chip:var(--hx-soft); --warn:var(--hx-warn); --warn-bg:var(--hx-warn-bg); --navy:var(--hx-navy);
+  --font-ui:var(--hx-font); --font:var(--hx-font); --ui:var(--hx-font); --font-mono:var(--hx-font);
+  color-scheme:light;
+}
+html{background:var(--hx-bg)}
+body{background:var(--hx-bg);color:var(--hx-fg);font-family:var(--hx-font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+/* poster tool calls it --accent-ink for text on accent; motion tool for accent itself */
+body.hx-p-poster{--accent-ink:var(--hx-accent-fg)}
+body.hx-p-motion{--accent-ink:var(--hx-accent)}
+
+/* ---------- top bar ---------- */
+.hx-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;display:flex;align-items:center;gap:20px;height:var(--hx-h);
+  background:var(--hx-bg);border-bottom:1px solid var(--hx-line);font:400 13px/1 var(--hx-font);color:var(--hx-fg);
+  padding-block:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));box-sizing:border-box}
+.hx-bar *{box-sizing:border-box}
+.hx-home{display:flex;align-items:center;gap:8px;color:var(--hx-fg);text-decoration:none;white-space:nowrap;flex:none}
+.hx-home svg{width:24px;height:24px;display:block}
+.hx-home b{font-weight:700;font-size:14px}
+.hx-home span{color:var(--hx-muted)}
+.hx-nav{display:flex;gap:2px;align-items:stretch;height:100%;min-width:0;overflow-x:auto;scrollbar-width:none;flex:1}
+.hx-nav::-webkit-scrollbar{display:none}
+.hx-nav a{display:flex;align-items:center;padding:0 10px;color:var(--hx-muted);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px}
+.hx-nav a:hover{color:var(--hx-fg)}
+.hx-nav a[aria-current=page]{color:var(--hx-fg);font-weight:700;border-bottom-color:var(--hx-accent)}
+.hx-lang{display:inline-flex;flex:none;border:1px solid var(--hx-line);border-radius:var(--hx-r);overflow:hidden}
+.hx-lang button{all:unset;cursor:pointer;font:700 12px/1 var(--hx-font);padding:8px 11px;color:var(--hx-muted)}
+.hx-lang button+button{border-left:1px solid var(--hx-line)}
+.hx-lang button[aria-pressed=true]{background:var(--hx-accent);color:var(--hx-accent-fg)}
+.hx-lang button:focus-visible,.hx-nav a:focus-visible,.hx-home:focus-visible{outline:2px solid var(--hx-accent);outline-offset:-2px}
+@media (max-width:640px){.hx-home span{display:none}.hx-bar{gap:10px}}
+
+/* the tools' own language switches are replaced by the shared one */
+header .lang,#lang.seg{display:none!important}
+
+/* ---------- page frame ---------- */
+body.hx-tool{padding-block:0 48px!important}
+body.hx-p-poster{padding-bottom:0!important}
+body.hx-p-logo .wrap,body.hx-p-card .wrap,body.hx-p-letter .wrap,body.hx-p-motion main{max-width:var(--hx-max)!important;margin-top:28px!important}
+body.hx-p-logo .wrap{padding:0!important}
+body.hx-p-logo{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body.hx-p-motion{padding-top:0!important}
+
+/* tool header: title, one line of context, rule underneath */
+body.hx-tool .wrap>header,body.hx-p-motion main>header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;border-bottom:1px solid var(--hx-line)!important;padding-bottom:14px!important}
+body.hx-tool h1,body.hx-p-poster .brand b{font:700 20px/1.25 var(--hx-font)!important;letter-spacing:-.01em!important;margin:0}
+body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-motion main>header .sub,body.hx-p-poster .brand span{font-size:13px!important;color:var(--hx-muted)!important;margin:0}
+body.hx-tool header .spec{font:400 12px/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
+body.hx-p-letter header .ttl{display:flex!important;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+body.hx-p-letter header{align-items:baseline!important}
+
+/* section headings and field labels */
+body.hx-p-card .pk>h3,body.hx-p-poster .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption{
+  font:700 11px/1.3 var(--hx-font)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--hx-muted)!important}
+body.hx-p-letter .blk h2,body.hx-p-card .sh,body.hx-p-card .zone h2,body.hx-p-logo h2,body.hx-p-logo .gh b{font:700 14px/1.3 var(--hx-font)!important;letter-spacing:0!important;color:var(--hx-fg)}
+body.hx-p-letter .blk h2 small{font:400 11.5px/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
+body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .ctl>.lab,body.hx-p-poster .field>span,body.hx-p-poster .grp>b,body.hx-p-poster .sec .sub,body.hx-p-card .og>span{
+  font-size:12px!important;color:var(--hx-muted)!important;font-weight:400}
+body.hx-p-card .og>span b{font-weight:400}
+
+/* panels */
+body.hx-p-card .zone,body.hx-p-letter .blk,body.hx-p-card details.spec,body.hx-p-letter details.spec,body.hx-p-logo .card,body.hx-p-logo .col{border:1px solid var(--hx-line)!important;border-radius:var(--hx-r2)!important;background:var(--hx-bg)!important}
+body.hx-p-card .zl,body.hx-p-letter .stage,body.hx-p-motion .stage,body.hx-p-poster .stagewrap{background:var(--hx-soft)!important}
+body.hx-p-letter .stage{border-radius:var(--hx-r2)!important;border:0!important}
+body.hx-p-card .tag{border-radius:var(--hx-r)!important;font-size:12px!important;padding:4px 10px!important}
+
+/* ---------- controls: one button, one field, one toggle ---------- */
+body.hx-p-logo .chip,body.hx-p-logo .dl,body.hx-p-logo .zip,
+body.hx-p-card .wrap button:not(.pick):not(.sw),body.hx-p-card .sw.def,
+body.hx-p-letter .wrap button,
+body.hx-p-poster .btn,body.hx-p-poster .tool,
+body.hx-p-motion .wrap button{
+  font:400 13px/1.2 var(--hx-font)!important;min-height:32px;padding:6px 12px!important;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;
+  background:var(--hx-bg)!important;color:var(--hx-fg)!important;box-shadow:none!important;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+body.hx-p-logo .chip:hover,body.hx-p-logo .dl:hover,body.hx-p-card .wrap button:not(.pick):not(.sw):hover,body.hx-p-letter .wrap button:hover,body.hx-p-poster .btn:hover,body.hx-p-poster .tool:hover,body.hx-p-motion .wrap button:hover{border-color:var(--hx-fg)!important}
+/* selected and primary: purple fill, white type */
+body.hx-p-logo .chip[aria-pressed=true],body.hx-p-logo .zip,
+body.hx-p-card .wrap button[aria-checked=true]:not(.pick):not(.sw),body.hx-p-card .wrap button.primary:not(.pick):not(.sw),
+body.hx-p-letter .wrap button.primary,
+body.hx-p-poster .btn.primary,body.hx-p-poster .seg button[aria-pressed=true],
+body.hx-p-motion .wrap button[aria-pressed=true]{
+  background:var(--hx-accent)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
+body.hx-p-card button[aria-checked=true] b,body.hx-p-card button[aria-checked=true] small{color:var(--hx-accent-fg)!important}
+body.hx-p-card .vt,body.hx-p-card .tc{display:inline-grid!important;text-align:left}
+body.hx-p-logo .chip i,body.hx-p-motion .dot{width:12px!important;height:12px!important;border-radius:50%!important;border:1px solid rgba(0,0,0,.12)!important;flex:none}
+body.hx-p-logo .chip.t{padding:6px 12px!important}
+button:disabled,body.hx-tool button:disabled{opacity:.4!important;cursor:default!important}
+body.hx-p-poster .danger{color:var(--hx-warn)!important}
+body.hx-p-letter .crow button{padding:0!important;justify-content:center;font-size:16px!important;color:var(--hx-muted)!important}
+
+/* segmented controls */
+body.hx-p-logo .seg,body.hx-p-poster .seg{display:inline-flex;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;overflow:hidden;background:var(--hx-bg)!important}
+body.hx-p-logo .seg button,body.hx-p-poster .seg button{font:400 13px/1.2 var(--hx-font)!important;min-height:30px;padding:6px 12px!important;border:0!important;border-right:1px solid var(--hx-line)!important;border-radius:0!important;background:var(--hx-bg)!important;color:var(--hx-fg)!important}
+body.hx-p-logo .seg button:last-child,body.hx-p-poster .seg button:last-child{border-right:0!important}
+body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pressed=true],body.hx-p-poster .seg button[aria-pressed=true]{background:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
+
+/* text fields */
+body.hx-tool input[type=text],body.hx-tool input[type=number],body.hx-tool select,body.hx-tool textarea{
+  font:400 14px/1.4 var(--hx-font)!important;color:var(--hx-fg)!important;background:var(--hx-bg)!important;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;padding:7px 10px!important;min-height:34px}
+body.hx-p-poster .field input,body.hx-p-poster .field select,body.hx-p-poster .duo input{font-size:13px!important;min-height:30px;padding:5px 8px!important}
+body.hx-tool input:focus-visible,body.hx-tool select:focus-visible,body.hx-tool textarea:focus-visible,body.hx-tool button:focus-visible{outline:2px solid var(--hx-accent)!important;outline-offset:1px}
+body.hx-tool input[type=checkbox],body.hx-tool input[type=range]{accent-color:var(--hx-accent)}
+
+/* figures in the tools' own data rows read as numbers, not code */
+body.hx-tool td,body.hx-tool .cap,body.hx-tool .pn,body.hx-tool output,body.hx-tool .cname{font-family:var(--hx-font)!important;font-variant-numeric:tabular-nums}
+body.hx-tool .toast,body.hx-tool #toast{border-radius:var(--hx-r)!important;font:400 13px/1.4 var(--hx-font)!important}
+
+/* sticky parts sit under the top bar */
+body.hx-p-letter .pvbar{top:var(--hx-h)!important}
+@media (min-width:861px) and (min-height:860px){body.hx-p-card .left,body.hx-p-card .zl .pv{top:calc(var(--hx-h) + 16px)!important}}
+body.hx-p-poster .hx-bar{position:relative;top:0}
+body.hx-p-poster .app{height:calc(100% - 53px - var(--hx-h))}
+@media (max-width:980px){body.hx-p-poster .app{height:auto}}
+
+body.hx-p-poster .seg button{flex:1;white-space:nowrap;padding:5px 6px!important}
+body.hx-p-card .wrap button.sw.def{min-height:28px}
+
+/* ======================================================================
+   Type scale and spacing — one set for every tool
+   Title 20/26 Bold · Section 14/20 Bold · Body and controls 13/20 · Label 12/17 · Eyebrow 11/15 Bold caps
+   Spacing steps 4 · 8 · 12 · 16 · 24 · 32
+   ====================================================================== */
+:root:root:root{--hx-t1:700 20px/1.3 var(--hx-font);--hx-t2:700 14px/1.43 var(--hx-font);--hx-t3:400 13px/1.54 var(--hx-font);--hx-t4:400 12px/1.42 var(--hx-font);--hx-t5:700 11px/1.36 var(--hx-font)}
+body.hx-tool{font:var(--hx-t3)}
+body.hx-tool .wrap{gap:24px!important}
+
+/* how-to strip */
+.hx-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--hx-line);border-radius:var(--hx-r2);background:var(--hx-bg);counter-reset:none}
+.hx-steps li{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;min-width:0}
+.hx-steps li+li{border-left:1px solid var(--hx-line)}
+.hx-n{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--hx-accent);color:var(--hx-accent-fg);font:700 11px/1 var(--hx-font);margin-top:1px}
+.hx-s{display:grid;gap:2px;min-width:0}
+.hx-s b{font:var(--hx-t2);color:var(--hx-fg)}
+.hx-s span{font:var(--hx-t4);color:var(--hx-muted)}
+@media (max-width:760px){.hx-steps{grid-template-columns:minmax(0,1fr)}.hx-steps li+li{border-left:0;border-top:1px solid var(--hx-line)}}
+/* poster: one compact row under its app bar */
+body.hx-p-poster .hx-steps{border-radius:0;border-width:0 0 1px;background:var(--hx-soft)}
+body.hx-p-poster .hx-steps li{padding:8px 16px;align-items:center}
+body.hx-p-poster .hx-s{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+body.hx-p-poster .app{height:calc(100% - 53px - var(--hx-h) - var(--hx-steps-h,41px))!important}
+@media (max-width:980px){body.hx-p-poster .app{height:auto!important}}
+
+/* titles and text roles */
+body.hx-tool h1,body.hx-p-poster .brand b{font:var(--hx-t1)!important}
+body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-poster .brand span{font:var(--hx-t4)!important;color:var(--hx-muted)!important}
+body.hx-p-letter .blk h2,body.hx-p-card .sh,body.hx-p-card .zone h2,body.hx-p-logo h2,body.hx-p-logo .gh b,body.hx-p-motion .grp-h{font:var(--hx-t2)!important}
+body.hx-p-card .pk>h3,body.hx-p-poster .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption,body.hx-p-logo .cols h3{font:var(--hx-t5)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--hx-muted)!important}
+body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .lab,body.hx-p-poster .field>span,body.hx-p-poster .grp>b,body.hx-p-poster .sec .sub,body.hx-p-card .og>span{font:var(--hx-t4)!important;color:var(--hx-muted)!important}
+body.hx-tool .note,body.hx-p-logo .gh p,body.hx-p-logo footer,body.hx-p-poster .empty,body.hx-p-poster .note,body.hx-p-letter .note,body.hx-p-card .note,body.hx-p-logo .cap small,body.hx-p-logo .col span{font:var(--hx-t4)!important}
+body.hx-p-logo .cap b,body.hx-p-logo .col b{font:var(--hx-t2)!important}
+body.hx-tool table{font:var(--hx-t3)}
+body.hx-tool th{font:var(--hx-t4)!important;color:var(--hx-muted)}
+
+/* panels: one padding, one gap */
+body.hx-p-letter .blk{padding:16px!important;gap:12px!important}
+body.hx-p-letter .form{gap:16px!important}
+body.hx-p-card .zr{padding:16px!important;gap:24px!important}
+body.hx-p-card .zl{padding:16px!important}
+body.hx-p-card .zone>.zh{padding:12px 16px!important}
+body.hx-p-card .zc{padding:16px!important}
+body.hx-p-card details.spec,body.hx-p-letter details.spec{padding:12px 16px!important}
+body.hx-p-poster .pane{padding:16px 16px 40px!important;gap:24px!important}
+body.hx-p-poster .sec h3{margin:0 0 8px!important}
+body.hx-p-logo .bar{gap:12px!important;padding:16px 0!important}
+body.hx-p-logo .grid{gap:16px!important;padding-top:24px!important}
+body.hx-p-logo .cap{padding:12px 16px!important}
+body.hx-p-motion .ctl{gap:12px 16px!important}
+/* name card: the three zones carry the same step numbers as the strip */
+body.hx-p-card main{counter-reset:hxz}
+body.hx-p-card .zone{counter-increment:hxz}
+body.hx-p-card .zone>.zh h2{display:flex;align-items:center;gap:10px}
+body.hx-p-card .zone>.zh h2::before{content:counter(hxz);display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--hx-accent);color:var(--hx-accent-fg);font:700 11px/1 var(--hx-font)}
+body.hx-p-card .tag{background:transparent!important;color:var(--hx-fg)!important;padding:0!important;font:var(--hx-t2)!important}
