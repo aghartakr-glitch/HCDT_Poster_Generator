@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>HCDT Poster Generator</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HCDT Poster Generator</title>
 
 <style>
 html,body{margin:0}
@@ -173,6 +173,12 @@ button{cursor:pointer}
       <h3>TEMPLATES</h3>
       <div class="thumbs" id="thumbs"></div>
       <div class="row" style="margin-top:8px"><button class="btn" id="blank">Blank poster</button></div>
+    </section>
+
+    <section class="sec">
+      <h3>TEXT LAYOUT</h3>
+      <button class="btn primary" id="shuffle" style="width:100%">Shuffle text layout</button>
+      <div class="note" style="margin-top:8px">Rearranges text blocks only: inside the margin, snapped to columns and rows, no overlap with other text, logos or graphics. Click again for another arrangement.</div>
     </section>
 
     <section class="sec">
@@ -692,6 +698,93 @@ $("#optGrid").onchange=e=>{S.ui.grid=e.target.checked;renderPoster();try{localSt
 $("#optSnap").onchange=e=>{S.ui.snap=e.target.checked;try{localStorage.setItem(KEY,snapshot());}catch(_){}};
 
 let tt; function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2400);}
+
+/* ---------- Shuffle text layout ---------- */
+const SPARSE=new Set(["g2","g6"]); // sparse marks sit behind text in the originals
+const PADT=1.5;
+const loadImg=url=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=url;});
+async function obstacles(){
+  const obs=[];
+  for(const b of S.blocks){
+    if(b.type==="logo")obs.push({x:b.x-2,y:b.y-2,w:b.w+4,h:logoH(b)+4});
+    else if(b.type==="art"&&!SPARSE.has(b.kind)){
+      const k=2, cw=Math.max(1,Math.ceil(b.w*k)), ch=Math.max(1,Math.ceil(b.h*k));
+      const svg=svgMarkup(b.kind,"#000","#000",false,b.flip).replace('width="100%" height="100%"',`width="${cw}" height="${ch}"`);
+      const img=await loadImg("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg));
+      if(!img){obs.push({x:b.x,y:b.y,w:b.w,h:b.h});continue;}
+      const c=document.createElement("canvas"); c.width=cw; c.height=ch;
+      const g=c.getContext("2d"); g.drawImage(img,0,0,cw,ch);
+      obs.push({mask:g.getImageData(0,0,cw,ch).data,cw,ch,k,x:b.x,y:b.y,w:b.w,h:b.h});
+    }
+  }
+  return obs;
+}
+function hitsObs(r,obs){
+  for(const o of obs){
+    const x0=Math.max(r.x-PADT,o.x), x1=Math.min(r.x+r.w+PADT,o.x+o.w), y0=Math.max(r.y-PADT,o.y), y1=Math.min(r.y+r.h+PADT,o.y+o.h);
+    if(x0>=x1||y0>=y1)continue;
+    if(!o.mask)return true;
+    for(let y=y0;y<=y1;y+=2)for(let x=x0;x<=x1;x+=2){
+      const px=Math.min(o.cw-1,Math.floor((x-o.x)*o.k)), py=Math.min(o.ch-1,Math.floor((y-o.y)*o.k));
+      if(o.mask[(py*o.cw+px)*4+3]>40)return true;
+    }
+  }
+  return false;
+}
+function measure(b,n){
+  const el=$(`#stage .blk[data-id="${b.id}"]`); const old=el.style.width;
+  el.style.width=spanW(n)+"mm";
+  const res={h:el.offsetHeight/PX, ok:el.firstChild.scrollWidth<=el.clientWidth+1};
+  el.style.width=old; return res;
+}
+const ovl=(a,b)=>a.x<b.x+b.w-0.01&&b.x<a.x+a.w-0.01&&a.y<b.y+b.h+3&&b.y<a.y+a.h+3;
+async function shuffleText(){
+  endEdit();
+  const texts=S.blocks.filter(b=>b.type==="text");
+  if(!texts.length){toast("No text blocks to arrange");return;}
+  const obs=await obstacles();
+  const rows=[]; for(let i=0;i<14;i++)rows.push(M+i*(RH+GUT));
+  const info=[...texts].sort((a,b)=>a.y-b.y||a.x-b.x).map(b=>{
+    const cur=Math.round((b.w+GUT)/(CW+GUT)), cand=[];
+    for(let n=1;n<=4;n++){
+      const m=measure(b,n); if(!m.ok)continue;
+      const w=spanW(n);
+      for(let ci=0;ci+n<=4;ci++){
+        const ys=new Set(); rows.forEach(t=>{ys.add(r1(t));ys.add(r1(t+RH-m.h));});
+        for(const y of ys){
+          if(y<M-0.01||y+m.h>PH-M+0.01)continue;
+          const r={x:colX(ci),y,w,h:m.h};
+          if(hitsObs(r,obs))continue;
+          cand.push({...r,bias:n===cur?0.4:Math.abs(n-cur)===1?0.15:0});
+        }
+      }
+    }
+    return {b,cand};
+  });
+  if(info.some(i=>!i.cand.length)){toast("No valid spot for some text. Shorten it or move graphics.");return;}
+  let best=null;
+  for(let t=0;t<400&&!best;t++){
+    const placed=[]; let prev=null, ok=true;
+    for(let k=0;k<info.length;k++){
+      const opts=info[k].cand.filter(c=>(!prev||c.y>=prev.y-0.5)&&!placed.some(p=>ovl(c,p)));
+      if(!opts.length){ok=false;break;}
+      let pick=null, bs=-1e9;
+      for(const c of opts){
+        let sc=Math.random()+c.bias;
+        if(k===0)sc-=c.y/120;
+        if(placed.some(p=>Math.abs(p.x-c.x)<0.1))sc+=0.25;
+        if(prev&&Math.abs(prev.x-c.x)<0.1&&c.y>=prev.y+prev.h-0.1&&c.y-(prev.y+prev.h)<=20)sc+=0.35;
+        if(sc>bs){bs=sc;pick=c;}
+      }
+      placed.push(pick); prev=pick;
+    }
+    if(ok)best=placed;
+  }
+  if(!best){toast("No valid arrangement found. Try again.");return;}
+  info.forEach((i,k)=>{i.b.x=r1(best[k].x);i.b.y=r1(best[k].y);i.b.w=best[k].w;});
+  commit(); renderPoster(); renderProps(); toast("Text rearranged");
+}
+$("#shuffle").onclick=e=>{const b=e.currentTarget;b.disabled=true;shuffleText().catch(err=>{console.error(err);toast("Shuffle failed: "+err.message);}).finally(()=>{b.disabled=false;});};
 
 /* ---------- 확대·축소 ---------- */
 function fit(){
