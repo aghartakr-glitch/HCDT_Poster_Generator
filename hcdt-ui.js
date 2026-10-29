@@ -16,11 +16,11 @@
   var PAGES = 'https://aghartakr-glitch.github.io/';
   var TOOLS = [
     { id: 'home',   file: 'index.html',  repo: 'HCDT_Toolkit/',         en: 'Overview',      ko: '전체' },
-    { id: 'motion', file: 'motion.html', repo: 'HCDT_Toolkit/motion.html', en: 'Logo Motion', ko: '로고 모션' },
     { id: 'card',   file: 'card.html',   repo: 'HCDT_Namecard_Generator/', en: 'Name Card',   ko: '명함' },
-    { id: 'poster', file: 'poster.html', repo: 'HCDT_Poster_Generator/',   en: 'Poster',      ko: '포스터' },
     { id: 'letter', file: 'letter.html', repo: 'HCPD_Paper_Generator/',    en: 'Letter',      ko: '문서 서식' },
-    { id: 'slides', file: 'slides.html', repo: 'HCDT_PPT_Generator/',      en: 'Slides',      ko: 'PPT' }
+    { id: 'slides', file: 'slides.html', repo: 'HCDT_PPT_Generator/',      en: 'Slides',      ko: 'PPT' },
+    { id: 'poster', file: 'poster.html', repo: 'HCDT_Poster_Generator/',   en: 'Poster',      ko: '포스터' },
+    { id: 'motion', file: 'motion.html', repo: 'HCDT_Toolkit/motion.html', en: 'Logo Motion', ko: '로고 모션' }
   ];
   function href(t) { return ON_PAGES ? PAGES + t.repo : t.file; }
 
