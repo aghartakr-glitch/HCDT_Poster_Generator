@@ -170,6 +170,7 @@ html.hx-wide .hx-steps{display:none!important}
     <button class="btn" id="hxGrid" data-hx-grid="#optGrid" aria-pressed="true">Grid</button>
     <span class="hx-sep"></span>
     <button class="btn" id="saveJson" title="Save project (.json)">Save</button>
+    <button class="btn" id="openJson" title="Open project (.json)">Open</button>
     <input type="file" id="jsonFile" accept=".json,application/json" hidden>
     <span class="hx-sep"></span>
     <div class="hx-menu"><button type="button" class="btn primary" data-hx-menu aria-haspopup="true" aria-expanded="false">Export ▾</button>
@@ -716,6 +717,7 @@ $("#savePng").onclick=e=>busy(e.currentTarget,"Rendering PNG…",async()=>{
 });
 $("#saveJson").onclick=()=>{endEdit();saveFile(`HCDT_Poster_${stamp()}.json`,new Blob([snapshot()],{type:"application/json"}));};
 
+$("#openJson").onclick=()=>$("#jsonFile").click();
 $("#jsonFile").onchange=e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
