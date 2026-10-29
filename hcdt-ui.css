@@ -24,7 +24,7 @@
 html{background:var(--hx-bg)}
 body{background:var(--hx-bg);color:var(--hx-fg);font-family:var(--hx-font);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
 /* poster tool calls it --accent-ink for text on accent; motion tool for accent itself */
-body.hx-p-poster{--accent-ink:var(--hx-accent-fg)}
+:is(body.hx-p-poster,body.hx-p-slides){--accent-ink:var(--hx-accent-fg)}
 body.hx-p-motion{--accent-ink:var(--hx-accent)}
 
 /* ---------- top bar ---------- */
@@ -53,7 +53,7 @@ header .lang,#lang.seg{display:none!important}
 
 /* ---------- page frame ---------- */
 body.hx-tool{padding-block:0 48px!important}
-body.hx-p-poster{padding-bottom:0!important}
+:is(body.hx-p-poster,body.hx-p-slides){padding-bottom:0!important}
 body.hx-p-logo .wrap,body.hx-p-card .wrap,body.hx-p-letter .wrap,body.hx-p-motion main{max-width:var(--hx-max)!important;margin-top:28px!important}
 body.hx-p-logo .wrap{padding:0!important}
 body.hx-p-logo{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -61,24 +61,24 @@ body.hx-p-motion{padding-top:0!important}
 
 /* tool header: title, one line of context, rule underneath */
 body.hx-tool .wrap>header,body.hx-p-motion main>header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;border-bottom:1px solid var(--hx-line)!important;padding-bottom:14px!important}
-body.hx-tool h1,body.hx-p-poster .brand b{font:700 20px/1.25 var(--hx-font)!important;letter-spacing:-.01em!important;margin:0}
-body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-motion main>header .sub,body.hx-p-poster .brand span{font-size:13px!important;color:var(--hx-muted)!important;margin:0}
+body.hx-tool h1,:is(body.hx-p-poster,body.hx-p-slides) .brand b{font:700 20px/1.25 var(--hx-font)!important;letter-spacing:-.01em!important;margin:0}
+body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-motion main>header .sub,:is(body.hx-p-poster,body.hx-p-slides) .brand span{font-size:13px!important;color:var(--hx-muted)!important;margin:0}
 body.hx-tool header .spec{font:400 12px/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
 body.hx-p-letter header .ttl{display:flex!important;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
 body.hx-p-letter header{align-items:baseline!important}
 
 /* section headings and field labels */
-body.hx-p-card .pk>h3,body.hx-p-poster .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption{
+body.hx-p-card .pk>h3,:is(body.hx-p-poster,body.hx-p-slides) .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption{
   font:700 11px/1.3 var(--hx-font)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--hx-muted)!important}
 body.hx-p-letter .blk h2,body.hx-p-card .sh,body.hx-p-card .zone h2,body.hx-p-logo h2,body.hx-p-logo .gh b{font:700 14px/1.3 var(--hx-font)!important;letter-spacing:0!important;color:var(--hx-fg)}
 body.hx-p-letter .blk h2 small{font:400 12px/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
-body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .ctl>.lab,body.hx-p-poster .field>span,body.hx-p-poster .grp>b,body.hx-p-poster .sec .sub,body.hx-p-card .og>span{
+body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .ctl>.lab,:is(body.hx-p-poster,body.hx-p-slides) .field>span,:is(body.hx-p-poster,body.hx-p-slides) .grp>b,:is(body.hx-p-poster,body.hx-p-slides) .sec .sub,body.hx-p-card .og>span{
   font-size:12px!important;color:var(--hx-muted)!important;font-weight:400}
 body.hx-p-card .og>span b{font-weight:400}
 
 /* panels */
 body.hx-p-card .zone,body.hx-p-letter .blk,body.hx-p-card details.spec,body.hx-p-letter details.spec,body.hx-p-logo .card,body.hx-p-logo .col{border:1px solid var(--hx-line)!important;border-radius:var(--hx-r2)!important;background:var(--hx-bg)!important}
-body.hx-p-card .zl,body.hx-p-letter .stage,body.hx-p-motion .stage,body.hx-p-poster .stagewrap{background:var(--hx-soft)!important}
+body.hx-p-card .zl,body.hx-p-letter .stage,body.hx-p-motion .stage,:is(body.hx-p-poster,body.hx-p-slides) .stagewrap{background:var(--hx-soft)!important}
 body.hx-p-letter .stage{border-radius:var(--hx-r2)!important;border:0!important}
 body.hx-p-card .tag{border-radius:var(--hx-r)!important;font-size:12px!important;padding:4px 10px!important}
 
@@ -86,16 +86,16 @@ body.hx-p-card .tag{border-radius:var(--hx-r)!important;font-size:12px!important
 body.hx-p-logo .chip,body.hx-p-logo .dl,body.hx-p-logo .zip,
 body.hx-p-card .wrap button:not(.pick):not(.sw),body.hx-p-card .sw.def,
 body.hx-p-letter .wrap button,
-body.hx-p-poster .btn,body.hx-p-poster .tool,
+:is(body.hx-p-poster,body.hx-p-slides) .btn,:is(body.hx-p-poster,body.hx-p-slides) .tool,
 body.hx-p-motion .wrap button{
   font:400 13px/1.2 var(--hx-font)!important;min-height:32px;padding:6px 12px!important;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;
   background:var(--hx-bg)!important;color:var(--hx-fg)!important;box-shadow:none!important;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
-body.hx-p-logo .chip:hover,body.hx-p-logo .dl:hover,body.hx-p-card .wrap button:not(.pick):not(.sw):hover,body.hx-p-letter .wrap button:hover,body.hx-p-poster .btn:hover,body.hx-p-poster .tool:hover,body.hx-p-motion .wrap button:hover{border-color:var(--hx-fg)!important}
+body.hx-p-logo .chip:hover,body.hx-p-logo .dl:hover,body.hx-p-card .wrap button:not(.pick):not(.sw):hover,body.hx-p-letter .wrap button:hover,:is(body.hx-p-poster,body.hx-p-slides) .btn:hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:hover,body.hx-p-motion .wrap button:hover{border-color:var(--hx-fg)!important}
 /* selected and primary: purple fill, white type */
 body.hx-p-logo .chip[aria-pressed=true],body.hx-p-logo .zip,
 body.hx-p-card .wrap button[aria-checked=true]:not(.pick):not(.sw),body.hx-p-card .wrap button.primary:not(.pick):not(.sw),
 body.hx-p-letter .wrap button.primary,
-body.hx-p-poster .btn.primary,body.hx-p-poster .seg button[aria-pressed=true],
+:is(body.hx-p-poster,body.hx-p-slides) .btn.primary,:is(body.hx-p-poster,body.hx-p-slides) .seg button[aria-pressed=true],
 body.hx-p-motion .wrap button[aria-pressed=true]{
   background:var(--hx-accent)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
 body.hx-p-card button[aria-checked=true] b,body.hx-p-card button[aria-checked=true] small{color:var(--hx-accent-fg)!important}
@@ -103,19 +103,19 @@ body.hx-p-card .vt,body.hx-p-card .tc{display:inline-grid!important;text-align:l
 body.hx-p-logo .chip i,body.hx-p-motion .dot{width:12px!important;height:12px!important;border-radius:50%!important;border:1px solid rgba(0,0,0,.12)!important;flex:none}
 body.hx-p-logo .chip.t{padding:6px 12px!important}
 button:disabled,body.hx-tool button:disabled{opacity:.4!important;cursor:default!important}
-body.hx-p-poster .danger{color:var(--hx-warn)!important}
+:is(body.hx-p-poster,body.hx-p-slides) .danger{color:var(--hx-warn)!important}
 body.hx-p-letter .crow button{padding:0!important;justify-content:center;font-size:16px!important;color:var(--hx-muted)!important}
 
 /* segmented controls */
-body.hx-p-logo .seg,body.hx-p-poster .seg{display:inline-flex;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;overflow:hidden;background:var(--hx-bg)!important}
-body.hx-p-logo .seg button,body.hx-p-poster .seg button{font:400 13px/1.2 var(--hx-font)!important;min-height:30px;padding:6px 12px!important;border:0!important;border-right:1px solid var(--hx-line)!important;border-radius:0!important;background:var(--hx-bg)!important;color:var(--hx-fg)!important}
-body.hx-p-logo .seg button:last-child,body.hx-p-poster .seg button:last-child{border-right:0!important}
-body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pressed=true],body.hx-p-poster .seg button[aria-pressed=true]{background:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
+body.hx-p-logo .seg,:is(body.hx-p-poster,body.hx-p-slides) .seg{display:inline-flex;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;overflow:hidden;background:var(--hx-bg)!important}
+body.hx-p-logo .seg button,:is(body.hx-p-poster,body.hx-p-slides) .seg button{font:400 13px/1.2 var(--hx-font)!important;min-height:30px;padding:6px 12px!important;border:0!important;border-right:1px solid var(--hx-line)!important;border-radius:0!important;background:var(--hx-bg)!important;color:var(--hx-fg)!important}
+body.hx-p-logo .seg button:last-child,:is(body.hx-p-poster,body.hx-p-slides) .seg button:last-child{border-right:0!important}
+body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pressed=true],:is(body.hx-p-poster,body.hx-p-slides) .seg button[aria-pressed=true]{background:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
 
 /* text fields */
 body.hx-tool input[type=text],body.hx-tool input[type=number],body.hx-tool select,body.hx-tool textarea{
   font:400 14px/1.4 var(--hx-font)!important;color:var(--hx-fg)!important;background:var(--hx-bg)!important;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;padding:7px 10px!important;min-height:34px}
-body.hx-p-poster .field input,body.hx-p-poster .field select,body.hx-p-poster .duo input{font-size:13px!important;min-height:30px;padding:5px 8px!important}
+:is(body.hx-p-poster,body.hx-p-slides) .field input,:is(body.hx-p-poster,body.hx-p-slides) .field select,:is(body.hx-p-poster,body.hx-p-slides) .duo input{font-size:13px!important;min-height:30px;padding:5px 8px!important}
 body.hx-tool input:focus-visible,body.hx-tool select:focus-visible,body.hx-tool textarea:focus-visible,body.hx-tool button:focus-visible{outline:2px solid var(--hx-accent)!important;outline-offset:1px}
 body.hx-tool input[type=checkbox],body.hx-tool input[type=range]{accent-color:var(--hx-accent)}
 
@@ -126,11 +126,11 @@ body.hx-tool .toast,body.hx-tool #toast{border-radius:var(--hx-r)!important;font
 /* sticky parts sit under the top bar */
 body.hx-p-letter .pvbar{top:var(--hx-h)!important}
 @media (min-width:861px) and (min-height:860px){body.hx-p-card .left,body.hx-p-card .zl .pv{top:calc(var(--hx-h) + 16px)!important}}
-body.hx-p-poster .hx-bar{position:relative;top:0}
-body.hx-p-poster .app{height:calc(100% - 53px - var(--hx-h))}
-@media (max-width:980px){body.hx-p-poster .app{height:auto}}
+:is(body.hx-p-poster,body.hx-p-slides) .hx-bar{position:relative;top:0}
+:is(body.hx-p-poster,body.hx-p-slides) .app{height:calc(100% - 53px - var(--hx-h))}
+@media (max-width:980px){:is(body.hx-p-poster,body.hx-p-slides) .app{height:auto}}
 
-body.hx-p-poster .seg button{flex:1;white-space:nowrap;padding:5px 6px!important}
+:is(body.hx-p-poster,body.hx-p-slides) .seg button{flex:1;white-space:nowrap;padding:5px 6px!important}
 body.hx-p-card .wrap button.sw.def{min-height:28px}
 
 /* ======================================================================
@@ -152,19 +152,19 @@ body.hx-tool .wrap{gap:24px!important}
 .hx-s span{font:var(--hx-t4);color:var(--hx-muted)}
 @media (max-width:760px){.hx-steps{grid-template-columns:minmax(0,1fr)}.hx-steps li+li{border-left:0;border-top:1px solid var(--hx-line)}}
 /* poster: one compact row under its app bar */
-body.hx-p-poster{--hx-steps-h:89px}
-body.hx-p-poster .hx-steps{margin:12px 16px;background:var(--hx-bg)}
-@media (min-width:981px){body.hx-p-poster{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
-body.hx-p-poster>*{flex:none}body.hx-p-poster>.app{flex:1 1 0;min-height:0;height:auto!important}}
-@media (max-width:980px){body.hx-p-poster .app{height:auto!important}}
+:is(body.hx-p-poster,body.hx-p-slides){--hx-steps-h:89px}
+:is(body.hx-p-poster,body.hx-p-slides) .hx-steps{margin:12px 16px;background:var(--hx-bg)}
+@media (min-width:981px){:is(body.hx-p-poster,body.hx-p-slides){display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+:is(body.hx-p-poster,body.hx-p-slides)>*{flex:none}:is(body.hx-p-poster,body.hx-p-slides)>.app{flex:1 1 0;min-height:0;height:auto!important}}
+@media (max-width:980px){:is(body.hx-p-poster,body.hx-p-slides) .app{height:auto!important}}
 
 /* titles and text roles */
-body.hx-tool h1,body.hx-p-poster .brand b{font:var(--hx-t1)!important}
-body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-poster .brand span{font:var(--hx-t4)!important;color:var(--hx-muted)!important}
+body.hx-tool h1,:is(body.hx-p-poster,body.hx-p-slides) .brand b{font:var(--hx-t1)!important}
+body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,:is(body.hx-p-poster,body.hx-p-slides) .brand span{font:var(--hx-t4)!important;color:var(--hx-muted)!important}
 body.hx-p-letter .blk h2,body.hx-p-card .sh,body.hx-p-card .zone h2,body.hx-p-logo h2,body.hx-p-logo .gh b,body.hx-p-motion .grp-h{font:var(--hx-t2)!important}
-body.hx-p-card .pk>h3,body.hx-p-poster .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption,body.hx-p-logo .cols h3{font:var(--hx-t5)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--hx-muted)!important}
-body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .lab,body.hx-p-poster .field>span,body.hx-p-poster .grp>b,body.hx-p-poster .sec .sub,body.hx-p-card .og>span{font:var(--hx-t4)!important;color:var(--hx-muted)!important}
-body.hx-tool .note,body.hx-p-logo .gh p,body.hx-p-logo footer,body.hx-p-poster .empty,body.hx-p-poster .note,body.hx-p-letter .note,body.hx-p-card .note,body.hx-p-logo .cap small,body.hx-p-logo .col span{font:var(--hx-t4)!important}
+body.hx-p-card .pk>h3,:is(body.hx-p-poster,body.hx-p-slides) .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption,body.hx-p-logo .cols h3{font:var(--hx-t5)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--hx-muted)!important}
+body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .lab,:is(body.hx-p-poster,body.hx-p-slides) .field>span,:is(body.hx-p-poster,body.hx-p-slides) .grp>b,:is(body.hx-p-poster,body.hx-p-slides) .sec .sub,body.hx-p-card .og>span{font:var(--hx-t4)!important;color:var(--hx-muted)!important}
+body.hx-tool .note,body.hx-p-logo .gh p,body.hx-p-logo footer,:is(body.hx-p-poster,body.hx-p-slides) .empty,:is(body.hx-p-poster,body.hx-p-slides) .note,body.hx-p-letter .note,body.hx-p-card .note,body.hx-p-logo .cap small,body.hx-p-logo .col span{font:var(--hx-t4)!important}
 body.hx-p-logo .cap b,body.hx-p-logo .col b{font:var(--hx-t2)!important}
 body.hx-tool table{font:var(--hx-t3)}
 body.hx-tool th{font:var(--hx-t4)!important;color:var(--hx-muted)}
@@ -177,8 +177,8 @@ body.hx-p-card .zl{padding:16px!important}
 body.hx-p-card .zone>.zh{padding:12px 16px!important}
 body.hx-p-card .zc{padding:16px!important}
 body.hx-p-card details.spec,body.hx-p-letter details.spec{padding:12px 16px!important}
-body.hx-p-poster .pane{padding:16px 16px 40px!important;gap:24px!important}
-body.hx-p-poster .sec h3{margin:0 0 8px!important}
+:is(body.hx-p-poster,body.hx-p-slides) .pane{padding:16px 16px 40px!important;gap:24px!important}
+:is(body.hx-p-poster,body.hx-p-slides) .sec h3{margin:0 0 8px!important}
 body.hx-p-logo .bar{gap:12px!important;padding:16px 0!important}
 body.hx-p-logo .grid{gap:16px!important;padding-top:24px!important}
 body.hx-p-logo .cap{padding:12px 16px!important}
@@ -191,8 +191,18 @@ body.hx-p-card .zone>.zh h2::before{content:counter(hxz);display:inline-grid;pla
 body.hx-p-card .tag{background:transparent!important;color:var(--hx-fg)!important;padding:0!important;font:var(--hx-t2)!important}
 
 /* radius unification: all clickable controls use 6px */
-body.hx-p-card .pick,body.hx-p-poster .thumb,body.hx-p-poster .pre,body.hx-p-poster #zOut,body.hx-p-poster #zIn,body.hx-p-poster #zFit{border-radius:6px!important}
+body.hx-p-card .pick,:is(body.hx-p-poster,body.hx-p-slides) .thumb,:is(body.hx-p-poster,body.hx-p-slides) .pre,:is(body.hx-p-poster,body.hx-p-slides) #zOut,:is(body.hx-p-poster,body.hx-p-slides) #zIn,:is(body.hx-p-poster,body.hx-p-slides) #zFit{border-radius:6px!important}
 
 /* top bar: full-bleed on every page (tool pages sit inside a 16px body gutter) */
-body.hx-tool:not(.hx-p-poster) .hx-bar{margin-inline:-16px}
+body.hx-tool:not(.hx-p-poster):not(.hx-p-slides) .hx-bar{margin-inline:-16px}
 body.hx-p-logo .hx-steps{margin-block:24px}
+
+/* slides: the .app grid holds header, steps and the three panes */
+body.hx-p-slides .app{grid-template-rows:auto auto minmax(0,1fr)}
+body.hx-p-slides .brand{display:flex;align-items:baseline;gap:10px}
+body.hx-p-slides .brand b{font:var(--hx-t1)!important}
+body.hx-p-slides header.top{background:var(--hx-bg);border-bottom:1px solid var(--hx-line)}
+
+/* pages built as artifacts relied on this reset; keep it for standalone hosting */
+[hidden]{display:none!important}
+body.hx-p-slides{margin:0}

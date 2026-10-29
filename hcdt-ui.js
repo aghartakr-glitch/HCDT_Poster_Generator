@@ -20,7 +20,8 @@
     { id: 'motion', file: 'motion.html', repo: 'HCDT_Toolkit/motion.html', en: 'Logo Motion', ko: '로고 모션' },
     { id: 'card',   file: 'card.html',   repo: 'HCDT_Namecard_Generator/', en: 'Name Card',   ko: '명함' },
     { id: 'poster', file: 'poster.html', repo: 'HCDT_Poster_Generator/',   en: 'Poster',      ko: '포스터' },
-    { id: 'letter', file: 'letter.html', repo: 'HCPD_Paper_Generator/',    en: 'Letter',      ko: '문서 서식' }
+    { id: 'letter', file: 'letter.html', repo: 'HCPD_Paper_Generator/',    en: 'Letter',      ko: '문서 서식' },
+    { id: 'slides', file: 'slides.html', repo: 'HCDT_PPT_Generator/',      en: 'Slides',      ko: 'PPT' }
   ];
   function href(t) { return ON_PAGES ? PAGES + t.repo : t.file; }
 
@@ -160,13 +161,17 @@
     letter: [
       ['Addresses', '주소', 'Fill in To and From. Empty contact rows are not printed.', '받는 사람, 보내는 사람 입력. 빈 연락처 줄은 인쇄 안 됨.'],
       ['Letter', '본문', 'Write the body and closing; add a signature image.', '본문과 맺음말 작성, 서명 이미지 추가.'],
-      ['Save', '저장', 'Check the pages on the right, then save the PDF.', '오른쪽 미리보기 확인 후 PDF 저장.']]
+      ['Save', '저장', 'Check the pages on the right, then save the PDF.', '오른쪽 미리보기 확인 후 PDF 저장.']],
+    slides: [
+      ['Layouts', '레이아웃', 'Add slides and choose a layout for each one.', '슬라이드를 추가하고 각각 레이아웃 선택.'],
+      ['Edit', '편집', 'Click a block to move or resize it; double-click text to type.', '블록을 눌러 옮기고 크기 조절, 글은 두 번 눌러 입력.'],
+      ['Export', '내보내기', 'PowerPoint, PDF or PNG from Export; Present to preview.', '내보내기에서 PowerPoint·PDF·PNG, 발표로 미리보기.']]
   };
   var stepsEl = null;
   function buildSteps() {
     var list = STEPS[TOOL];
     if (!list) return;
-    var anchor = TOOL === 'poster' ? document.querySelector('header.top') : document.querySelector('.wrap > header');
+    var anchor = (TOOL === 'poster' || TOOL === 'slides') ? document.querySelector('header.top') : document.querySelector('.wrap > header');
     if (!anchor) return;
     stepsEl = document.createElement('ol');
     stepsEl.className = 'hx-steps';
@@ -210,6 +215,7 @@
     document.body.classList.add('hx-p-' + TOOL);
     if (TOOL !== 'home') document.body.classList.add('hx-tool');
     barEl = bar();
+    if (TOOL === 'home') document.querySelectorAll('a[data-anim]').forEach(function (a) { var t = TOOLS.filter(function (x) { return x.id === a.getAttribute('data-anim'); })[0]; if (t) a.href = href(t); });
     buildSteps();
     setLang(LANG, true);
     /* keep tabs in sync when the language changes in another tool */
