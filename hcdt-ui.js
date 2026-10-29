@@ -50,6 +50,9 @@
     });
     h += '</nav>';
     b.innerHTML = h;
+    /* inside the Visual Guideline page (iframe) the guideline page has the tool tabs, so hide this bar */
+    var framed = false; try { framed = window.self !== window.top; } catch (e) { framed = true; }
+    if (framed || /[?&]embed=1\b/.test(location.search)) { b.style.display = 'none'; }
     document.body.insertBefore(b, document.body.firstChild);
     return b;
   }
