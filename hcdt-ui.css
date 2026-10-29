@@ -331,5 +331,5 @@ html.hx-wide body.hx-p-slides>.app{padding-bottom:12px;box-sizing:border-box}
 /* logo/graphic pickers: squarer corners than pills */
 body.hx-tool button.tool{border-radius:10px!important}
 /* instant tooltip in the auxiliary colour */
-.hx-tip{position:fixed;z-index:99999;pointer-events:none;max-width:260px;padding:6px 10px;border-radius:6px;background:var(--hx-ui,#E8E041);color:#000;font:500 12px/1.4 inherit;font-family:inherit;box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:0;transition:opacity .08s}
+.hx-tip{position:fixed;z-index:99999;pointer-events:none;max-width:360px;padding:6px 10px;border-radius:6px;background:var(--hx-ui,#E8E041);color:#000;font:500 12px/1.4 inherit;font-family:inherit;box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:0;transition:opacity .08s}
 .hx-tip.on{opacity:1}

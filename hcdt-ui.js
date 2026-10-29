@@ -273,6 +273,8 @@
   var tip = null, cur = null;
   function el() { if (!tip) { tip = document.createElement('div'); tip.className = 'hx-tip'; document.body.appendChild(tip); } return tip; }
   function show(t, x, y) {
+    var rr = t.getBoundingClientRect();
+    if (window.parent !== window) { try { parent.postMessage({ hcdtTip: 1, t: t.getAttribute('data-hx-t'), r: { l: rr.left, t: rr.top, w: rr.width, h: rr.height } }, '*'); return; } catch (e) {} }
     var n = el(); n.textContent = t.getAttribute('data-hx-t'); n.classList.add('on');
     var r = t.getBoundingClientRect(), w = n.offsetWidth, h = n.offsetHeight;
     var left = Math.max(6, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 6));
@@ -282,6 +284,7 @@
   function hide() {
     if (cur) { var t = cur; cur = null; if (t.hasAttribute('data-hx-t')) { t.setAttribute('title', t.getAttribute('data-hx-t')); t.removeAttribute('data-hx-t'); } }
     if (tip) tip.classList.remove('on');
+    if (window.parent !== window) { try { parent.postMessage({ hcdtTip: 0 }, '*'); } catch (e) {} }
   }
   document.addEventListener('mouseover', function (e) {
     var t = e.target.closest && e.target.closest('[title],[data-hx-t]');
