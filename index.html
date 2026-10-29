@@ -243,18 +243,18 @@ const SW={
   terracotta:{hex:"#E8B9AA",name:"Terracotta"},
   fluoxetine:{hex:"#73D888",name:"Fluoxetine"},
   asparagus:{hex:"#E8E041",name:"Asparagus Soup"},
-  white:{hex:"#FFFFFF",name:"White"}
+  white:{hex:"#FFFFFF",name:"White"},
+  navy:{hex:"#001B54",name:"UNIST Navy"}
 };
 const AUX=["verdigris","terracotta","fluoxetine","asparagus"];
 const ROLE_NAME={bg:"Background",text:"Text",point:"Point"};
-/* Approved combinations only (guide, Applications A–E). [bg, text, point] */
+/* Same combinations as HCDT Slides: UNIST / White / Purple (A,B) / Color (C,F). [bg, text, point] */
 const GROUPS=[
+  {k:"U",label:"UNIST Navy",c:[["white","navy","navy"],["navy","white","white"]]},
   {k:"Base",label:"White background + purple text + auxiliary point",c:[["white","purple","verdigris"],["white","purple","terracotta"],["white","purple","fluoxetine"],["white","purple","asparagus"]]},
   {k:"A",label:"Purple background + white text + auxiliary point",c:[["purple","white","verdigris"],["purple","white","terracotta"],["purple","white","fluoxetine"],["purple","white","asparagus"]]},
   {k:"B",label:"Purple background + auxiliary text + auxiliary point",c:[["purple","terracotta","verdigris"],["purple","fluoxetine","asparagus"],["purple","verdigris","asparagus"],["purple","asparagus","fluoxetine"]]},
   {k:"C",label:"Auxiliary background + purple text + auxiliary point",c:[["verdigris","purple","asparagus"],["terracotta","purple","verdigris"],["fluoxetine","purple","terracotta"],["asparagus","purple","fluoxetine"]]},
-  {k:"D",label:"Auxiliary background + auxiliary text + purple point",c:[["verdigris","terracotta","purple"],["terracotta","fluoxetine","purple"],["fluoxetine","asparagus","purple"],["asparagus","verdigris","purple"]]},
-  {k:"E",label:"Auxiliary background + auxiliary text + auxiliary point",c:[["verdigris","terracotta","asparagus"],["terracotta","fluoxetine","asparagus"],["fluoxetine","asparagus","terracotta"],["asparagus","verdigris","terracotta"]]},
   /* F: from the faculty review (purple backgrounds are hard to read). Not yet in the guide. */
   {k:"F",label:"Auxiliary background + purple text + white point (proposed, not yet in the guide)",c:[["verdigris","purple","white"],["terracotta","purple","white"],["fluoxetine","purple","white"],["asparagus","purple","white"]]}
 ];
@@ -405,7 +405,7 @@ function loadTpl(i){
   S.blocks=t.blocks; sel=null; commit(); renderAll();
   toast(`Template ${i+1} loaded`);
 }
-const VROWS=[{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C","D","E","F"]}];
+const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C","F"]}];
 const varSel={};
 function renderScheme(){
   const cur=findCombo(S.scheme);
