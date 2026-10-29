@@ -155,17 +155,24 @@ button{cursor:pointer}
 <body>
 
 <header class="top">
-  <div class="brand"><b>HCDT Poster Generator</b><span>A4 · 4 columns × 14 rows</span></div>
-  <span class="badge" id="fontBadge">Checking fonts</span>
-  <button class="btn" id="undo" title="Undo (Ctrl+Z)">Undo</button>
-  <button class="btn" id="redo" title="Redo (Ctrl+Shift+Z)">Redo</button>
-  <span class="sep"></span>
-  <button class="btn" id="saveJson">Save project</button>
-  <button class="btn" id="openJson">Open project</button>
-  <input type="file" id="jsonFile" accept=".json,application/json" hidden>
-  <span class="sep"></span>
-  <button class="btn" id="savePng">PNG</button>
-  <button class="btn primary" id="savePdf">Export PDF</button>
+  <div class="brand"><b>HCDT Poster Generator</b><span>A4 · 4 columns × 14 rows</span><span class="badge" id="fontBadge">Checking fonts</span></div>
+  <div class="hx-act">
+    <button class="btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+    <button class="btn" id="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+    <span class="hx-sep"></span>
+    <button class="btn" id="hxGrid" data-hx-grid="#optGrid" aria-pressed="true">Grid</button>
+    <span class="hx-sep"></span>
+    <button class="btn" id="saveJson" title="Save project (.json)">Save</button>
+    <button class="btn" id="openJson" title="Open project (.json)">Open</button>
+    <input type="file" id="jsonFile" accept=".json,application/json" hidden>
+    <span class="hx-sep"></span>
+    <div class="hx-menu"><button type="button" class="btn primary" data-hx-menu aria-haspopup="true" aria-expanded="false">Export ▾</button>
+      <div class="hx-menu-pop" hidden>
+        <button type="button" class="hx-mi" id="savePdf">PDF</button>
+        <button type="button" class="hx-mi" id="savePng">PNG</button>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main class="app">

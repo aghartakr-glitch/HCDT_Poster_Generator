@@ -57,6 +57,31 @@
     return b;
   }
 
+
+  /* ---------- actions bar: export menu + grid toggle (shared by every tool) ---------- */
+  function wireActions() {
+    document.addEventListener('click', function (e) {
+      var tr = e.target.closest && e.target.closest('[data-hx-menu]');
+      [].slice.call(document.querySelectorAll('.hx-menu')).forEach(function (m) {
+        var pop = m.querySelector('.hx-menu-pop'), btn = m.querySelector('[data-hx-menu]');
+        if (!pop || !btn) return;
+        if (tr === btn) { pop.hidden = !pop.hidden; btn.setAttribute('aria-expanded', String(!pop.hidden)); }
+        else if (!pop.hidden && !(e.target.closest && e.target.closest('.chk'))) { pop.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      [].slice.call(document.querySelectorAll('.hx-menu-pop')).forEach(function (p) { p.hidden = true; var b = p.parentNode.querySelector('[data-hx-menu]'); if (b) b.setAttribute('aria-expanded', 'false'); });
+    });
+    [].slice.call(document.querySelectorAll('[data-hx-grid]')).forEach(function (b) {
+      var cb = document.querySelector(b.getAttribute('data-hx-grid')); if (!cb) return;
+      function sync() { b.setAttribute('aria-pressed', String(cb.checked)); }
+      b.addEventListener('click', function () { cb.click(); });
+      cb.addEventListener('change', sync); window.addEventListener('load', function () { setTimeout(sync, 0); }); sync();
+    });
+  }
+  wireActions();
+
   /* ---------- text replacement for tools written in one language ---------- */
   function Translator(src, dict, rules, skip) {
     var orig = new WeakMap(), origAttr = new WeakMap(), writing = false, cur = src;
