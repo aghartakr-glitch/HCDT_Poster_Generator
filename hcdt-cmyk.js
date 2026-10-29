@@ -73,7 +73,7 @@
   function init() {
     roots = window.HX_CMYK || []; if (!roots.length) return;
     var grid = document.querySelector('[data-hx-grid]') || document.querySelector('#btn-grid,#grid-btn,[id*=rid][aria-pressed]'); var act = document.querySelector('.hx-act'); if (!grid && !act) return;
-    var b = document.createElement('button'); b.type = 'button'; b.id = 'hxCmyk'; b.textContent = 'CMYK'; b.setAttribute('aria-pressed', 'false');
+    var b = document.createElement('button'); b.type = 'button'; b.id = 'hxCmyk'; if (grid && grid.className) b.className = grid.className; b.textContent = 'CMYK'; b.setAttribute('aria-pressed', 'false');
     b.title = 'Preview print colors (coated offset, approximate)';
     b.addEventListener('click', function () { set(!on); });
     if (grid) grid.insertAdjacentElement('afterend', b); else { var mn = act.querySelector('.hx-menu'); act.insertBefore(b, mn || null); if (mn) { var sp = document.createElement('span'); sp.className = 'hx-sep'; act.insertBefore(sp, mn); } }

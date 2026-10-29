@@ -72,6 +72,7 @@
     window.addEventListener('message', function (e) {
       var d = e.data;
       if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
+      if (d && typeof d.hcdtZoom === 'number' && d.hcdtZoom >= 1 && d.hcdtZoom <= 2) { document.documentElement.style.zoom = d.hcdtZoom === 1 ? '' : String(d.hcdtZoom); last = -1; setTimeout(post, 50); window.dispatchEvent(new Event('resize')); }
     });
     window.addEventListener('load', post); window.addEventListener('resize', post);
     if (window.ResizeObserver) new ResizeObserver(post).observe(document.body);
