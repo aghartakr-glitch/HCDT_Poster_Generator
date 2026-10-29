@@ -53,10 +53,29 @@
     /* inside the Visual Guideline page (iframe) the guideline page has the tool tabs, so hide this bar */
     var framed = false; try { framed = window.self !== window.top; } catch (e) { framed = true; }
     if (framed || /[?&]embed=1\b/.test(location.search)) { b.style.display = 'none'; }
+    if (framed) { frameLink(); }
     document.body.insertBefore(b, document.body.firstChild);
     return b;
   }
 
+
+  /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary colour ---------- */
+  function frameLink() {
+    var app = (TOOL === 'poster' || TOOL === 'slides'), last = -1;
+    function post() {
+      var h = app ? 0 : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
+      if (h === last) return; last = h;
+      try { parent.postMessage({ hcdtFrame: 1, tool: TOOL, app: app, h: h }, '*'); } catch (e) {}
+    }
+    window.addEventListener('message', function (e) {
+      var d = e.data;
+      if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
+    });
+    window.addEventListener('load', post); window.addEventListener('resize', post);
+    if (window.ResizeObserver) new ResizeObserver(post).observe(document.body);
+    setInterval(function () { last = -1; post(); }, 1500);
+    post();
+  }
 
   /* ---------- actions bar: export menu + grid toggle (shared by every tool) ---------- */
   function wireActions() {

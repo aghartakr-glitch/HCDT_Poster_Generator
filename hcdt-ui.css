@@ -262,3 +262,11 @@ body.hx-tool .hx-sw,body.hx-tool .wrap button.hx-sw{width:28px!important;height:
 body.hx-tool .hx-sw[aria-pressed=true],body.hx-tool .wrap button.hx-sw[aria-pressed=true]{outline:2px solid var(--hx-fg);outline-offset:2px;background:var(--c)!important;border-color:rgba(0,0,0,.18)!important}
 body.hx-tool .hx-sw:hover{outline:2px solid var(--hx-accent);outline-offset:2px}
 .swn{margin-left:6px;font-size:var(--fs-small);color:var(--hx-muted)}
+
+/* hover follows the guideline page: auxiliary colour fill, purple type (colour is sent by the page when framed) */
+body.hx-p-card .wrap button:not(.primary):not([aria-pressed=true]):not([aria-checked=true]):not(.pick):not(.sw):not(.hx-sw):not(.hx-mi):hover,
+body.hx-p-letter .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover,
+:is(body.hx-p-poster,body.hx-p-slides) .btn:not(.primary):not([aria-pressed=true]):hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:not([aria-pressed=true]):hover,
+body.hx-p-motion .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 60%,#fff)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent)!important}
+body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 45%,#fff)!important}
+body.hx-tool .hx-sw:hover{outline-color:var(--hx-accent)}
