@@ -171,7 +171,7 @@
     motion: [
       ['Pick the logo', '로고 고르기', 'Version and color, as approved in the guide.', '가이드에서 승인된 버전과 색.'],
       ['Set the motion', '움직임 설정', 'Entry order and playback speed.', '등장 순서와 재생 속도.'],
-      ['Record', '녹화', 'Screen-record the stage for a video file.', '영상이 필요하면 무대를 화면 녹화.']],
+      ['Export', '내보내기', 'Export a WebM video, or PNG / SVG of the final frame.', 'WebM 영상, 또는 마지막 프레임을 PNG / SVG로 저장.']],
     card: [
       ['Front', '앞면', 'Accent color, version and design.', '포인트색, 버전, 디자인 선택.'],
       ['Back', '뒷면', 'Your name, title and contacts; then design and colors.', '이름, 직책, 연락처 입력 후 디자인과 색.'],

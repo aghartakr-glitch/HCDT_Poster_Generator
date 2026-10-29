@@ -47,7 +47,7 @@ button{cursor:pointer}
 .brand b{font-size:var(--fs-body);letter-spacing:-.01em}
 .brand span{color:var(--muted);font-size:var(--fs-small)}
 .badge{font-size:var(--fs-small);padding:3px 8px;border-radius:99px;background:var(--chip);color:var(--muted);white-space:nowrap}
-.badge.ok{color:var(--accent)}
+.badge.ok{display:none}
 .badge.no{color:var(--warn)}
 .btn{border:1px solid var(--line);background:var(--panel);padding:6px 11px;border-radius:6px;white-space:nowrap}
 .btn:hover{border-color:var(--muted)}
@@ -155,7 +155,7 @@ button{cursor:pointer}
 <body>
 
 <header class="top">
-  <div class="brand"><b>HCDT Poster Generator</b><span>A4 · 4 columns × 14 rows</span><span class="badge" id="fontBadge">Checking fonts</span></div>
+  <div class="brand"><b>HCDT Poster</b><span>A4 · 4 columns × 14 rows</span><span class="badge" id="fontBadge">Checking fonts</span></div>
   <div class="hx-act">
     <button class="btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
     <button class="btn" id="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
