@@ -284,3 +284,13 @@ body.hx-tool input[type=text],body.hx-tool textarea,body.hx-tool select{font-wei
 
 /* section titles: sentence case, 600, black (no letter-spaced capitals) */
 body.hx-tool .sec h3,body.hx-tool aside h3,body.hx-tool .panel h3,body.hx-tool .ins h3,body.hx-tool h3{text-transform:none!important;letter-spacing:0!important;font-weight:600!important;color:#000!important;font-size:var(--fs-small)}
+
+/* color combination chips (shared): Aa + point dot */
+body.hx-tool .hx-cgs{display:grid!important;gap:8px}
+body.hx-tool .hx-cg{display:grid;grid-template-columns:64px 1fr;align-items:center;gap:8px}
+body.hx-tool .hx-cg>b{font-size:.8125rem;font-weight:500;color:var(--hx-muted)}
+body.hx-tool .hx-chips{display:flex;flex-wrap:wrap;gap:6px}
+body.hx-tool button.hx-chip,body.hx-tool button.hx-chip[aria-pressed]{width:56px!important;height:34px!important;padding:0!important;border-radius:6px!important;display:inline-flex!important;align-items:center;justify-content:center;gap:4px;font-weight:600!important;font-size:.9375rem!important;line-height:1;background:var(--b)!important;color:var(--t)!important;border:0!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)!important;outline:0!important}
+body.hx-tool button.hx-chip i{width:7px;height:7px;border-radius:50%;background:var(--p);display:block}
+body.hx-tool button.hx-chip:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.15),0 0 0 2px var(--hx-ui,#6B00FF)!important}
+body.hx-tool button.hx-chip[aria-pressed=true]{box-shadow:0 0 0 2px #fff,0 0 0 4px #000!important}

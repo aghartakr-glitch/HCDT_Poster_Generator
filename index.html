@@ -190,7 +190,6 @@ button{cursor:pointer}
     <section class="sec">
       <h3>Text layout</h3>
       <button class="btn primary" id="shuffle" style="width:100%">Shuffle text layout</button>
-      <div class="note" style="margin-top:8px">Re-flows text inside the margin. Click again for another layout.</div>
     </section>
 
     <section class="sec">
@@ -409,11 +408,8 @@ const varSel={};
 function renderScheme(){
   const cur=findCombo(S.scheme);
   $("#combos").innerHTML=VROWS.map(r=>{
-    const inCur=cur&&r.ks.includes(cur.g.k)?cur.g.k:null;
-    const k=inCur||varSel[r.t]||r.ks[0]; varSel[r.t]=k;
-    const g=GROUPS.find(x=>x.k===k);
-    const seg=r.ks.length>1?`<div class="seg vseg" role="group" aria-label="${r.t} variant">${r.ks.map(v=>`<button data-var="${r.t}:${v}" title="${GROUPS.find(x=>x.k===v).label}" aria-pressed="${v===k}">${v}</button>`).join("")}</div>`:"";
-    return `<div class="grp"><b>${r.t}</b><div class="vcol">${seg}<div class="chips">${g.c.map((c,i)=>`<button class="pre" data-combo="${g.k}:${i}" title="${SW[c[0]].name} / ${SW[c[1]].name} / ${SW[c[2]].name}" aria-pressed="${!!cur&&cur.c===c}" style="background:${SW[c[0]].hex};color:${SW[c[1]].hex};--p:${SW[c[2]].hex};${c[0]==="white"?"box-shadow:inset 0 0 0 1px #ddd":""}">Aa<i></i></button>`).join("")}</div></div></div>`}).join("");
+    const chips=r.ks.flatMap(k=>GROUPS.find(x=>x.k===k).c.map((c,i)=>`<button class="pre" data-combo="${k}:${i}" title="${SW[c[0]].name} / ${SW[c[1]].name} / ${SW[c[2]].name}" aria-pressed="${!!cur&&cur.c===c}" style="background:${SW[c[0]].hex};color:${SW[c[1]].hex};--p:${SW[c[2]].hex};${c[0]==="white"?"box-shadow:inset 0 0 0 1px #ddd":""}">Aa<i></i></button>`)).join("");
+    return `<div class="grp"><b>${r.t}</b><div class="chips">${chips}</div></div>`}).join("");
 }
 function iconFor(kind){
   if(kind==="rect")return `<svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="4" width="18" height="14" fill="${SW.purple.hex}"/></svg>`;
@@ -435,8 +431,6 @@ function renderAdders(){
 }
 function addBlock(b){S.blocks.push(b); sel=b.id; commit(); renderPoster(); renderProps();}
 document.addEventListener("click",e=>{
-  const vb=e.target.closest("[data-var]");
-  if(vb){const [r,k]=vb.dataset.var.split(":");varSel[r]=k;renderScheme();return}
   const t=e.target.closest("[data-add-text],[data-add-logo],[data-add-art],[data-combo]");
   if(!t)return;
   endEdit();
@@ -460,9 +454,8 @@ const colorOpts=v=>[["text","Text color"],["point","Point color"]].map(([k,n])=>
 function renderProps(){
   const P=$("#props"); const b=sel&&get(sel);
   if(!b){
-    P.innerHTML=`<section class="sec"><h3>No selection</h3><p class="empty">Click an element on the poster to edit it. Double-click text to type.</p>
-    <div class="keys"><kbd>Double-click</kbd><span>Edit text</span><kbd>Ctrl+B</kbd><span>Bold while typing</span><kbd>Arrow keys</kbd><span>Move 1mm (Shift 5mm)</span><kbd>Alt+drag</kbd><span>Ignore grid snap</span><kbd>Ctrl+D</kbd><span>Duplicate</span><kbd>Delete</kbd><span>Remove</span><kbd>Ctrl+Z</kbd><span>Undo</span></div></section>
-    <section class="sec"><h3>Export</h3><p class="empty">A4 · 300 dpi image PDF</p></section>`;
+    P.innerHTML=`<section class="sec"><h3>No selection</h3>
+    <div class="keys"><kbd>Double-click</kbd><span>Edit text</span><kbd>Ctrl+B</kbd><span>Bold while typing</span><kbd>Arrow keys</kbd><span>Move 1mm (Shift 5mm)</span><kbd>Alt+drag</kbd><span>Ignore grid snap</span><kbd>Ctrl+D</kbd><span>Duplicate</span><kbd>Delete</kbd><span>Remove</span><kbd>Ctrl+Z</kbd><span>Undo</span></div></section>`;
     return;
   }
   const pos=`<div class="sub">Position${b.type==="text"?" & width":" & size"} (mm)</div><div class="duo"><label>X<input type="number" step="0.5" data-k="x" value="${r1(b.x)}"></label><label>Y<input type="number" step="0.5" data-k="y" value="${r1(b.y)}"></label>
