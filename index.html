@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261029d">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261029e">
 
 <style>
 html,body{margin:0}
@@ -182,24 +182,24 @@ button{cursor:pointer}
 <main class="app">
   <aside class="pane left">
     <section class="sec">
-      <h3>TEMPLATES</h3>
+      <h3>Templates</h3>
       <div class="thumbs" id="thumbs"></div>
       <div class="row" style="margin-top:8px"><button class="btn" id="blank">Blank poster</button></div>
     </section>
 
     <section class="sec">
-      <h3>TEXT LAYOUT</h3>
+      <h3>Text layout</h3>
       <button class="btn primary" id="shuffle" style="width:100%">Shuffle text layout</button>
-      <div class="note" style="margin-top:8px">Rearranges text blocks only: inside the margin, snapped to columns and rows, no overlap with other text, logos or graphics. Click again for another arrangement.</div>
+      <div class="note" style="margin-top:8px">Re-flows text inside the margin. Click again for another layout.</div>
     </section>
 
     <section class="sec">
-      <h3>COLOR COMBINATIONS</h3>
+      <h3>Color</h3>
       <div id="combos"></div>
     </section>
 
     <section class="sec">
-      <h3>ADD ELEMENT</h3>
+      <h3>Add element</h3>
       <div class="sub">Text</div>
       <div class="grid3" id="addText"></div>
       <div class="sub">Logo</div>
@@ -207,7 +207,7 @@ button{cursor:pointer}
     </section>
 
     <section class="sec">
-      <h3>GRID</h3>
+      <h3>Grid</h3>
       <label class="check"><input type="checkbox" id="optGrid" checked> Show grid</label>
       <label class="check" style="margin-top:6px" title="Hold Alt while dragging to override"><input type="checkbox" id="optSnap" checked> Snap to grid</label>
       <div class="note" style="margin-top:8px">14 mm margin · 4 × 14 grid · 4 mm gutter</div>
@@ -460,9 +460,9 @@ const colorOpts=v=>[["text","Text color"],["point","Point color"]].map(([k,n])=>
 function renderProps(){
   const P=$("#props"); const b=sel&&get(sel);
   if(!b){
-    P.innerHTML=`<section class="sec"><h3>NO SELECTION</h3><p class="empty">Click an element on the poster to edit it. Double-click text to type.</p>
+    P.innerHTML=`<section class="sec"><h3>No selection</h3><p class="empty">Click an element on the poster to edit it. Double-click text to type.</p>
     <div class="keys"><kbd>Double-click</kbd><span>Edit text</span><kbd>Ctrl+B</kbd><span>Bold while typing</span><kbd>Arrow keys</kbd><span>Move 1mm (Shift 5mm)</span><kbd>Alt+drag</kbd><span>Ignore grid snap</span><kbd>Ctrl+D</kbd><span>Duplicate</span><kbd>Delete</kbd><span>Remove</span><kbd>Ctrl+Z</kbd><span>Undo</span></div></section>
-    <section class="sec"><h3>EXPORT</h3><p class="empty">PDF is A4 (210 × 297mm) at 300dpi, as an image PDF. Fonts print as shown on screen.</p></section>`;
+    <section class="sec"><h3>Export</h3><p class="empty">A4 · 300 dpi image PDF</p></section>`;
     return;
   }
   const pos=`<div class="sub">Position${b.type==="text"?" & width":" & size"} (mm)</div><div class="duo"><label>X<input type="number" step="0.5" data-k="x" value="${r1(b.x)}"></label><label>Y<input type="number" step="0.5" data-k="y" value="${r1(b.y)}"></label>
@@ -470,7 +470,7 @@ function renderProps(){
   const common=`<div class="row" style="margin-top:14px"><button class="btn" data-act="front">Bring front</button><button class="btn" data-act="back">Send back</button><button class="btn" data-act="dup">Duplicate</button><button class="btn danger" data-act="del">Delete</button></div>`;
   let h="";
   if(b.type==="text"){
-    h=`<section class="sec"><h3>TEXT</h3>
+    h=`<section class="sec"><h3>Text</h3>
       ${editing===b.id?`<div class="row" style="margin-bottom:10px"><button class="btn" data-act="bold" style="font-weight:700">B Bold</button><button class="btn" data-act="done">Done</button></div>`:`<div class="row" style="margin-bottom:10px"><button class="btn primary" data-act="edit">Edit text</button></div>`}
       <label class="field"><span>Size pt</span><input type="number" min="4" max="400" step="0.5" data-k="size" value="${b.size}"></label>
       <label class="field"><span>Weight</span><select data-k="weight">${WEIGHTS.map(([w,n])=>`<option value="${w}"${b.weight===w?" selected":""}>${n}</option>`).join("")}</select></label>
@@ -483,12 +483,12 @@ function renderProps(){
       ${pos}${common}</section>`;
   }else if(b.type==="logo"){
     const ws=LOGO_W[b.kind]; const lab=w=>Math.abs(w-spanW(1))<.2?"1 col":Math.abs(w-spanW(2))<.2?"2 col":w+"mm";
-    h=`<section class="sec"><h3>LOGO</h3>
+    h=`<section class="sec"><h3>Logo</h3>
       <label class="field"><span>Type</span><select data-k="kind">${Object.entries(LOGOS).map(([k,n])=>`<option value="${k}"${b.kind===k?" selected":""}>${n}</option>`).join("")}</select></label>
       <div class="field"><span>Size</span><div class="seg">${ws.map(w=>`<button data-lw="${w}" aria-pressed="${Math.abs(b.w-w)<0.2}">${lab(w)}</button>`).join("")}</div></div>
       ${pos}${common}</section>`;
   }else{
-    h=`<section class="sec"><h3>GRAPHIC · ${ARTS[b.kind]}</h3>
+    h=`<section class="sec"><h3>Graphic · ${ARTS[b.kind]}</h3>
       <div class="row" style="margin-bottom:8px"><button class="btn" data-act="swap">Swap colors</button><button class="btn" data-act="flip">Flip horizontal</button></div>
       ${pos}${common}</section>`;
   }
@@ -859,6 +859,6 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
 </script>
 
 <script src="dict-poster.js"></script>
-<script src="hcdt-ui.js?v=20261029d" data-tool="poster"></script>
+<script src="hcdt-ui.js?v=20261029e" data-tool="poster"></script>
 </body>
 </html>

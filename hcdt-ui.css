@@ -13,8 +13,8 @@
      H1 2.25rem/600 (3.5rem from 783px) · H2 1.75rem/500 (2.25rem) · H3 1.75 · H4 1.5 · H5 1.25 · body 1 · small 0.875 / line height 1.5 */
   --fs-h1:2.25rem;--fs-h2:1.75rem;--fs-h3:1.75rem;--fs-h4:1.5rem;--fs-h5:1.25rem;--fs-body:1rem;--fs-small:.875rem;
   --w-h1:600;--w-h2:500;--w-h3:500;--lh-body:1.5;
-  --hx-bg:#FFFFFF; --hx-soft:#F4F3F7; --hx-line:#E2E0E8; --hx-line-strong:#C9C6D3;
-  --hx-fg:#17151C; --hx-muted:#6B6878; --hx-accent:#6B00FF; --hx-accent-fg:#FFFFFF; --hx-accent-soft:#EFE6FF;
+  --hx-bg:#FFFFFF; --hx-soft:rgba(191,191,191,.3); --hx-line:rgba(0,0,0,.2); --hx-line-strong:rgba(0,0,0,.4);
+  --hx-fg:#000000; --hx-muted:rgba(0,0,0,.7); --hx-accent:#6B00FF; --hx-accent-fg:#FFFFFF; --hx-accent-soft:rgba(107,0,255,.1); --hx-pill:9999em;
   --hx-navy:#001B54; --hx-warn:#B4400C; --hx-warn-bg:#FFF1E6;
   --hx-font:'neue-haas-unica','Neue Haas Unica','HX Helvetica','HX Spoqa','Helvetica Neue',Helvetica,Arial,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --hx-h:52px; --hx-r:6px; --hx-r2:8px; --hx-max:1280px;
@@ -27,7 +27,7 @@
 }
 @media (min-width:783px){:root:root:root{--fs-h1:3.5rem;--fs-h2:2.25rem}}
 html{background:var(--hx-bg)}
-body{background:var(--hx-bg);color:var(--hx-fg);font-family:var(--hx-font);font-size:var(--fs-small);line-height:1.5;-webkit-font-smoothing:antialiased}
+body{background:var(--hx-bg);color:var(--hx-fg);font-family:var(--hx-font);font-size:var(--fs-small);font-weight:300;line-height:1.5;-webkit-font-smoothing:antialiased}
 /* poster tool calls it --accent-ink for text on accent; motion tool for accent itself */
 :is(body.hx-p-poster,body.hx-p-slides){--accent-ink:var(--hx-accent-fg)}
 body.hx-p-motion{--accent-ink:var(--hx-accent)}
@@ -66,7 +66,7 @@ body.hx-p-motion{padding-top:0!important}
 
 /* tool header: title, one line of context, rule underneath */
 body.hx-tool .wrap>header,body.hx-p-motion main>header{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;border-bottom:1px solid var(--hx-line)!important;padding-bottom:14px!important}
-body.hx-tool h1,:is(body.hx-p-poster,body.hx-p-slides) .brand b{font:var(--w-h1) var(--fs-h4)/1.25 var(--hx-font)!important;letter-spacing:-.01em!important;margin:0}
+body.hx-tool h1,:is(body.hx-p-poster,body.hx-p-slides) .brand b{font:var(--w-h1) var(--fs-h3)/1.25 var(--hx-font)!important;letter-spacing:-.01em!important;margin:0}
 body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-motion main>header .sub,:is(body.hx-p-poster,body.hx-p-slides) .brand span{font-size:var(--fs-small)!important;color:var(--hx-muted)!important;margin:0}
 body.hx-tool header .spec{font:400 var(--fs-small)/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
 /* fixed header: title + size on the left, Grid / Export always pinned right on the same row; descriptions removed */
@@ -78,7 +78,7 @@ body.hx-p-card .wrap>header .hx-act,body.hx-p-letter .wrap>header .hx-act,body.h
 
 /* section headings and field labels */
 body.hx-p-card .pk>h3,:is(body.hx-p-poster,body.hx-p-slides) .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption{
-  font:700 var(--fs-small)/1.3 var(--hx-font)!important;letter-spacing:.06em!important;text-transform:uppercase;color:var(--hx-muted)!important}
+  font:600 var(--fs-small)/1.3 var(--hx-font)!important;letter-spacing:0!important;text-transform:none;color:var(--hx-fg)!important}
 body.hx-p-letter .blk h2,body.hx-p-card .sh,body.hx-p-card .zone h2,body.hx-p-logo h2,body.hx-p-logo .gh b{font:700 var(--fs-small)/1.3 var(--hx-font)!important;letter-spacing:0!important;color:var(--hx-fg)}
 body.hx-p-letter .blk h2 small{font:400 var(--fs-small)/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
 body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-p-letter label,body.hx-p-letter .ctl,body.hx-p-motion .ctl>.lab,:is(body.hx-p-poster,body.hx-p-slides) .field>span,:is(body.hx-p-poster,body.hx-p-slides) .grp>b,:is(body.hx-p-poster,body.hx-p-slides) .sec .sub,body.hx-p-card .og>span{
@@ -97,8 +97,8 @@ body.hx-p-card .wrap button:not(.pick):not(.sw),body.hx-p-card .sw.def,
 body.hx-p-letter .wrap button,
 :is(body.hx-p-poster,body.hx-p-slides) .btn,:is(body.hx-p-poster,body.hx-p-slides) .tool,
 body.hx-p-motion .wrap button{
-  font:400 var(--fs-small)/1.2 var(--hx-font)!important;min-height:32px;padding:6px 12px!important;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;
-  background:var(--hx-bg)!important;color:var(--hx-fg)!important;box-shadow:none!important;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+  font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:32px;padding:6px 16px!important;border:1px solid var(--hx-accent)!important;border-radius:var(--hx-pill)!important;
+  background:var(--hx-bg)!important;color:var(--hx-accent)!important;box-shadow:none!important;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 body.hx-p-logo .chip:hover,body.hx-p-logo .dl:hover,body.hx-p-card .wrap button:not(.pick):not(.sw):hover,body.hx-p-letter .wrap button:hover,:is(body.hx-p-poster,body.hx-p-slides) .btn:hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:hover,body.hx-p-motion .wrap button:hover{border-color:var(--hx-fg)!important}
 /* selected and primary: purple fill, white type */
 body.hx-p-logo .chip[aria-pressed=true],body.hx-p-logo .zip,
@@ -106,7 +106,7 @@ body.hx-p-card .wrap button[aria-checked=true]:not(.pick):not(.sw),body.hx-p-car
 body.hx-p-letter .wrap button.primary,
 :is(body.hx-p-poster,body.hx-p-slides) .btn.primary,:is(body.hx-p-poster,body.hx-p-slides) .seg button[aria-pressed=true],
 body.hx-p-motion .wrap button[aria-pressed=true],body.hx-p-motion .wrap .hx-act button.primary,body.hx-p-motion .wrap .grp button.primary{
-  background:var(--hx-accent)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
+  background:var(--hx-accent)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:600!important}
 body.hx-p-card button[aria-checked=true] b,body.hx-p-card button[aria-checked=true] small{color:var(--hx-accent-fg)!important}
 body.hx-p-card .vt,body.hx-p-card .tc{display:inline-grid!important;text-align:left}
 body.hx-p-logo .chip i,body.hx-p-motion .dot{width:12px!important;height:12px!important;border-radius:50%!important;border:1px solid rgba(0,0,0,.12)!important;flex:none}
@@ -115,11 +115,11 @@ button:disabled,body.hx-tool button:disabled{opacity:.4!important;cursor:default
 :is(body.hx-p-poster,body.hx-p-slides) .danger{color:var(--hx-warn)!important}
 body.hx-p-letter .crow button{padding:0!important;justify-content:center;font-size:var(--fs-body)!important;color:var(--hx-muted)!important}
 
-/* segmented controls */
-body.hx-p-logo .seg,:is(body.hx-p-poster,body.hx-p-slides) .seg{display:inline-flex;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;overflow:hidden;background:var(--hx-bg)!important}
-body.hx-p-logo .seg button,:is(body.hx-p-poster,body.hx-p-slides) .seg button{font:400 var(--fs-small)/1.2 var(--hx-font)!important;min-height:30px;padding:6px 12px!important;border:0!important;border-right:1px solid var(--hx-line)!important;border-radius:0!important;background:var(--hx-bg)!important;color:var(--hx-fg)!important}
-body.hx-p-logo .seg button:last-child,:is(body.hx-p-poster,body.hx-p-slides) .seg button:last-child{border-right:0!important}
-body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pressed=true],:is(body.hx-p-poster,body.hx-p-slides) .seg button[aria-pressed=true]{background:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:700!important}
+/* segmented controls: design-system pill, purple = selected, accent-soft = hover */
+body.hx-p-logo .seg,:is(body.hx-p-poster,body.hx-p-slides) .seg,.seg.vseg{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--hx-line)!important;border-radius:var(--hx-pill)!important;overflow:visible;background:var(--hx-bg)!important}
+body.hx-p-logo .seg button,:is(body.hx-p-poster,body.hx-p-slides) .seg button{font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:26px;padding:4px 14px!important;border:0!important;border-radius:var(--hx-pill)!important;background:transparent!important;color:var(--hx-fg)!important;flex:1}
+body.hx-p-logo .seg button:hover,:is(body.hx-p-poster,body.hx-p-slides) .seg button:hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 30%,#fff)!important;color:#000!important}
+body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pressed=true],:is(body.hx-p-poster,body.hx-p-slides) .seg button[aria-pressed=true]{background:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:600!important}
 
 /* text fields */
 body.hx-tool input[type=text],body.hx-tool input[type=number],body.hx-tool select,body.hx-tool textarea{
@@ -267,10 +267,20 @@ body.hx-tool .hx-sw:hover{outline:2px solid var(--hx-accent);outline-offset:2px}
 body.hx-p-card .wrap button:not(.primary):not([aria-pressed=true]):not([aria-checked=true]):not(.pick):not(.sw):not(.hx-sw):not(.hx-mi):hover,
 body.hx-p-letter .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover,
 :is(body.hx-p-poster,body.hx-p-slides) .btn:not(.primary):not([aria-pressed=true]):hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:not([aria-pressed=true]):hover,
-body.hx-p-motion .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 60%,#fff)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent)!important}
+body.hx-p-motion .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 30%,#fff)!important;border-color:var(--hx-ui,var(--hx-accent))!important;color:var(--hx-accent)!important}
 body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 45%,#fff)!important}
 body.hx-tool .hx-sw:hover{outline-color:var(--hx-accent)}
 
 /* notices and warnings: design-system Notice = 4px accent bar + soft accent fill + black text */
 body.hx-tool .note.warn,body.hx-tool .warn,body.hx-tool .wrap .warn{background:color-mix(in srgb,var(--hx-ui,#6B00FF) 22%,#fff)!important;border:0!important;border-left:4px solid var(--hx-ui,#6B00FF)!important;border-radius:0!important;color:#000!important;padding:8px 12px!important;font-size:var(--fs-small)}
 body.hx-tool .warn *{color:#000!important}
+
+/* numbers: accent circle, black figure (design-system Steps) */
+.hx-n{background:var(--hx-ui,#6B00FF)!important;color:#000!important;font-weight:600!important}
+/* primary: purple fill; on hover the fill drops out and the border takes the accent (design-system Accent hover) */
+body.hx-tool .hx-act button.primary:hover,body.hx-tool .wrap button.primary:hover{background:#fff!important;color:var(--hx-accent)!important;border-color:var(--hx-ui,var(--hx-accent))!important;box-shadow:inset 0 0 0 2px var(--hx-ui,var(--hx-accent))!important}
+body.hx-tool b,body.hx-tool strong{font-weight:600}
+body.hx-tool input[type=text],body.hx-tool textarea,body.hx-tool select{font-weight:300}
+
+/* section titles: sentence case, 600, black (no letter-spaced capitals) */
+body.hx-tool .sec h3,body.hx-tool aside h3,body.hx-tool .panel h3,body.hx-tool .ins h3,body.hx-tool h3{text-transform:none!important;letter-spacing:0!important;font-weight:600!important;color:#000!important;font-size:var(--fs-small)}
