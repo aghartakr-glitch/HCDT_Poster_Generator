@@ -389,7 +389,7 @@ function renderThumbs(){
   TPL.forEach((fn,i)=>{
     const t=fn(); const btn=document.createElement("button");
     btn.className="thumb"; btn.title=`Load template ${i+1}`;
-    const p=buildPoster({scheme:{...S.scheme,point:S.scheme.bg==="white"&&S.scheme.text==="purple"?t.point:S.scheme.point},blocks:t.blocks},false);
+    const p=buildPoster({scheme:{...S.scheme},blocks:t.blocks},false);
     btn.append(p); btn.insertAdjacentHTML("beforeend",`<em>${i+1}</em>`);
     btn.onclick=()=>loadTpl(i);
     box.append(btn);
@@ -399,7 +399,6 @@ function renderThumbs(){
 function loadTpl(i){
   endEdit();
   const t=TPL[i]();
-  if(S.scheme.bg==="white"&&S.scheme.text==="purple"&&S.scheme.point!==t.point&&["verdigris","terracotta","fluoxetine","asparagus"].includes(t.point))S.scheme.point=t.point;
   S.blocks=t.blocks; sel=null; commit(); renderAll();
   toast(`Template ${i+1} loaded`);
 }
