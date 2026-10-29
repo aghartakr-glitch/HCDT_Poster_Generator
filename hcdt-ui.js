@@ -276,7 +276,7 @@
     var n = el(); n.textContent = t.getAttribute('data-hx-t'); n.classList.add('on');
     var r = t.getBoundingClientRect(), w = n.offsetWidth, h = n.offsetHeight;
     var left = Math.max(6, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 6));
-    var top = r.bottom + 8; if (top + h > innerHeight - 6) top = r.top - h - 8;
+    var top = r.top - h - 8; if (top < 6) top = r.bottom + 8;
     n.style.left = left + 'px'; n.style.top = Math.max(6, top) + 'px';
   }
   function hide() {
