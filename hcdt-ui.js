@@ -267,3 +267,30 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
   window.HX = { setLang: setLang, get lang() { return LANG; } };
 })();
+
+/* instant tooltip: replaces the browser's delayed title popup, shown in the auxiliary colour */
+(function () {
+  var tip = null, cur = null;
+  function el() { if (!tip) { tip = document.createElement('div'); tip.className = 'hx-tip'; document.body.appendChild(tip); } return tip; }
+  function show(t, x, y) {
+    var n = el(); n.textContent = t.getAttribute('data-hx-t'); n.classList.add('on');
+    var r = t.getBoundingClientRect(), w = n.offsetWidth, h = n.offsetHeight;
+    var left = Math.max(6, Math.min(r.left + r.width / 2 - w / 2, innerWidth - w - 6));
+    var top = r.bottom + 8; if (top + h > innerHeight - 6) top = r.top - h - 8;
+    n.style.left = left + 'px'; n.style.top = Math.max(6, top) + 'px';
+  }
+  function hide() {
+    if (cur) { var t = cur; cur = null; if (t.hasAttribute('data-hx-t')) { t.setAttribute('title', t.getAttribute('data-hx-t')); t.removeAttribute('data-hx-t'); } }
+    if (tip) tip.classList.remove('on');
+  }
+  document.addEventListener('mouseover', function (e) {
+    var t = e.target.closest && e.target.closest('[title],[data-hx-t]');
+    if (!t || t === cur) return;
+    hide();
+    var txt = t.getAttribute('title'); if (!txt) return;
+    t.setAttribute('data-hx-t', txt); t.removeAttribute('title'); cur = t; show(t);
+  }, true);
+  document.addEventListener('mouseout', function (e) { if (cur && !cur.contains(e.relatedTarget)) hide(); }, true);
+  document.addEventListener('mousedown', hide, true);
+  document.addEventListener('scroll', hide, true);
+})();
