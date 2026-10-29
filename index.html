@@ -303,9 +303,11 @@ const TPL=[
 ];
 
 /* ---------- 그리기 ---------- */
-function svgMarkup(kind,m,a,ratio=true,flip=false){
+function svgMarkup(kind,m,a,ratio=true,flip=false,mono=false){
   const s=ASSETS[kind]; if(!s)return "";
-  const paths=s.els.map(([r,d,eo])=>`<path d="${d}" fill="${r==="m"?m:a}"${eo?' fill-rule="evenodd"':""}/>`).join("");
+  /* UNIST version: the symbol is drawn in the main colour only (accent faces omitted), as in the Full Version logo */
+  const keep=mono?s.els.filter(e=>!(e[0]==="a"&&e[1].length>300)):s.els;
+  const paths=keep.map(([r,d,eo])=>`<path d="${d}" fill="${r==="m"?m:a}"${eo?' fill-rule="evenodd"':""}/>`).join("");
   const g=flip?`<g transform="translate(${s.w} 0) scale(-1 1)">${paths}</g>`:paths;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${s.w} ${s.h}" preserveAspectRatio="${ratio?"xMidYMid meet":"none"}" width="100%" height="100%">${g}</svg>`;
 }
@@ -328,7 +330,7 @@ function blockEl(b,sc,live){
     el.style.height=bh(b)+"mm";
     if(b.type==="rect")el.style.background=hex(b.color,sc);
     else if(b.type==="logo")el.innerHTML=svgMarkup(lkind(b,sc),hex("text",sc),hex("point",sc));
-    else el.innerHTML=svgMarkup(b.kind,hex(b.cm,sc),hex(b.ca,sc),b.ratio,b.flip);
+    else el.innerHTML=svgMarkup(b.kind,hex(b.cm,sc),hex(b.ca,sc),b.ratio,b.flip,isUnist(sc));
   }
   if(live){
     const h=document.createElement("i"); h.className="hd"; h.dataset.h=b.type==="text"?"e":"se"; el.append(h);
