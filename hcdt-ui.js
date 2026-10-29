@@ -34,7 +34,7 @@
   var LANG = readLang();
 
   /* ---------- styles: hcdt-ui.css (linked in each page head; added here if a page forgot it) ---------- */
-  if (!document.querySelector('link[href$="hcdt-ui.css"]')) {
+  if (!document.querySelector('link[href*="hcdt-ui.css"]')) {
     var lk = document.createElement('link'); lk.rel = 'stylesheet'; lk.href = BASE + 'hcdt-ui.css'; document.head.appendChild(lk);
   }
 
