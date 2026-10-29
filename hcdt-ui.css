@@ -308,3 +308,22 @@ body.hx-tool .hx-cmyk-c em{font-style:normal;color:var(--hx-muted)}
 html.hx-wide body.hx-tool .wrap,html.hx-wide body.hx-tool>.app,html.hx-wide body.hx-p-slides>.app,html.hx-wide body.hx-p-card .wrap,html.hx-wide body.hx-p-letter .wrap,html.hx-wide body.hx-p-motion .wrap,html.hx-wide body.hx-p-motion main{max-width:none!important}
 html.hx-wide body.hx-p-logo .wrap,html.hx-wide body.hx-p-card .wrap,html.hx-wide body.hx-p-letter .wrap,html.hx-wide body.hx-p-motion main{margin-top:8px!important}
 html.hx-wide body.hx-tool>header,html.hx-wide body.hx-tool>.hx-steps{max-width:none!important}
+
+/* wide workspace: one shared frame spec (8px top, 16px sides, 48px header, 12px gap, content to 12px above the bottom) */
+html.hx-wide body.hx-tool{padding:0 16px 12px!important;gap:0!important}
+html.hx-wide body.hx-tool .hx-bar{margin:0!important}
+html.hx-wide body.hx-tool .wrap{margin-top:0!important;gap:12px!important}
+html.hx-wide body.hx-tool .wrap>header,html.hx-wide body.hx-tool>header.top,html.hx-wide body.hx-p-slides .app>header.top{margin:8px 0 0!important;padding:0 0 10px!important;min-height:48px;box-sizing:border-box;align-items:center!important}
+html.hx-wide body.hx-p-poster>.app{margin-top:12px!important;border-radius:8px}
+html.hx-wide body.hx-p-slides .app>header.top{margin-bottom:12px!important}
+html.hx-wide body.hx-p-slides>.app{border-radius:0}
+html.hx-wide body.hx-p-slides .app>.main{border:1px solid var(--hx-line);border-radius:8px;overflow:hidden}
+html.hx-wide body.hx-p-card main,html.hx-wide body.hx-p-letter main,html.hx-wide body.hx-p-motion main{margin-top:0!important}
+html.hx-wide body.hx-p-poster,html.hx-wide body.hx-p-slides{display:flex!important;flex-direction:column;height:100vh!important;overflow:hidden}
+html.hx-wide body.hx-p-poster>*,html.hx-wide body.hx-p-slides>*{flex:none}
+html.hx-wide body.hx-p-poster>.app,html.hx-wide body.hx-p-slides>.app{flex:1 1 0;min-height:0;height:auto!important}
+html.hx-wide body.hx-p-slides .app{grid-template-rows:auto minmax(0,1fr)}
+html.hx-wide body.hx-p-poster>.app,html.hx-wide body.hx-p-slides>.app{align-self:stretch;width:100%!important;margin-left:0!important;margin-right:0!important}
+html.hx-wide body.hx-p-slides>.app{display:grid!important;grid-template-rows:auto minmax(0,1fr)}
+html.hx-wide body.hx-p-slides>.app>.main{height:auto!important;min-height:0}
+html.hx-wide body.hx-p-slides>.app{padding-bottom:12px;box-sizing:border-box}
