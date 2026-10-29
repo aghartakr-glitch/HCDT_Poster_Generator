@@ -69,8 +69,12 @@ body.hx-tool .wrap>header,body.hx-p-motion main>header{display:flex;flex-wrap:wr
 body.hx-tool h1,:is(body.hx-p-poster,body.hx-p-slides) .brand b{font:var(--w-h1) var(--fs-h4)/1.25 var(--hx-font)!important;letter-spacing:-.01em!important;margin:0}
 body.hx-tool .wrap>header p,body.hx-tool .wrap>header .sub,body.hx-p-motion main>header .sub,:is(body.hx-p-poster,body.hx-p-slides) .brand span{font-size:var(--fs-small)!important;color:var(--hx-muted)!important;margin:0}
 body.hx-tool header .spec{font:400 var(--fs-small)/1 var(--hx-font)!important;color:var(--hx-muted);font-variant-numeric:tabular-nums}
-body.hx-p-letter header .ttl{display:flex!important;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
-body.hx-p-letter header{align-items:baseline!important}
+/* fixed header: title + size on the left, Grid / Export always pinned right on the same row; descriptions removed */
+body.hx-p-card .wrap>header,body.hx-p-letter .wrap>header{flex-wrap:nowrap!important;align-items:center!important;min-height:44px}
+body.hx-p-card .wrap>header>p,body.hx-p-letter .wrap>header p{display:none!important}
+body.hx-p-card .wrap>header .tools,body.hx-p-letter .wrap>header .ttl,body.hx-p-letter .wrap>header .tools{display:contents!important}
+body.hx-p-card .wrap>header .hx-act,body.hx-p-letter .wrap>header .hx-act{margin-left:auto!important;flex:none}
+@media (max-width:640px){body.hx-p-card .wrap>header,body.hx-p-letter .wrap>header{flex-wrap:wrap!important}}
 
 /* section headings and field labels */
 body.hx-p-card .pk>h3,:is(body.hx-p-poster,body.hx-p-slides) .sec h3,body.hx-p-card details.spec summary,body.hx-p-letter details.spec summary,body.hx-p-motion caption{
