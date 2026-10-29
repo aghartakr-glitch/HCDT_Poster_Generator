@@ -16,7 +16,6 @@
   var PAGES = 'https://aghartakr-glitch.github.io/';
   var TOOLS = [
     { id: 'home',   file: 'index.html',  repo: 'HCDT_Toolkit/',         en: 'Overview',      ko: '전체' },
-    { id: 'logo',   file: 'logo.html',   repo: 'HCDT_Logo_Download/',   en: 'Logo',          ko: '로고' },
     { id: 'motion', file: 'motion.html', repo: 'HCDT_Toolkit/motion.html', en: 'Logo Motion', ko: '로고 모션' },
     { id: 'card',   file: 'card.html',   repo: 'HCDT_Namecard_Generator/', en: 'Name Card',   ko: '명함' },
     { id: 'poster', file: 'poster.html', repo: 'HCDT_Poster_Generator/',   en: 'Poster',      ko: '포스터' },
