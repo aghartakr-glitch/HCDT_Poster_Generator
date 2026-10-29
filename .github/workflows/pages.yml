@@ -25,7 +25,7 @@ jobs:
       - name: Prepare site
         run: |
           mkdir -p _site
-          cp index.html hcdt-ui.js hcdt-ui.css dict-poster.js _site/
+          cp index.html hcdt-ui.js hcdt-ui.css hcdt-cmyk.js dict-poster.js _site/
           cp -r assets _site/assets
           touch _site/.nojekyll
       - uses: actions/configure-pages@v5
