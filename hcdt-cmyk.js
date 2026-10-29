@@ -54,7 +54,7 @@
   }
   function later() { clearTimeout(timer); timer = setTimeout(applyAll, 160); }
 
-  function note() {
+  function note() { return;
     var n = document.getElementById('hxCmykNote'); if (!on) { if (n) n.remove(); return; }
     if (n) return;
     n = document.createElement('div'); n.id = 'hxCmykNote'; n.className = 'hx-cmyk';

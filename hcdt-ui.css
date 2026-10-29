@@ -303,3 +303,8 @@ body.hx-tool .hx-cmyk-s{color:var(--hx-muted)}
 body.hx-tool .hx-cmyk-c{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 body.hx-tool .hx-cmyk-c i{width:12px;height:12px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
 body.hx-tool .hx-cmyk-c em{font-style:normal;color:var(--hx-muted)}
+
+/* wide workspace: use the full frame */
+html.hx-wide body.hx-tool .wrap,html.hx-wide body.hx-tool>.app,html.hx-wide body.hx-p-slides>.app,html.hx-wide body.hx-p-card .wrap,html.hx-wide body.hx-p-letter .wrap,html.hx-wide body.hx-p-motion .wrap,html.hx-wide body.hx-p-motion main{max-width:none!important}
+html.hx-wide body.hx-p-logo .wrap,html.hx-wide body.hx-p-card .wrap,html.hx-wide body.hx-p-letter .wrap,html.hx-wide body.hx-p-motion main{margin-top:8px!important}
+html.hx-wide body.hx-tool>header,html.hx-wide body.hx-tool>.hx-steps{max-width:none!important}
