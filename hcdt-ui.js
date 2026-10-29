@@ -45,17 +45,12 @@
     var b = document.createElement('div');
     b.className = 'hx-bar';
     b.setAttribute('data-hx', '');
-    var home = TOOLS[0];
-    var h = '<a class="hx-home" href="' + href(home) + '">' + MARK + '<b>HCDT</b><span class="hx-t" data-en="Toolkit" data-ko="툴킷"></span></a><nav class="hx-nav" aria-label="Tools">';
+    var h = '<nav class="hx-nav" aria-label="Tools">';
     TOOLS.forEach(function (t) {
       h += '<a class="hx-t" href="' + href(t) + '" data-en="' + t.en + '" data-ko="' + t.ko + '"' + (t.id === TOOL ? ' aria-current="page"' : '') + '></a>';
     });
-    h += '</nav><div class="hx-lang" role="group" aria-label="Language"><button type="button" data-l="en" lang="en">EN</button><button type="button" data-l="ko" lang="ko">KO</button></div>';
+    h += '</nav>';
     b.innerHTML = h;
-    b.querySelector('.hx-lang').addEventListener('click', function (e) {
-      var x = e.target.closest('button');
-      if (x) setLang(x.getAttribute('data-l'));
-    });
     document.body.insertBefore(b, document.body.firstChild);
     return b;
   }
@@ -200,9 +195,7 @@
     document.documentElement.lang = l;
     if (barEl) {
       barEl.querySelectorAll('.hx-t').forEach(function (a) { a.textContent = a.getAttribute('data-' + l); });
-      barEl.querySelectorAll('.hx-lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-l') === l)); });
       barEl.querySelector('.hx-nav').setAttribute('aria-label', l === 'ko' ? '도구' : 'Tools');
-      barEl.querySelector('.hx-lang').setAttribute('aria-label', l === 'ko' ? '언어' : 'Language');
     }
     langSteps(l);
     if (translator) translator.apply(l);

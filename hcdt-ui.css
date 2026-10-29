@@ -211,3 +211,27 @@ body.hx-p-slides header.top{background:var(--hx-bg);border-bottom:1px solid var(
 /* pages built as artifacts relied on this reset; keep it for standalone hosting */
 [hidden]{display:none!important}
 body.hx-p-slides{margin:0}
+
+/* nav only: the department site supplies its own header and language switch */
+.hx-bar{gap:0}
+.hx-nav{padding-left:0}
+.hx-nav a:first-child{padding-left:0}
+
+/* poster and slides use the same page frame as the other tools:
+   centered 1280 column, title row with a rule, step strip, then the editor in one bordered panel */
+:is(body.hx-p-poster,body.hx-p-slides){--ed-h:max(640px,calc(100vh - 300px));--ed-h:max(640px,calc(100dvh - 300px))}
+@media (min-width:981px){
+  html:has(body.hx-p-poster),html:has(body.hx-p-slides){height:auto!important}
+  :is(body.hx-p-poster,body.hx-p-slides){display:block!important;height:auto!important;overflow:auto!important;padding:0 max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px))!important}
+}
+body.hx-p-poster>header.top,body.hx-p-poster>.hx-steps,body.hx-p-poster>main.app,
+body.hx-p-slides>.app{max-width:var(--hx-max);margin-left:auto;margin-right:auto}
+body.hx-p-slides>.app{display:block!important;height:auto!important}
+:is(body.hx-p-poster>header.top,body.hx-p-slides header.top){background:transparent!important;border-bottom:1px solid var(--hx-line)!important;padding:0 0 14px!important;margin-top:28px;gap:8px 14px}
+:is(body.hx-p-poster,body.hx-p-slides) .hx-steps{margin:24px auto!important}
+body.hx-p-slides .app>.hx-steps{margin:24px 0!important}
+body.hx-p-slides .app>.hx-steps{max-width:none}
+body.hx-p-poster>main.app,body.hx-p-slides .main{border:1px solid var(--hx-line);border-radius:var(--hx-r2);overflow:hidden;background:var(--hx-bg)}
+@media (min-width:981px){body.hx-p-poster>main.app{height:var(--ed-h)!important}body.hx-p-slides .main{height:var(--ed-h)}}
+body.hx-p-poster .stagewrap{min-height:0}
+:is(body.hx-p-poster,body.hx-p-slides) .brand{display:flex;align-items:baseline;gap:10px}
