@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HCDT Poster Generator</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261029c">
+<title>HCDT Poster</title>
+<link rel="stylesheet" href="hcdt-ui.css?v=20261029d">
 
 <style>
 html,body{margin:0}
@@ -62,16 +62,20 @@ button{cursor:pointer}
 .sec .sub{font-size:var(--fs-small);color:var(--muted);margin:10px 0 5px}
 .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.grid3{display:flex;flex-wrap:wrap;gap:6px}
+.grid3 .tool{flex:1 1 auto;justify-content:center;text-align:center;white-space:nowrap;min-width:68px}
 .tool{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:7px 8px;text-align:left;font-size:var(--fs-small);display:flex;align-items:center;gap:7px;min-width:0}
 .tool:hover{border-color:var(--accent)}
 .tool svg{flex:none}
-#addLogo .tool{flex-direction:column;justify-content:center;text-align:center;gap:4px;padding:8px 4px}
+#addLogo .tool{flex:1 1 0;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:4px;padding:8px 4px}
 #addLogo .tool svg{width:30px;height:30px}
 .tool span{line-height:1.25}
 #addArt .tool{align-items:center}
 
-.grp{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:6px;margin-bottom:6px}
+.grp{display:grid;grid-template-columns:52px 1fr;align-items:start;gap:6px;margin-bottom:10px}
+.vcol{display:grid;gap:6px;min-width:0}
+.vseg{width:fit-content}
+.vseg button{padding:4px 12px}
 .grp>b{font-size:var(--fs-small);color:var(--muted);font-weight:700}
 .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .pre{aspect-ratio:1.6;border:0;border-radius:4px;padding:0;display:flex;align-items:center;justify-content:center;gap:4px;font-size:var(--fs-small);font-weight:700;line-height:1}
@@ -86,7 +90,7 @@ button{cursor:pointer}
 .thumb .poster{position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none}
 .thumb em{position:absolute;right:4px;bottom:3px;font-style:normal;font-size:var(--fs-small);background:var(--panel);color:var(--fg);padding:0 4px;border-radius:3px}
 
-.check{display:flex;align-items:center;gap:8px;font-size:var(--fs-small)}
+.check{display:flex;align-items:center;gap:8px;font-size:var(--fs-small);white-space:nowrap}
 .check input{accent-color:var(--accent)}
 
 /* 지면 */
@@ -192,7 +196,6 @@ button{cursor:pointer}
     <section class="sec">
       <h3>COLOR COMBINATIONS</h3>
       <div id="combos"></div>
-      <div class="note" id="schemeNote"></div>
     </section>
 
     <section class="sec">
@@ -206,8 +209,8 @@ button{cursor:pointer}
     <section class="sec">
       <h3>GRID</h3>
       <label class="check"><input type="checkbox" id="optGrid" checked> Show grid</label>
-      <label class="check" style="margin-top:6px"><input type="checkbox" id="optSnap" checked> Snap to grid <span style="color:var(--muted)">(hold Alt to override)</span></label>
-      <div class="note" style="margin-top:8px">Margin 14mm · 4 columns (42.5mm, gutter 4mm) · 14 rows (15.5mm, gutter 4mm)</div>
+      <label class="check" style="margin-top:6px" title="Hold Alt while dragging to override"><input type="checkbox" id="optSnap" checked> Snap to grid</label>
+      <div class="note" style="margin-top:8px">14 mm margin · 4 × 14 grid · 4 mm gutter</div>
     </section>
   </aside>
 
@@ -401,11 +404,16 @@ function loadTpl(i){
   S.blocks=t.blocks; sel=null; commit(); renderAll();
   toast(`Template ${i+1} loaded`);
 }
+const VROWS=[{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C","D","E","F"]}];
+const varSel={};
 function renderScheme(){
   const cur=findCombo(S.scheme);
-  $("#combos").innerHTML=GROUPS.map(g=>`<div class="grp"><b>${g.k}</b><div class="chips">${g.c.map((c,i)=>`<button class="pre" data-combo="${g.k}:${i}" title="${SW[c[0]].name} / ${SW[c[1]].name} / ${SW[c[2]].name}" aria-pressed="${!!cur&&cur.c===c}" style="background:${SW[c[0]].hex};color:${SW[c[1]].hex};--p:${SW[c[2]].hex};${c[0]==="white"?"box-shadow:inset 0 0 0 1px #ddd":""}">Aa<i></i></button>`).join("")}</div></div>`).join("");
-  const n=$("#schemeNote"); n.className="note";
-  n.textContent=cur?`${cur.g.k==="Base"?"Base":cur.g.k+"."} ${cur.g.label}`:"Custom";
+  $("#combos").innerHTML=VROWS.map(r=>{
+    const inCur=cur&&r.ks.includes(cur.g.k)?cur.g.k:null;
+    const k=inCur||varSel[r.t]||r.ks[0]; varSel[r.t]=k;
+    const g=GROUPS.find(x=>x.k===k);
+    const seg=r.ks.length>1?`<div class="seg vseg" role="group" aria-label="${r.t} variant">${r.ks.map(v=>`<button data-var="${r.t}:${v}" title="${GROUPS.find(x=>x.k===v).label}" aria-pressed="${v===k}">${v}</button>`).join("")}</div>`:"";
+    return `<div class="grp"><b>${r.t}</b><div class="vcol">${seg}<div class="chips">${g.c.map((c,i)=>`<button class="pre" data-combo="${g.k}:${i}" title="${SW[c[0]].name} / ${SW[c[1]].name} / ${SW[c[2]].name}" aria-pressed="${!!cur&&cur.c===c}" style="background:${SW[c[0]].hex};color:${SW[c[1]].hex};--p:${SW[c[2]].hex};${c[0]==="white"?"box-shadow:inset 0 0 0 1px #ddd":""}">Aa<i></i></button>`).join("")}</div></div></div>`}).join("");
 }
 function iconFor(kind){
   if(kind==="rect")return `<svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="4" width="18" height="14" fill="${SW.purple.hex}"/></svg>`;
@@ -427,6 +435,8 @@ function renderAdders(){
 }
 function addBlock(b){S.blocks.push(b); sel=b.id; commit(); renderPoster(); renderProps();}
 document.addEventListener("click",e=>{
+  const vb=e.target.closest("[data-var]");
+  if(vb){const [r,k]=vb.dataset.var.split(":");varSel[r]=k;renderScheme();return}
   const t=e.target.closest("[data-add-text],[data-add-logo],[data-add-art],[data-combo]");
   if(!t)return;
   endEdit();
@@ -476,12 +486,10 @@ function renderProps(){
     h=`<section class="sec"><h3>LOGO</h3>
       <label class="field"><span>Type</span><select data-k="kind">${Object.entries(LOGOS).map(([k,n])=>`<option value="${k}"${b.kind===k?" selected":""}>${n}</option>`).join("")}</select></label>
       <div class="field"><span>Size</span><div class="seg">${ws.map(w=>`<button data-lw="${w}" aria-pressed="${Math.abs(b.w-w)<0.2}">${lab(w)}</button>`).join("")}</div></div>
-      <div class="note">Logo colors follow the selected combination: wordmark and right faces use the text color, – / + and left faces use the point color.</div>
       ${pos}${common}</section>`;
   }else{
     h=`<section class="sec"><h3>GRAPHIC · ${ARTS[b.kind]}</h3>
       <div class="row" style="margin-bottom:8px"><button class="btn" data-act="swap">Swap colors</button><button class="btn" data-act="flip">Flip horizontal</button></div>
-      <div class="note">Aspect ratio is locked. Colors follow the selected combination.</div>
       ${pos}${common}</section>`;
   }
   P.innerHTML=h;
@@ -851,6 +859,6 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
 </script>
 
 <script src="dict-poster.js"></script>
-<script src="hcdt-ui.js?v=20261029c" data-tool="poster"></script>
+<script src="hcdt-ui.js?v=20261029d" data-tool="poster"></script>
 </body>
 </html>

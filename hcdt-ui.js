@@ -8,6 +8,8 @@
   'use strict';
   var me = document.currentScript;
   var TOOL = (me && me.getAttribute('data-tool')) || 'home';
+  /* auxiliary colour: random per load (same four as the guideline page); a framing page overrides it */
+  try { var AUXC = ['#64D8D8', '#E8B9AA', '#73D888', '#E8E041']; document.documentElement.style.setProperty('--hx-ui', AUXC[Math.floor(Math.random() * 4)]); } catch (e) {}
   var BASE = (me && me.src) ? me.src.replace(/[^/]*$/, '') : '';
   var KEY = 'hcdt-lang';
 
@@ -177,7 +179,7 @@
   var translator = null, TITLES = null;
   if (TOOL === 'poster' && window.HX_DICT_POSTER) {
     translator = Translator('en', window.HX_DICT_POSTER.dict, window.HX_DICT_POSTER.rules, '.poster,#stage,svg');
-    TITLES = { en: 'HCDT Poster Generator', ko: 'HCDT 포스터 생성기' };
+    TITLES = { en: 'HCDT Poster', ko: 'HCDT 포스터' };
   }
 
 

@@ -270,3 +270,7 @@ body.hx-p-letter .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw)
 body.hx-p-motion .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 60%,#fff)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent)!important}
 body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 45%,#fff)!important}
 body.hx-tool .hx-sw:hover{outline-color:var(--hx-accent)}
+
+/* notices and warnings: design-system Notice = 4px accent bar + soft accent fill + black text */
+body.hx-tool .note.warn,body.hx-tool .warn,body.hx-tool .wrap .warn{background:color-mix(in srgb,var(--hx-ui,#6B00FF) 22%,#fff)!important;border:0!important;border-left:4px solid var(--hx-ui,#6B00FF)!important;border-radius:0!important;color:#000!important;padding:8px 12px!important;font-size:var(--fs-small)}
+body.hx-tool .warn *{color:#000!important}
