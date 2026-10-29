@@ -256,7 +256,8 @@ const GROUPS=[
   {k:"B",label:"Purple background + auxiliary text + auxiliary point",c:[["purple","terracotta","verdigris"],["purple","fluoxetine","asparagus"],["purple","verdigris","asparagus"],["purple","asparagus","fluoxetine"]]},
   {k:"C",label:"Auxiliary background + purple text + auxiliary point",c:[["verdigris","purple","asparagus"],["terracotta","purple","verdigris"],["fluoxetine","purple","terracotta"],["asparagus","purple","fluoxetine"]]},
   /* F: from the faculty review (purple backgrounds are hard to read). Not yet in the guide. */
-  {k:"F",label:"Auxiliary background + purple text + white point (proposed, not yet in the guide)",c:[["verdigris","purple","white"],["terracotta","purple","white"],["fluoxetine","purple","white"],["asparagus","purple","white"]]}
+  {k:"D",label:"Auxiliary background + auxiliary text + purple point",c:[["verdigris","terracotta","purple"],["terracotta","fluoxetine","purple"],["fluoxetine","asparagus","purple"],["asparagus","verdigris","purple"]]},
+  {k:"E",label:"Auxiliary background + auxiliary text + auxiliary point",c:[["verdigris","terracotta","asparagus"],["terracotta","fluoxetine","asparagus"],["fluoxetine","asparagus","terracotta"],["asparagus","verdigris","terracotta"]]}
 ];
 const same=(s,c)=>s.bg===c[0]&&s.text===c[1]&&s.point===c[2];
 const findCombo=s=>{for(const g of GROUPS)for(const c of g.c)if(same(s,c))return {g,c};return null;};
@@ -408,7 +409,7 @@ function loadTpl(i){
   S.blocks=t.blocks; sel=null; commit(); renderAll();
   toast(`Template ${i+1} loaded`);
 }
-const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C","F"]}];
+const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C","D","E"]}];
 const varSel={};
 function renderScheme(){
   const cur=findCombo(S.scheme);
