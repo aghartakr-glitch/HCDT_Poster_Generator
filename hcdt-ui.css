@@ -258,13 +258,13 @@ body.hx-tool .hx-menu-pop button.hx-mi,body.hx-tool .wrap .hx-menu-pop button.hx
 body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:#f1f1f5!important}
 @media (max-width:760px){.hx-act{flex:0 1 auto;min-width:0;max-width:100%;margin-left:0;flex-wrap:wrap;justify-content:flex-end}.hx-act .hx-ph{display:none}}
 
-/* round colour swatch: the one control for choosing a colour, in every tool */
+/* round color swatch: the one control for choosing a color, in every tool */
 body.hx-tool .hx-sw,body.hx-tool .wrap button.hx-sw{width:28px!important;height:28px!important;min-height:28px!important;padding:0!important;border-radius:50%!important;background:var(--c)!important;border:1px solid rgba(0,0,0,.18)!important;box-shadow:inset 0 0 0 2px #fff!important;cursor:pointer}
 body.hx-tool .hx-sw[aria-pressed=true],body.hx-tool .wrap button.hx-sw[aria-pressed=true]{outline:2px solid var(--hx-fg);outline-offset:2px;background:var(--c)!important;border-color:rgba(0,0,0,.18)!important}
 body.hx-tool .hx-sw:hover{outline:2px solid var(--hx-accent);outline-offset:2px}
 .swn{margin-left:6px;font-size:var(--fs-small);color:var(--hx-muted)}
 
-/* hover follows the guideline page: auxiliary colour fill, purple type (colour is sent by the page when framed) */
+/* hover follows the guideline page: auxiliary color fill, purple type (color is sent by the page when framed) */
 body.hx-p-card .wrap button:not(.primary):not([aria-pressed=true]):not([aria-checked=true]):not(.pick):not(.sw):not(.hx-sw):not(.hx-mi):hover,
 body.hx-p-letter .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover,
 :is(body.hx-p-poster,body.hx-p-slides) .btn:not(.primary):not([aria-pressed=true]):hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:not([aria-pressed=true]):hover,
@@ -330,6 +330,6 @@ html.hx-wide body.hx-p-slides>.app{padding-bottom:12px;box-sizing:border-box}
 
 /* logo/graphic pickers: squarer corners than pills */
 body.hx-tool button.tool{border-radius:10px!important}
-/* instant tooltip in the auxiliary colour */
+/* instant tooltip in the auxiliary color */
 .hx-tip{position:fixed;z-index:99999;pointer-events:none;max-width:360px;padding:6px 10px;border-radius:6px;background:var(--hx-ui,#E8E041);color:#000;font:500 12px/1.4 inherit;font-family:inherit;box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:0;transition:opacity .08s}
 .hx-tip.on{opacity:1}

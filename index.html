@@ -305,7 +305,7 @@ const TPL=[
 /* ---------- 그리기 ---------- */
 function svgMarkup(kind,m,a,ratio=true,flip=false,mono=false){
   const s=ASSETS[kind]; if(!s)return "";
-  /* UNIST version: the symbol is drawn in the main colour only (accent faces omitted), as in the Full Version logo */
+  /* UNIST version: the symbol is drawn in the main color only (accent faces omitted), as in the Full Version logo */
   const keep=mono?s.els.filter(e=>!(e[0]==="a"&&e[1].length>300)):s.els;
   const paths=keep.map(([r,d,eo])=>`<path d="${d}" fill="${r==="m"?m:a}"${eo?' fill-rule="evenodd"':""}/>`).join("");
   const g=flip?`<g transform="translate(${s.w} 0) scale(-1 1)">${paths}</g>`:paths;

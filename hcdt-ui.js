@@ -8,7 +8,7 @@
   'use strict';
   var me = document.currentScript;
   var TOOL = (me && me.getAttribute('data-tool')) || 'home';
-  /* auxiliary colour: random per load (same four as the guideline page); a framing page overrides it */
+  /* auxiliary color: random per load (same four as the guideline page); a framing page overrides it */
   try { var AUXC = ['#64D8D8', '#E8B9AA', '#73D888', '#E8E041']; document.documentElement.style.setProperty('--hx-ui', AUXC[Math.floor(Math.random() * 4)]); } catch (e) {}
   var BASE = (me && me.src) ? me.src.replace(/[^/]*$/, '') : '';
   var KEY = 'hcdt-lang';
@@ -61,7 +61,7 @@
   }
 
 
-  /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary colour ---------- */
+  /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary color ---------- */
   function frameLink() {
     var app = (TOOL === 'poster' || TOOL === 'slides'), last = -1;
     function post() {
@@ -269,7 +269,7 @@
   window.HX = { setLang: setLang, get lang() { return LANG; } };
 })();
 
-/* instant tooltip: replaces the browser's delayed title popup, shown in the auxiliary colour */
+/* instant tooltip: replaces the browser's delayed title popup, shown in the auxiliary color */
 (function () {
   var tip = null, cur = null;
   function el() { if (!tip) { tip = document.createElement('div'); tip.className = 'hx-tip'; document.body.appendChild(tip); } return tip; }
