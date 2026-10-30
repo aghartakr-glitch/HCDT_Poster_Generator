@@ -68,7 +68,8 @@ button{cursor:pointer}
 .tool:hover{border-color:var(--accent)}
 .tool svg{flex:none}
 #addLogo .tool{flex:1 1 0;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:4px;padding:8px 4px}
-#addLogo .tool svg{width:30px;height:30px}
+#addLogo .tool svg{width:100%;height:36px}
+#addLogo .tool[data-add-logo=logo_h]{flex:2.2 1 0}
 .tool span{line-height:1.25}
 #addArt .tool{align-items:center}
 
@@ -419,6 +420,7 @@ function renderScheme(){
     const chips=r.ks.flatMap(k=>GROUPS.find(x=>x.k===k).c.map((c,i)=>`<button class="pre" data-combo="${k}:${i}" title="${SW[c[0]].name} / ${SW[c[1]].name} / ${SW[c[2]].name}" aria-pressed="${!!cur&&cur.c===c}" style="background:${SW[c[0]].hex};color:${SW[c[1]].hex};--p:${SW[c[2]].hex};${c[0]==="white"?"box-shadow:inset 0 0 0 1px #ddd":""}">Aa<i></i></button>`)).join("");
     return `<div class="grp"><b>${r.t}</b><div class="chips">${chips}</div></div>`}).join("");
 }
+function logoIcon(kind){const s=ASSETS[kind];return `<svg viewBox="0 0 ${s.w} ${s.h}" preserveAspectRatio="xMidYMid meet">${s.els.map(([r,d])=>`<path d="${d}" fill="${r==="m"?SW.purple.hex:SW.verdigris.hex}"/>`).join("")}</svg>`}
 function iconFor(kind){
   if(kind==="rect")return `<svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="4" width="18" height="14" fill="${SW.purple.hex}"/></svg>`;
   const s=ASSETS[kind]; const k=20/Math.max(s.w,s.h);
@@ -435,7 +437,7 @@ const TEXT_KINDS={
 };
 function renderAdders(){
   $("#addText").innerHTML=Object.entries(TEXT_KINDS).map(([k,v])=>`<button class="tool" data-add-text="${k}"><span>${v.n}</span></button>`).join("");
-  $("#addLogo").innerHTML=Object.entries(LOGOS).map(([k,v])=>`<button class="tool" data-add-logo="${k}">${iconFor(k)}<span>${v}</span></button>`).join("");
+  $("#addLogo").innerHTML=Object.entries(LOGOS).map(([k,v])=>`<button class="tool" data-add-logo="${k}">${logoIcon(k)}<span>${v}</span></button>`).join("");
 }
 function addBlock(b){S.blocks.push(b); sel=b.id; commit(); renderPoster(); renderProps();}
 document.addEventListener("click",e=>{
