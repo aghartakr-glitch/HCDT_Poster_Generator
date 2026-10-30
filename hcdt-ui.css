@@ -336,8 +336,7 @@ body.hx-tool button.tool{border-radius:10px!important}
 
 /* inside the guideline frame (desktop width): the editor fills the frame exactly, so the page itself never scrolls;
    scroll inside a panel stops at its end instead of dragging the outer page along */
-@media (min-width:1000px){
-  html.hx-framed:not(.hx-wide) body.hx-p-poster,html.hx-framed:not(.hx-wide) body.hx-p-slides{display:flex;flex-direction:column;overflow:hidden}
-  html.hx-framed:not(.hx-wide) body.hx-p-poster>.app,html.hx-framed:not(.hx-wide) body.hx-p-slides>.app{flex:1 1 auto;min-height:0;height:auto!important}
+@media (min-width:981px){
+  html.hx-framed:not(.hx-wide) :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 215px);height:100vh!important;overflow:hidden!important;padding-bottom:0!important}
 }
 html.hx-framed *{overscroll-behavior:contain}
