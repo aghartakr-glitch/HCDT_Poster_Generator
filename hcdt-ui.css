@@ -17,7 +17,7 @@
   --hx-fg:#000000; --hx-muted:rgba(0,0,0,.7); --hx-accent:#6B00FF; --hx-accent-fg:#FFFFFF; --hx-accent-soft:rgba(107,0,255,.1); --hx-pill:9999em;
   --hx-navy:#001B54; --hx-warn:#B4400C; --hx-warn-bg:#FFF1E6;
   --hx-font:'neue-haas-unica','Neue Haas Unica','HX Helvetica','HX Spoqa','Helvetica Neue',Helvetica,Arial,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
-  --hx-h:52px; --hx-r:6px; --hx-r2:8px; --hx-max:1280px;
+  --hx-h:52px; --hx-btn-h:32px; --hx-r:6px; --hx-r2:8px; --hx-max:1280px;
   /* every tool's own token names point at the same palette */
   --bg:var(--hx-bg); --panel:var(--hx-bg); --fg:var(--hx-fg); --muted:var(--hx-muted); --line:var(--hx-line);
   --accent:var(--hx-accent); --accent-fg:var(--hx-accent-fg); --accent-soft:var(--hx-accent-soft);
@@ -97,7 +97,7 @@ body.hx-p-card .wrap button:not(.pick):not(.sw),body.hx-p-card .sw.def,
 body.hx-p-letter .wrap button,
 :is(body.hx-p-poster,body.hx-p-slides) .btn,:is(body.hx-p-poster,body.hx-p-slides) .tool,
 body.hx-p-motion .wrap button{
-  font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:32px;padding:6px 16px!important;border:1px solid var(--hx-accent)!important;border-radius:var(--hx-pill)!important;
+  font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:var(--hx-btn-h);padding:6px 16px!important;border:1px solid var(--hx-accent)!important;border-radius:var(--hx-pill)!important;
   background:var(--hx-bg)!important;color:var(--hx-accent)!important;box-shadow:none!important;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
 body.hx-p-logo .chip:hover,body.hx-p-logo .dl:hover,body.hx-p-card .wrap button:not(.pick):not(.sw):hover,body.hx-p-letter .wrap button:hover,:is(body.hx-p-poster,body.hx-p-slides) .btn:hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:hover,body.hx-p-motion .wrap button:hover{border-color:var(--hx-fg)!important}
 /* selected and primary: purple fill, white type */
@@ -126,7 +126,7 @@ body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pr
 body.hx-tool input[type=text],body.hx-tool input[type=number],body.hx-tool select,body.hx-tool textarea{
   font:400 var(--fs-small)/1.4 var(--hx-font)!important;color:var(--hx-fg)!important;background:var(--hx-bg)!important;border:1px solid var(--hx-line)!important;border-radius:var(--hx-r)!important;padding:7px 10px!important;min-height:34px}
 :is(body.hx-p-poster,body.hx-p-slides) .field input,:is(body.hx-p-poster,body.hx-p-slides) .field select,:is(body.hx-p-poster,body.hx-p-slides) .duo input{font-size:var(--fs-small)!important;min-height:30px;padding:5px 8px!important}
-body.hx-tool input:focus-visible,body.hx-tool select:focus-visible,body.hx-tool textarea:focus-visible,body.hx-tool button:focus-visible{outline:2px solid var(--hx-accent)!important;outline-offset:1px}
+body.hx-tool input:focus-visible,body.hx-tool select:focus-visible,body.hx-tool textarea:focus-visible,body.hx-tool button:focus-visible,body.hx-tool a:focus-visible,body.hx-tool summary:focus-visible{outline:2px solid var(--hx-accent)!important;outline-offset:1px}
 body.hx-tool input[type=checkbox],body.hx-tool input[type=range]{accent-color:var(--hx-accent)}
 
 /* figures in the tools' own data rows read as numbers, not code */
@@ -289,7 +289,7 @@ body.hx-tool .sec h3,body.hx-tool aside h3,body.hx-tool .panel h3,body.hx-tool .
 /* color combination chips (shared): Aa + point dot */
 body.hx-tool .hx-cgs{display:grid!important;gap:8px}
 body.hx-tool .hx-cg{display:grid;grid-template-columns:64px 1fr;align-items:center;gap:8px}
-body.hx-tool .hx-cg>b{font-size:.8125rem;font-weight:500;color:var(--hx-muted)}
+body.hx-tool .hx-cg>b{font-size:var(--fs-small);font-weight:500;color:var(--hx-muted)}
 body.hx-tool .hx-chips{display:flex;flex-wrap:wrap;gap:6px}
 body.hx-tool button.hx-chip,body.hx-tool button.hx-chip[aria-pressed]{width:56px!important;height:34px!important;padding:0!important;border-radius:6px!important;display:inline-flex!important;align-items:center;justify-content:center;gap:4px;font-weight:600!important;font-size:.9375rem!important;line-height:1;background:var(--b)!important;color:var(--t)!important;border:0!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)!important;outline:0!important}
 body.hx-tool button.hx-chip i{width:7px;height:7px;border-radius:50%;background:var(--p);display:block}
@@ -297,7 +297,7 @@ body.hx-tool button.hx-chip:hover{box-shadow:inset 0 0 0 1px rgba(0,0,0,.15),0 0
 body.hx-tool button.hx-chip[aria-pressed=true]{box-shadow:0 0 0 2px #fff,0 0 0 4px #000!important}
 
 /* CMYK preview note */
-body.hx-tool .hx-cmyk{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:10px 14px;border-radius:8px;background:var(--hx-soft);font-size:.8125rem}
+body.hx-tool .hx-cmyk{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:10px 14px;border-radius:8px;background:var(--hx-soft);font-size:var(--fs-small)}
 body.hx-tool .hx-cmyk b{font-weight:600}
 body.hx-tool .hx-cmyk-s{color:var(--hx-muted)}
 body.hx-tool .hx-cmyk-c{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
@@ -333,3 +333,11 @@ body.hx-tool button.tool{border-radius:10px!important}
 /* instant tooltip in the auxiliary color */
 .hx-tip{position:fixed;z-index:99999;pointer-events:none;max-width:360px;padding:6px 10px;border-radius:6px;background:var(--hx-ui,#E8E041);color:#000;font:500 12px/1.4 inherit;font-family:inherit;box-shadow:0 2px 8px rgba(0,0,0,.18);opacity:0;transition:opacity .08s}
 .hx-tip.on{opacity:1}
+
+/* inside the guideline frame (desktop width): the editor fills the frame exactly, so the page itself never scrolls;
+   scroll inside a panel stops at its end instead of dragging the outer page along */
+@media (min-width:1000px){
+  html.hx-framed:not(.hx-wide) body.hx-p-poster,html.hx-framed:not(.hx-wide) body.hx-p-slides{display:flex;flex-direction:column;overflow:hidden}
+  html.hx-framed:not(.hx-wide) body.hx-p-poster>.app,html.hx-framed:not(.hx-wide) body.hx-p-slides>.app{flex:1 1 auto;min-height:0;height:auto!important}
+}
+html.hx-framed *{overscroll-behavior:contain}

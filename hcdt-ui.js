@@ -64,6 +64,7 @@
   /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary color ---------- */
   function frameLink() {
     var app = (TOOL === 'poster' || TOOL === 'slides' || TOOL === 'motion'), last = -1;
+    document.documentElement.classList.add('hx-framed');
     function post() {
       var h = app ? 0 : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
       if (h === last) return; last = h;
@@ -72,6 +73,7 @@
     window.addEventListener('message', function (e) {
       var d = e.data;
       if (d && d.hcdtTipOK) window.__hxParentTip = true;
+      if (d && (d.hcdtLang === 'en' || d.hcdtLang === 'ko') && d.hcdtLang !== LANG) setLang(d.hcdtLang);
       if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
       if (d && typeof d.hcdtWide === 'boolean') { document.documentElement.classList.toggle('hx-wide', d.hcdtWide); window.dispatchEvent(new Event('resize')); }
     });
