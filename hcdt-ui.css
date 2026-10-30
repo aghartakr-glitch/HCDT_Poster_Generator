@@ -256,7 +256,7 @@ body.hx-p-poster .stagewrap{min-height:0}
 .hx-menu-pop .chk{display:flex;gap:8px;align-items:center;padding:8px 10px;font:400 var(--fs-small)/1.3 var(--hx-font);color:var(--hx-muted);border-bottom:1px solid var(--hx-line);margin-bottom:4px}
 body.hx-tool .hx-menu-pop button.hx-mi,body.hx-tool .wrap .hx-menu-pop button.hx-mi{display:block;width:100%;text-align:left;border:0!important;background:none!important;box-shadow:none!important;color:var(--hx-fg)!important;font:600 var(--fs-body)/1.3 var(--hx-font)!important;padding:8px 10px!important;border-radius:5px!important;min-height:0!important}
 body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:#f1f1f5!important}
-@media (max-width:760px){.hx-act{flex-wrap:wrap;justify-content:flex-end}.hx-act .hx-ph{display:none}}
+@media (max-width:760px){.hx-act{flex:0 1 auto;min-width:0;max-width:100%;margin-left:0;flex-wrap:wrap;justify-content:flex-end}.hx-act .hx-ph{display:none}}
 
 /* round colour swatch: the one control for choosing a colour, in every tool */
 body.hx-tool .hx-sw,body.hx-tool .wrap button.hx-sw{width:28px!important;height:28px!important;min-height:28px!important;padding:0!important;border-radius:50%!important;background:var(--c)!important;border:1px solid rgba(0,0,0,.18)!important;box-shadow:inset 0 0 0 2px #fff!important;cursor:pointer}
