@@ -668,7 +668,7 @@ window.addEventListener("keydown",e=>{
 });
 
 /* ---------- 기록 · 저장 ---------- */
-const KEY="hcdt-poster-v2";
+const KEY="hcdt-poster-v3";
 const validBlock=b=>b&&(b.type==="text"||(b.type==="logo"&&LOGOS[b.kind])||(b.type==="art"&&ARTS[b.kind]));
 const cleanScheme=sc=>(sc&&findCombo(sc))?sc:{bg:"white",text:"purple",point:"verdigris"};
 const snapshot=()=>JSON.stringify({scheme:S.scheme,blocks:S.blocks.map(({_over,_hit,...b})=>b),ui:S.ui});
@@ -857,7 +857,7 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
 (function init(){
   let loaded=false;
   try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(Array.isArray(o.blocks)&&o.blocks.length){S.scheme=cleanScheme(o.scheme);S.blocks=o.blocks.filter(validBlock);S.ui=o.ui||S.ui;loaded=true;}}}catch(_){}
-  if(!loaded){const t=TPL[0]();S.scheme={bg:"navy",text:"white",point:"white"};S.blocks=t.blocks;}
+  if(!loaded){const t=TPL[0]();S.scheme={bg:"white",text:"navy",point:"navy"};S.blocks=t.blocks;}
   renderAdders(); commit(); renderAll(); fit(); checkFonts();
 })();
 </script>
