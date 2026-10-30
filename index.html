@@ -855,7 +855,7 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
 (function init(){
   let loaded=false;
   try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(Array.isArray(o.blocks)&&o.blocks.length){S.scheme=cleanScheme(o.scheme);S.blocks=o.blocks.filter(validBlock);S.ui=o.ui||S.ui;loaded=true;}}}catch(_){}
-  if(!loaded){const t=TPL[0]();S.scheme.point=t.point;S.blocks=t.blocks;}
+  if(!loaded){const t=TPL[0]();S.scheme={bg:"navy",text:"white",point:"white"};S.blocks=t.blocks;}
   renderAdders(); commit(); renderAll(); fit(); checkFonts();
 })();
 </script>
