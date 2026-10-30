@@ -248,7 +248,7 @@ body.hx-p-poster .stagewrap{min-height:0}
 .hx-act>button,.hx-act .hx-menu>button{white-space:nowrap}
 .hx-act button[aria-pressed=true]:not(.primary){border-color:var(--hx-accent)!important;background:color-mix(in srgb,var(--hx-accent) 10%,#fff)!important;color:var(--hx-accent)!important;box-shadow:none}
 .hx-act .hx-ph{width:125px;flex:none}
-.hx-act>button,.hx-act .hx-menu>button{min-height:32px!important;height:32px;padding:0 12px!important;border-radius:var(--hx-r)!important;font-size:var(--fs-small)!important}
+.hx-act>button,.hx-act .hx-menu>button{min-height:32px!important;height:32px;padding:0 12px!important;border-radius:var(--hx-pill)!important;font-size:var(--fs-small)!important}
 .hx-act #undo,.hx-act #redo,.hx-act #btn-undo,.hx-act #btn-redo{width:32px;padding:0!important;justify-content:center}
 .hx-menu{position:relative}
 .hx-menu-pop{position:absolute;right:0;top:calc(100% + 6px);z-index:70;min-width:220px;display:flex;flex-direction:column;gap:2px;padding:6px;background:#fff;border:1px solid var(--hx-line);border-radius:8px;box-shadow:0 10px 30px rgba(18,22,51,.14)}
