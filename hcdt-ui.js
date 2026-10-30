@@ -63,7 +63,7 @@
 
   /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary color ---------- */
   function frameLink() {
-    var app = (TOOL === 'poster' || TOOL === 'slides'), last = -1;
+    var app = (TOOL === 'poster' || TOOL === 'slides' || TOOL === 'motion'), last = -1;
     function post() {
       var h = app ? 0 : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
       if (h === last) return; last = h;
