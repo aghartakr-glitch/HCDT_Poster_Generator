@@ -863,8 +863,7 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
   if(!loaded){const t=TPL[0]();S.scheme={bg:"white",text:"navy",point:"navy"};S.blocks=t.blocks;}
   renderAdders(); commit(); renderAll(); fit(); checkFonts();
   /* the default start screen changed (white + UNIST): offer the poster saved under the previous storage key */
-  if(!loaded){try{const old=localStorage.getItem("hcdt-poster-v2");if(old&&!localStorage.getItem("hcdt-poster-v2-seen")){localStorage.setItem("hcdt-poster-v2-seen","1");const o=JSON.parse(old);if(Array.isArray(o.blocks)&&o.blocks.length&&confirm("A poster from your last visit was found in this browser.
-Open it? (Cancel keeps the new default start screen.)"))restore(old);}}catch(_){}}
+  if(!loaded){try{const old=localStorage.getItem("hcdt-poster-v2");if(old&&!localStorage.getItem("hcdt-poster-v2-seen")){localStorage.setItem("hcdt-poster-v2-seen","1");const o=JSON.parse(old);if(Array.isArray(o.blocks)&&o.blocks.length&&confirm("A poster from your last visit was found in this browser. Open it? (Cancel keeps the new default start screen.)"))restore(old);}}catch(_){}}
 })();
 </script>
 
