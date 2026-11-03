@@ -64,8 +64,8 @@
   /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary color ---------- */
   function frameLink() {
     var last = -1;
-    /* poster and slides are fixed-height editors; Logo Motion only on desktop widths (stacked on phones, so the page grows) */
-    function isApp() { var w = window.innerWidth; return ((TOOL === 'poster' || TOOL === 'slides') && w >= 981) || (TOOL === 'motion' && w >= 1000); }
+    /* poster and slides stay fixed-height editors (stacked they would be thousands of px tall); Logo Motion only on desktop widths (stacked on phones, so the page grows) */
+    function isApp() { var w = window.innerWidth; return TOOL === 'poster' || TOOL === 'slides' || (TOOL === 'motion' && w >= 1000); }
     document.documentElement.classList.add('hx-framed');
     function post() {
       var app = isApp();
