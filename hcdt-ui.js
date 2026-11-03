@@ -73,7 +73,7 @@
     window.addEventListener('message', function (e) {
       var d = e.data;
       if (d && d.hcdtTipOK) window.__hxParentTip = true;
-      if (d && (d.hcdtLang === 'en' || d.hcdtLang === 'ko') && d.hcdtLang !== LANG) setLang(d.hcdtLang);
+      if (d && (d.hcdtLang === 'en' || d.hcdtLang === 'ko') && d.hcdtLang !== LANG) setLang(d.hcdtLang, false, true);
       if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
       if (d && typeof d.hcdtWide === 'boolean') { document.documentElement.classList.toggle('hx-wide', d.hcdtWide); window.dispatchEvent(new Event('resize')); }
     });
@@ -241,9 +241,9 @@
     stepsEl.setAttribute('aria-label', l === 'ko' ? '사용 순서' : 'How to use');
   }
   var barEl;
-  function setLang(l, first) {
+  function setLang(l, first, noSave) {
     LANG = l;
-    try { localStorage.setItem(KEY, l); } catch (e) {}
+    if (!noSave) { try { localStorage.setItem(KEY, l); } catch (e) {} }
     document.documentElement.lang = l;
     if (barEl) {
       barEl.querySelectorAll('.hx-t').forEach(function (a) { a.textContent = a.getAttribute('data-' + l); });
