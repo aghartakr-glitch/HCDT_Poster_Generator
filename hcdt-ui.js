@@ -63,9 +63,12 @@
 
   /* ---------- inside the Visual Guideline iframe: report height, receive the page's auxiliary color ---------- */
   function frameLink() {
-    var app = (TOOL === 'poster' || TOOL === 'slides' || TOOL === 'motion'), last = -1;
+    var last = -1;
+    /* poster and slides are fixed-height editors; Logo Motion only on desktop widths (stacked on phones, so the page grows) */
+    function isApp() { return TOOL === 'poster' || TOOL === 'slides' || (TOOL === 'motion' && window.innerWidth >= 1000); }
     document.documentElement.classList.add('hx-framed');
     function post() {
+      var app = isApp();
       var h = app ? 0 : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
       if (h === last) return; last = h;
       try { parent.postMessage({ hcdtFrame: 1, tool: TOOL, app: app, h: h }, '*'); } catch (e) {}
