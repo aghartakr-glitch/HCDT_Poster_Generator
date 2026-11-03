@@ -340,3 +340,6 @@ body.hx-tool button.tool{border-radius:10px!important}
   html.hx-framed:not(.hx-wide) :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 215px);height:100vh!important;overflow:hidden!important;padding-bottom:0!important}
 }
 html.hx-framed *{overscroll-behavior:contain}
+
+/* phones: touch-sized controls */
+@media (max-width:760px){:root{--hx-btn-h:40px}}
