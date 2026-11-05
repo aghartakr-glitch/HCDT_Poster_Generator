@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261105b">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261105c">
 
 <style>
 html,body{margin:0}
@@ -165,6 +165,10 @@ html.hx-wide .hx-steps{display:none!important}
 
 <header class="top">
   <div class="brand"><b>HCDT Poster</b><span>A4 · 4 columns × 14 rows</span><span class="badge" id="fontBadge">Checking fonts</span></div>
+  <div class="seg vseg hx-mode" id="hxMode" role="group" aria-label="Poster type">
+    <button type="button" data-mode="design" aria-pressed="true" title="Free canvas editor">Design</button>
+    <button type="button" data-mode="official" aria-pressed="false" title="Official poster: Public Defense / Seminar series (poster-test)">Official</button>
+  </div>
   <div class="hx-act">
     <button class="btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
     <button class="btn" id="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
@@ -225,6 +229,32 @@ html.hx-wide .hx-steps{display:none!important}
 
   <aside class="pane right" id="props"></aside>
 </main>
+<section class="hx-official" id="hxOfficial" hidden>
+  <iframe id="hxOfficialFrame" title="Official poster generator" data-src="https://hcdt.unist.ac.kr/poster-test" loading="lazy"></iframe>
+</section>
+<style>
+.hx-mode{margin-left:auto;margin-right:8px}
+.hx-official{height:calc(100% - 53px)}
+.hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+body.hx-official-on main.app,body.hx-official-on .hx-act{display:none!important}
+body.hx-official-on .hx-official{display:block}
+@media(max-width:900px){.hx-official{height:calc(100vh - 110px)}}
+</style>
+<script>
+(function(){
+  var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
+  function set(m){
+    var off=m==='official';
+    B.classList.toggle('hx-official-on',off);host.hidden=!off;
+    if(off&&!fr.src)fr.src=fr.dataset.src;
+    [].forEach.call(box.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m))});
+    try{history.replaceState(null,'',off?'#official':location.pathname+location.search)}catch(e){}
+  }
+  box.addEventListener('click',function(e){var b=e.target.closest('button');if(b)set(b.dataset.mode)});
+  if(location.hash==='#official')set('official');
+})();
+</script>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
