@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261105a">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261105b">
 
 <style>
 html,body{margin:0}
@@ -415,7 +415,7 @@ function loadTpl(i){
 }
 const _lum=h=>{const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2]};
 const ratio=(a,b)=>{const x=_lum(a),y=_lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
-const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C","D","E"]}];
+const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C"]}];
 const varSel={};
 function renderScheme(){
   const cur=findCombo(S.scheme);
@@ -869,6 +869,6 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
 
 <script src="dict-poster.js"></script>
 <script src="hcdt-ui.js?v=20261103e" data-tool="poster"></script>
-<script>window.HX_CMYK=['#stage','#thumbs','#combos']</script><script src="hcdt-cmyk.js?v=20261029i"></script>
+<script>window.HX_CMYK=['#stage','#thumbs','#combos']</script><script src="hcdt-cmyk.js?v=20261105b"></script>
 </body>
 </html>

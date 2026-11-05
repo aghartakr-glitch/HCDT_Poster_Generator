@@ -65,7 +65,8 @@
     if (h) { h.insertAdjacentElement('afterend', n); var cs = getComputedStyle(h); n.style.margin = '12px ' + cs.paddingRight + ' 0 ' + cs.paddingLeft; } else document.body.insertAdjacentElement('afterbegin', n);
   }
   function set(v) {
-    on = v; var b = document.getElementById('hxCmyk'); if (b) b.setAttribute('aria-pressed', String(on));
+    on = v;
+    [].slice.call(document.querySelectorAll('#hxCmyk button')).forEach(function (x) { x.setAttribute('aria-pressed', String((x.getAttribute('data-m') === 'cmyk') === on)); });
     document.documentElement.classList.toggle('hx-cmyk-on', on);
     if (!mo) mo = new MutationObserver(function () { if (on) later(); });
     applyAll(); note();
@@ -73,10 +74,13 @@
   function init() {
     roots = window.HX_CMYK || []; if (!roots.length) return;
     var grid = document.querySelector('[data-hx-grid]') || document.querySelector('#btn-grid,#grid-btn,[id*=rid][aria-pressed]'); var act = document.querySelector('.hx-act'); if (!grid && !act) return;
-    var b = document.createElement('button'); b.type = 'button'; b.id = 'hxCmyk'; if (grid && grid.className) b.className = grid.className; b.textContent = 'CMYK'; b.setAttribute('aria-pressed', 'false');
-    b.title = 'Preview print colors (coated offset, approximate)';
-    b.addEventListener('click', function () { set(!on); });
-    if (grid) grid.insertAdjacentElement('afterend', b); else { var mn = act.querySelector('.hx-menu'); act.insertBefore(b, mn || null); if (mn) { var sp = document.createElement('span'); sp.className = 'hx-sep'; act.insertBefore(sp, mn); } }
+    var g = document.createElement('div'); g.id = 'hxCmyk'; g.className = 'seg vseg hx-cmseg'; g.setAttribute('role', 'group'); g.setAttribute('aria-label', 'Color mode');
+    g.title = 'RGB: screen colors / CMYK: print preview (coated offset, approximate)';
+    [['rgb', 'RGB'], ['cmyk', 'CMYK']].forEach(function (m) {
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-m', m[0]); b.textContent = m[1]; b.setAttribute('aria-pressed', String(m[0] === 'rgb'));
+      b.addEventListener('click', function () { set(m[0] === 'cmyk'); }); g.appendChild(b);
+    });
+    if (grid) grid.insertAdjacentElement('afterend', g); else { var mn = act.querySelector('.hx-menu'); act.insertBefore(g, mn || null); if (mn) { var sp = document.createElement('span'); sp.className = 'hx-sep'; act.insertBefore(sp, mn); } }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

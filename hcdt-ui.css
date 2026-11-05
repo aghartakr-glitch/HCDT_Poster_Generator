@@ -400,3 +400,9 @@ html:not(#hxt) body.hx-tool details.spec>summary::after{content:"";flex:none;wid
 html:not(#hxt) body.hx-tool details.spec[open]>summary::after{background:linear-gradient(currentColor,currentColor) center/100% 2px no-repeat;transform:rotate(180deg)}
 html:not(#hxt) body.hx-tool details.spec>:not(summary){padding-left:var(--accordion-pad);padding-right:var(--accordion-pad)}
 html:not(#hxt) body.hx-tool :is(p,li,.note,.sub,.cap) a:not(.btn):not(.hx-mi){color:var(--hx-accent);text-decoration:underline}
+
+/* RGB | CMYK mode switch: both labels always visible, selected = filled */
+.hx-cmseg{display:inline-flex;align-items:center;gap:2px;padding:3px;flex:none}
+.hx-cmseg button{min-width:48px;padding:4px 12px!important;border-radius:9999px!important;font:600 12px/1.2 inherit;cursor:pointer}
+html:not(#hxt):not(#hxt2) .hx-cmseg button[aria-pressed=true]{background:var(--sub-medium)!important;color:#000!important;font-weight:700!important}
+html:not(#hxt):not(#hxt2) .hx-cmseg button[aria-pressed=false]{background:transparent!important;color:rgba(0,0,0,.55)!important}
