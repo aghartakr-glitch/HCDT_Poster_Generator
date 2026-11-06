@@ -252,13 +252,44 @@ html.hx-wide .hx-steps{display:none!important}
   });
 })();
 </script>
+<section class="hx-official" id="hxOfficial" hidden>
+  <iframe id="hxOfficialFrame" title="Official poster generator" data-src="https://hcdt.unist.ac.kr/poster-test" loading="lazy"></iframe>
+</section>
+<style>
+.hx-mode{margin-left:auto;margin-right:8px}
+.hx-official{height:calc(100% - 53px)}
+.hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+body.hx-official-on main.app,body.hx-official-on .hx-act{display:none!important}
+body.hx-official-on .hx-official{display:block}
+@media(max-width:900px){.hx-official{height:calc(100vh - 110px)}}
+</style>
 <script>
 (function(){
-  var box=document.getElementById('hxMode');
+  var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
   function set(m){
+    var off=m==='official';
+    B.classList.toggle('hx-official-on',off);host.hidden=!off;
+    if(off&&!fr.src)fr.src=fr.dataset.src;
+    [].forEach.call(box.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m))});
+    try{history.replaceState(null,'',off?'#official':location.pathname+location.search)}catch(e){}
+  }
+  box.addEventListener('click',function(e){var b=e.target.closest('button');if(b)set(b.dataset.mode)});
+  if(location.hash==='#official')set('official');
+})();
+</script>
+
+
+<script>
+(function(){
+  var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
+  function set(m){
+    var off=m==='official';
+    B.classList.toggle('hx-official-on',off);host.hidden=!off;
+    if(off&&!fr.src)fr.src=fr.dataset.src;
     window.HX_TPL_GROUP=m;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.mode===m))});
-    if(window.renderThumbs)renderThumbs();
+    if(!off&&window.renderThumbs)renderThumbs();
+    try{history.replaceState(null,'',off?'#official':location.pathname+location.search)}catch(e){}
   }
   window.HX_TPL_GROUP='casual';
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.mode)});
