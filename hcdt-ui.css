@@ -15,7 +15,7 @@
   --w-h1:600;--w-h2:500;--w-h3:500;--lh-body:1.5;
   --hx-bg:#FFFFFF; --hx-soft:rgba(191,191,191,.3); --hx-line:rgba(0,0,0,.2); --hx-line-strong:rgba(0,0,0,.4);
   --hx-fg:#000000; --hx-muted:rgba(0,0,0,.7); --hx-accent:#6B00FF; --hx-accent-fg:#FFFFFF; --hx-accent-soft:rgba(107,0,255,.1); --hx-pill:9999em;
-  --hx-navy:#001B54; --hx-warn:#B4400C; --hx-warn-bg:#FFF1E6;
+  --hx-navy:#001B54; --hx-warn:#B4400C; --hx-warn-bg:#FFFFFF;
   --hx-font:'neue-haas-unica','Neue Haas Unica','HX Helvetica','HX Spoqa','Helvetica Neue',Helvetica,Arial,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
   --hx-h:52px; --hx-btn-h:32px; --hx-r:6px; --hx-r2:8px; --hx-max:1280px;
   /* every tool's own token names point at the same palette */
@@ -119,7 +119,7 @@ body.hx-p-letter .crow button:hover{background:var(--hx-soft)!important}
 /* segmented controls: design-system pill, purple = selected, accent-soft = hover */
 body.hx-p-logo .seg,:is(body.hx-p-poster,body.hx-p-slides) .seg,.seg.vseg{display:inline-flex;gap:2px;padding:3px;border:1px solid var(--hx-line)!important;border-radius:var(--hx-pill)!important;overflow:visible;background:var(--hx-bg)!important}
 body.hx-p-logo .seg button,:is(body.hx-p-poster,body.hx-p-slides) .seg button{font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:26px;padding:4px 14px!important;border:0!important;border-radius:var(--hx-pill)!important;background:transparent!important;color:var(--hx-fg)!important;flex:1}
-body.hx-p-logo .seg button:hover,:is(body.hx-p-poster,body.hx-p-slides) .seg button:hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 30%,#fff)!important;color:#000!important}
+body.hx-p-logo .seg button:hover,:is(body.hx-p-poster,body.hx-p-slides) .seg button:hover{background:color-mix(in srgb,var(--hx-ui,#FFFFFF) 30%,#fff)!important;color:#000!important}
 body.hx-p-logo .seg button[aria-checked=true],body.hx-p-logo .seg button[aria-pressed=true],:is(body.hx-p-poster,body.hx-p-slides) .seg button[aria-pressed=true]{background:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:600!important}
 
 /* text fields */
@@ -255,7 +255,7 @@ body.hx-p-poster .stagewrap{min-height:0}
 .hx-menu-pop[hidden]{display:none}
 .hx-menu-pop .chk{display:flex;gap:8px;align-items:center;padding:8px 10px;font:400 var(--fs-small)/1.3 var(--hx-font);color:var(--hx-muted);border-bottom:1px solid var(--hx-line);margin-bottom:4px}
 body.hx-tool .hx-menu-pop button.hx-mi,body.hx-tool .wrap .hx-menu-pop button.hx-mi{display:block;width:100%;text-align:left;border:0!important;background:none!important;box-shadow:none!important;color:var(--hx-fg)!important;font:600 var(--fs-body)/1.3 var(--hx-font)!important;padding:8px 10px!important;border-radius:5px!important;min-height:0!important}
-body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:#f1f1f5!important}
+body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:#FFFFFF!important}
 @media (max-width:760px){.hx-act{flex:0 1 auto;min-width:0;max-width:100%;margin-left:0;flex-wrap:wrap;justify-content:flex-end}.hx-act .hx-ph{display:none}}
 
 /* round color swatch: the one control for choosing a color, in every tool */
@@ -268,8 +268,8 @@ body.hx-tool .hx-sw:hover{outline:2px solid var(--hx-accent);outline-offset:2px}
 body.hx-p-card .wrap button:not(.primary):not([aria-pressed=true]):not([aria-checked=true]):not(.pick):not(.sw):not(.hx-sw):not(.hx-mi):hover,
 body.hx-p-letter .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover,
 :is(body.hx-p-poster,body.hx-p-slides) .btn:not(.primary):not([aria-pressed=true]):hover,:is(body.hx-p-poster,body.hx-p-slides) .tool:not([aria-pressed=true]):hover,
-body.hx-p-motion .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover{background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 30%,#fff)!important;border-color:var(--hx-ui,var(--hx-accent))!important;color:var(--hx-accent)!important}
-body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:color-mix(in srgb,var(--hx-ui,#E4E0F2) 45%,#fff)!important}
+body.hx-p-motion .wrap button:not(.primary):not([aria-pressed=true]):not(.hx-sw):not(.hx-mi):hover{background:color-mix(in srgb,var(--hx-ui,#FFFFFF) 30%,#fff)!important;border-color:var(--hx-ui,var(--hx-accent))!important;color:var(--hx-accent)!important}
+body.hx-tool .hx-menu-pop button.hx-mi:hover:not(:disabled),body.hx-tool .wrap .hx-menu-pop button.hx-mi:hover:not(:disabled){background:color-mix(in srgb,var(--hx-ui,#FFFFFF) 45%,#fff)!important}
 body.hx-tool .hx-sw:hover{outline-color:var(--hx-accent)}
 
 /* notices and warnings: design-system Notice = 4px accent bar + soft accent fill + black text */
