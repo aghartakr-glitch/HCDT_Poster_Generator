@@ -167,8 +167,8 @@ html.hx-wide .hx-steps{display:none!important}
 <header class="top">
   <div class="brand"><b>HCDT Poster</b><span>A4 · 4 columns × 14 rows</span><span class="badge" id="fontBadge">Checking fonts</span></div>
   <div class="seg vseg hx-mode" id="hxMode" role="group" aria-label="Poster type">
-    <button type="button" data-mode="design" aria-pressed="true" title="Free canvas editor">Design</button>
-    <button type="button" data-mode="official" aria-pressed="false" title="Official poster: Public Defense / Seminar series (poster-test)">Official</button>
+    <button type="button" data-mode="casual" aria-pressed="true" title="Casual posters: free canvas templates">Casual</button>
+    <button type="button" data-mode="official" aria-pressed="false" title="Official posters: defense and seminar series">Official</button>
   </div>
   <div class="hx-act">
     <button class="btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
@@ -252,29 +252,17 @@ html.hx-wide .hx-steps{display:none!important}
   });
 })();
 </script>
-<section class="hx-official" id="hxOfficial" hidden>
-  <iframe id="hxOfficialFrame" title="Official poster generator" data-src="https://hcdt.unist.ac.kr/poster-test" loading="lazy"></iframe>
-</section>
-<style>
-.hx-mode{margin-left:auto;margin-right:8px}
-.hx-official{height:calc(100% - 53px)}
-.hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
-body.hx-official-on main.app,body.hx-official-on .hx-act{display:none!important}
-body.hx-official-on .hx-official{display:block}
-@media(max-width:900px){.hx-official{height:calc(100vh - 110px)}}
-</style>
 <script>
 (function(){
-  var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
+  var box=document.getElementById('hxMode');
   function set(m){
-    var off=m==='official';
-    B.classList.toggle('hx-official-on',off);host.hidden=!off;
-    if(off&&!fr.src)fr.src=fr.dataset.src;
-    [].forEach.call(box.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m))});
-    try{history.replaceState(null,'',off?'#official':location.pathname+location.search)}catch(e){}
+    window.HX_TPL_GROUP=m;
+    [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.mode===m))});
+    if(window.renderThumbs)renderThumbs();
   }
-  box.addEventListener('click',function(e){var b=e.target.closest('button');if(b)set(b.dataset.mode)});
-  if(location.hash==='#official')set('official');
+  window.HX_TPL_GROUP='casual';
+  box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.mode)});
+  window.addEventListener('load',function(){if(location.hash==='#official')set('official')});
 })();
 </script>
 
@@ -468,7 +456,7 @@ function checkOverflow(){
 function renderThumbs(){
   const box=$("#thumbs"); box.replaceChildren();
   TPL.forEach((fn,i)=>{
-    if(i===0||i===6){const h=document.createElement("div");h.className="thumb-group";h.textContent=i===0?"Casual":"Official";box.append(h);}
+    if((i>=6)!==((window.HX_TPL_GROUP||"casual")==="official"))return;
     const t=fn(); const btn=document.createElement("button");
     btn.className="thumb"; btn.title=`Load template ${i+1}`;
     const p=buildPoster({scheme:{...S.scheme},blocks:t.blocks},false);

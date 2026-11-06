@@ -409,13 +409,11 @@ html:not(#hxt):not(#hxt2) .hx-cmseg button[data-m=rgb][aria-pressed=true]{backgr
 html:not(#hxt):not(#hxt2) .hx-cmseg button[data-m=cmyk][aria-pressed=true]{background:rgba(232,224,65,.7)!important;color:#000!important}
 html:not(#hxt):not(#hxt2) .hx-cmseg button[aria-pressed=false]{background:transparent!important;color:rgba(0,0,0,.55)!important}
 
-/* On/off toggle (RGB | CMYK, Design | Official): same spec as the Component Library "Toggle" button.
-   Idle: white, 25% black border. Hover: lifts up-left with a hard sub-colour shadow.
-   Selected: black border, sub-colour at 45%. Press: flat. */
-body.hx-tool .hx-cmseg{gap:8px!important;padding:0!important;border:0!important;background:transparent!important;border-radius:0!important}
-body.hx-tool .hx-cmseg button{font:500 var(--fs-small)/1.2 var(--hx-font)!important;min-height:36px!important;padding:8px 18px!important;border:1.5px solid rgba(0,0,0,.25)!important;border-radius:9999px!important;background:#fff!important;color:#000!important;box-shadow:none!important;transform:none!important;transition:transform 150ms,box-shadow 150ms,background-color 150ms,border-color 150ms!important}
-body.hx-tool .hx-cmseg button:hover{border-color:#000!important;box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important;transform:translate(-3px,-3px)!important}
-body.hx-tool .hx-cmseg button[aria-pressed="true"]{border-color:#000!important;background:color-mix(in srgb,var(--hx-ui,#E8E041) 45%,#fff)!important;color:#000!important;font-weight:600!important}
-body.hx-tool .hx-cmseg button[aria-pressed="true"]:hover{background:color-mix(in srgb,var(--hx-ui,#E8E041) 45%,#fff)!important}
-body.hx-tool .hx-cmseg button:active{box-shadow:none!important;transform:none!important}
-@media (prefers-reduced-motion:reduce){body.hx-tool .hx-cmseg button,body.hx-tool .hx-cmseg button:hover{transition:none!important;transform:none!important}}
+/* Global buttons (Component Library): purple pill, purple outline for secondary; hover lifts up-left with a hard sub-colour shadow.
+   Mode toggles (RGB | CMYK, Casual | Official): purple outline; selected = sub-colour 45% fill. No grey or black borders. */
+body.hx-tool .hx-cmseg,body.hx-tool .hx-mode{gap:8px!important;padding:0!important;border:0!important;background:transparent!important;border-radius:0!important}
+body.hx-tool .hx-cmseg button,body.hx-tool .hx-mode button{font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:36px!important;padding:8px 18px!important;border:1.5px solid var(--hx-accent)!important;border-radius:9999px!important;background:transparent!important;color:var(--hx-accent)!important;box-shadow:none!important;transform:none!important;transition:transform 150ms,box-shadow 150ms,background-color 150ms!important}
+body.hx-tool .hx-cmseg button[aria-pressed="true"],body.hx-tool .hx-mode button[aria-pressed="true"]{background:color-mix(in srgb,var(--hx-ui,#E8E041) 45%,#fff)!important;color:var(--hx-accent)!important}
+body.hx-tool .hx-cmseg button:hover,body.hx-tool .hx-mode button:hover,body.hx-tool .hx-act button:not(.primary):hover{box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important;transform:translate(-3px,-3px)!important}
+body.hx-tool .hx-cmseg button:active,body.hx-tool .hx-mode button:active,body.hx-tool .hx-act button:active{box-shadow:none!important;transform:none!important}
+@media (prefers-reduced-motion:reduce){body.hx-tool .hx-cmseg button,body.hx-tool .hx-mode button,body.hx-tool .hx-act button{transition:none!important;transform:none!important}}
