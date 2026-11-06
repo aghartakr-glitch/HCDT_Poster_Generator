@@ -87,6 +87,7 @@ button{cursor:pointer}
 .note.warn{color:var(--warn)}
 
 .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.thumb-group{grid-column:1/-1;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
 .thumb{border:1px solid var(--line);border-radius:4px;padding:0;overflow:hidden;aspect-ratio:210/297;position:relative;background:#fff;max-width:100%}
 .thumb:hover{border-color:var(--accent)}
 .thumb .poster{position:absolute;left:0;top:0;transform-origin:0 0;pointer-events:none}
@@ -353,7 +354,24 @@ const TPL=[
   ()=>({point:"fluoxetine",blocks:[A("g3",0,0,210,160.1),T(14,167.4,182,60,800,1.12,"2026 HCDT<br>DESIGN NIGHT"),T(14,228.1,89,8,400,1.63,LEAD),T(107,228.1,89,8,500,1.63,"<b>19 NOVEMBER 2026<br>18:00 – 21:00</b><br>UNIST · BUILDING 104 · 9F 50 UNIST-gil, Ulju-gun, Ulsan"),T(107,247.8,89,8,400,1.63,SCHED),L(14,273.4)]}),
   ()=>({point:"terracotta",blocks:[A("g4",14,14,172.88,269),T(153.5,189.1,42.5,8,400,1.63,LEAD_W),T(153.5,247.6,42.5,8,500,1.63,INFO)]}),
   ()=>({point:"fluoxetine",blocks:[A("g5",0,0,97.21,297),T(107,11.4,89,60,800,1.12,"2026<br>HCDT<br>DESIGN<br>NIGHT"),T(107,110.8,89,13,400,1.31,LEAD_W),T(107,169.3,89,13,500,1.31,INFO3),T(107,227.9,89,13,400,1.31,SCHED),L(153.5,273.4)]}),
-  ()=>({point:"fluoxetine",blocks:[A("g6",11.34,8.14,187.31,274.22),H6(60.5,10.6,89,80,800,1,"2026"),H6(14,48.2,89,80,800,1,"HCDT"),H6(60.5,88.6,135.5,80,800,1,"DESIGN"),H6(107,127.6,89,80,800,1,"NIGHT"),T(14,169.3,89,13,400,1.31,LEAD_W),T(107,208.3,89,13,500,1.31,INFO3),T(60.5,247.5,135.5,13,400,1.31,SCHED),L(153.5,17.5)]})
+  ()=>({point:"fluoxetine",blocks:[A("g6",11.34,8.14,187.31,274.22),H6(60.5,10.6,89,80,800,1,"2026"),H6(14,48.2,89,80,800,1,"HCDT"),H6(60.5,88.6,135.5,80,800,1,"DESIGN"),H6(107,127.6,89,80,800,1,"NIGHT"),T(14,169.3,89,13,400,1.31,LEAD_W),T(107,208.3,89,13,500,1.31,INFO3),T(60.5,247.5,135.5,13,400,1.31,SCHED),L(153.5,17.5)]}),
+  /* official: defense and seminar posters (sample data from the poster-test page) */
+  ()=>{const c=(x,y,k,n,tp,d)=>[A("g2",x,y,57,40),T(x,y+46,57,7,500,1.4,k),T(x,y+53,57,10,700,1.3,n),T(x,y+61,57,8,400,1.4,tp),T(x,y+74,57,7,400,1.4,"<b>"+d+"</b><br>E104 1005 (TD Room)")];
+    return {point:"purple",blocks:[T(14,14,182,56,800,1,"Public<br>Defense"),T(14,62,182,15,700,1.3,"Design Department 2026 Fall"),
+      ...c(14,96,"MASTER'S THESIS DEFENSE","Alex Kim","Designing Calm Technology for Shared Homes","SEP 8 (TUE) 13:00"),
+      ...c(77.3,96,"MASTER'S THESIS DEFENSE","Mina Park","Emotion-Aware Interfaces for Autonomous Vehicles","SEP 15 (TUE) 15:00"),
+      ...c(140.6,96,"DOCTORAL THESIS DEFENSE","Daniel Lee","Participatory Futures in Public Services","SEP 22 (TUE) 17:15"),
+      ...c(14,190,"MASTER'S THESIS DEFENSE","Sora Choi","How Robots Earn Trust in Small Daily Moments","SEP 29 (TUE) 13:00"),
+      ...c(77.3,190,"MASTER'S THESIS DEFENSE","Jonas Weber","Data Physicalization for Climate Awareness","OCT 6 (TUE) 15:00"),
+      L(14,280,50)]};},
+  ()=>{const c=(x,y,n,tp,d)=>[A("g2",x,y,57,40),T(x,y+46,57,7,500,1.4,"SEMINAR SERIES"),T(x,y+53,57,10,700,1.3,n),T(x,y+61,57,8,400,1.4,tp),T(x,y+74,57,7,400,1.4,"<b>"+d+"</b><br>E104 1005 (TD Room)")];
+    return {point:"purple",blocks:[T(14,14,182,56,800,1,"Seminar<br>Series"),T(14,62,182,15,700,1.3,"Design Department 2026 Fall"),
+      ...c(14,96,"Alex Kim","Designing Calm Technology for Shared Homes","SEP 8 (TUE) 13:00"),
+      ...c(77.3,96,"Mina Park","Emotion-Aware Interfaces for Autonomous Vehicles","SEP 15 (TUE) 15:00"),
+      ...c(140.6,96,"Daniel Lee","Participatory Futures in Public Services","SEP 22 (TUE) 17:15"),
+      ...c(14,190,"Sora Choi","How Robots Earn Trust in Small Daily Moments","SEP 29 (TUE) 13:00"),
+      ...c(77.3,190,"Jonas Weber","Data Physicalization for Climate Awareness","OCT 6 (TUE) 15:00"),
+      L(14,280,50)]};}
 ];
 
 /* ---------- 그리기 ---------- */
@@ -450,6 +468,7 @@ function checkOverflow(){
 function renderThumbs(){
   const box=$("#thumbs"); box.replaceChildren();
   TPL.forEach((fn,i)=>{
+    if(i===0||i===6){const h=document.createElement("div");h.className="thumb-group";h.textContent=i===0?"Casual":"Official";box.append(h);}
     const t=fn(); const btn=document.createElement("button");
     btn.className="thumb"; btn.title=`Load template ${i+1}`;
     const p=buildPoster({scheme:{...S.scheme},blocks:t.blocks},false);
