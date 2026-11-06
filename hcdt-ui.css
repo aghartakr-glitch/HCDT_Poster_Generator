@@ -410,37 +410,39 @@ html:not(#hxt):not(#hxt2) .hx-cmseg button[data-m=cmyk][aria-pressed=true]{backg
 html:not(#hxt):not(#hxt2) .hx-cmseg button[aria-pressed=false]{background:transparent!important;color:rgba(0,0,0,.55)!important}
 
 /* ===== Buttons: one system, by purpose, one toolbar size ===================================
-   Primary    .primary                 purple fill, white text            the one main action (Export)
-   Secondary  default                  purple outline, purple text        supporting actions (Save, Open, Present)
-   Quiet      Undo, Redo               no outline, purple text            low emphasis
-   Toggle     [aria-pressed]           tinted pill, black text; on = sub-colour 45%      settings that switch on and off (Grid, Casual | Official)
-   Colour mode  .hx-cmseg              RGB = the main purple as on screen, CMYK = the same purple as it prints (#564897);
-                                       the selected one has a ring in its own colour
-   Toolbar size 32px high, 14px type, pill. No grey or black outlines. Hover lifts with a sub-colour shadow (Component Library). */
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{display:inline-flex!important;align-items:center;justify-content:center;height:32px!important;min-height:32px!important;padding:0 14px!important;border-radius:9999px!important;font:600 var(--fs-small)/1 var(--hx-font)!important;white-space:nowrap;transition:transform 150ms,box-shadow 150ms,background-color 150ms!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode{display:inline-flex!important;gap:8px!important;padding:0!important;border:0!important;background:transparent!important;border-radius:0!important}
+   Primary      .primary                 purple fill, white text                     the one main action (Export)
+   Secondary    default                  purple outline, purple text                 Save, Open, Present
+   Quiet        Undo, Redo               no outline, purple text                     low emphasis
+   Toggle       [aria-pressed] alone     ON = purple fill, white text; OFF = purple outline        Grid
+   Segmented    .hx-cmseg, .hx-mode      one pill, one ring; the chosen segment is filled, the other is outlined
+                                         RGB chosen = purple fill; CMYK chosen = #564897 fill (the same purple as it prints)
+                                         Casual | Official chosen = purple fill
+   Toolbar size 32px high, 14px type, pill. No grey or black outlines. */
 
-/* Quiet */
+/* Secondary (outline) and Primary (fill) in the toolbar */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button{display:inline-flex!important;align-items:center;justify-content:center;height:32px!important;min-height:32px!important;padding:0 14px!important;border-radius:9999px!important;font:600 var(--fs-small)/1 var(--hx-font)!important;white-space:nowrap;border:1.5px solid var(--hx-accent)!important;background:#fff!important;color:var(--hx-accent)!important;box-shadow:none!important;transform:none!important;transition:transform 150ms,box-shadow 150ms,background-color 150ms!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button.primary,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button.primary{background:var(--hx-accent)!important;color:#fff!important}
+
+/* Quiet: Undo, Redo */
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #undo,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #redo{width:32px;padding:0!important;border:0!important;background:transparent!important;color:var(--hx-accent)!important}
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #undo:hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #redo:hover{background:color-mix(in srgb,var(--hx-ui,#E8E041) 15%,#fff)!important}
 
-/* Toggle: tinted pill, no outline; on = sub-colour 45% */
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed]:not(.primary):not([data-m]),html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{border:0!important;background:color-mix(in srgb,var(--hx-ui,#E8E041) 15%,#fff)!important;color:var(--hx-fg)!important;box-shadow:none!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed="true"]:not(.primary):not([data-m]),html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button[aria-pressed="true"]{background:color-mix(in srgb,var(--hx-ui,#E8E041) 45%,#fff)!important;color:var(--hx-fg)!important}
+/* Toggle (single on/off): ON filled, OFF outlined */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed="true"]:not(.primary){background:var(--hx-accent)!important;color:#fff!important;border-color:var(--hx-accent)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed="false"]:not(.primary){background:#fff!important;color:var(--hx-accent)!important;border-color:var(--hx-accent)!important}
 
-/* Colour mode toggle */
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button{border:0!important;color:#fff!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=rgb]{background:#6B00FF!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=cmyk]{background:#564897!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=rgb][aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px #6B00FF!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=cmyk][aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px #564897!important}
+/* Segmented controls: one pill with one ring. The chosen segment is filled; the other is plain text in the same ring. */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode{display:inline-flex!important;align-items:center;gap:0!important;padding:3px!important;border:1.5px solid var(--hx-accent)!important;border-radius:9999px!important;background:#fff!important;box-shadow:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{height:30px!important;min-height:30px!important;padding:0 16px!important;border:0!important;border-radius:9999px!important;background:transparent!important;color:var(--hx-accent)!important;font:600 var(--fs-small)/1 var(--hx-font)!important;box-shadow:none!important;transform:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[aria-pressed="true"][data-m=rgb]{background:#6B00FF!important;color:#fff!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[aria-pressed="true"][data-m=cmyk]{background:#564897!important;color:#fff!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button[aria-pressed="true"]{background:var(--hx-accent)!important;color:#fff!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[aria-pressed="false"],html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button[aria-pressed="false"]{background:transparent!important;color:var(--hx-accent)!important}
 
-/* Hover (all purposes except Quiet): lifts up-left with a hard sub-colour shadow; press = flat */
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:not(#undo):not(#redo):hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button:hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button:hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=rgb][aria-pressed="true"]:hover{box-shadow:0 0 0 2px #fff,0 0 0 4px #6B00FF,6px 6px 0 var(--hx-ui,#E8E041)!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=cmyk][aria-pressed="true"]:hover{box-shadow:0 0 0 2px #fff,0 0 0 4px #564897,6px 6px 0 var(--hx-ui,#E8E041)!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button:active{transform:none!important;box-shadow:none!important}
-@media (prefers-reduced-motion:reduce){html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{transition:none!important;transform:none!important}}
+/* Hover: standalone buttons only (not the segmented pills) lift with a hard sub-colour shadow */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:not(#undo):not(#redo):hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button:active{transform:none!important;box-shadow:none!important}
+@media (prefers-reduced-motion:reduce){html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button{transition:none!important;transform:none!important}}
 
 /* Poster and Slides on a desktop screen: the workspace fits the window and the page itself does not scroll.
    The side panels scroll inside, so the canvas stays in view while you work. */
