@@ -465,3 +465,8 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:active,html:not
   body.hx-p-letter>.wrap>main>*{min-height:0;overflow:auto}
   body.hx-p-letter .pvbar{top:0!important}
 }
+
+/* visual line strip under the top bar */
+.hx-lines{height:34px;display:flex;align-items:center;background:#fff;border-bottom:1px solid var(--hx-line);overflow:hidden}
+.hx-lines svg{width:100%;height:100%;display:block}
+html.embed .hx-lines{display:none}
