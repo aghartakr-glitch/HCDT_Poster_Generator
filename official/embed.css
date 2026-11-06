@@ -29,3 +29,11 @@ button[disabled] { opacity: .4; }
 details.sec > summary { font-weight: 600; }
 
 @media (prefers-reduced-motion: reduce) { button, .btn { transition: none; } }
+
+/* Same frame as the HCDT tools: 14px body text, 272px side pane, 12px labels in sentence case, 34px fields */
+html, body { font: 14px/1.5 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', sans-serif; }
+.hp-app { grid-template-columns: 272px 1fr; }
+#hp-editor { border-right: 1px solid #dfe0e6; }
+details.sec > summary { font-size: 14px; font-weight: 600; padding: 12px 16px; }
+.f > label, .lbl { font-size: 12px; font-weight: 400; color: #5f6066; text-transform: none; letter-spacing: 0; }
+input[type=text], input[type=url], input[type=number], select, textarea { min-height: 34px; padding: 6px 10px; border-radius: 6px; font-size: 14px; }

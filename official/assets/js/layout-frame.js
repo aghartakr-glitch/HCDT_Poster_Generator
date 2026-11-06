@@ -19,7 +19,7 @@
   HP.variant = function (rng, st) {
     var pick = function (a) { return a[Math.floor(rng() * a.length)]; };
     return {
-      frame: st.scheme === 'light' && rng() < 0.4 ? 'wedge' : 'plain', qrPos: pick(['br', 'tr']),
+      frame: 'plain' /* guideline: the Full Version is shown as the approved lockup on white or navy; no purple wedge on the logo area */, qrPos: pick(['br', 'tr']),
       slant: pick(['up', 'down', 'alt']), stagger: pick(['alt', 'wave', 'rise', 'alt']), amp: 0.12 + rng() * 0.16,
       vplace: pick(['top', 'mid']), flip: rng() < 0.5
     };
