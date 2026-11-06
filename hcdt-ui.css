@@ -409,11 +409,59 @@ html:not(#hxt):not(#hxt2) .hx-cmseg button[data-m=rgb][aria-pressed=true]{backgr
 html:not(#hxt):not(#hxt2) .hx-cmseg button[data-m=cmyk][aria-pressed=true]{background:rgba(232,224,65,.7)!important;color:#000!important}
 html:not(#hxt):not(#hxt2) .hx-cmseg button[aria-pressed=false]{background:transparent!important;color:rgba(0,0,0,.55)!important}
 
-/* Global buttons (Component Library): purple pill, purple outline for secondary; hover lifts up-left with a hard sub-colour shadow.
-   Mode toggles (RGB | CMYK, Casual | Official): purple outline; selected = sub-colour 45% fill. No grey or black borders. */
-body.hx-tool .hx-cmseg,body.hx-tool .hx-mode{gap:8px!important;padding:0!important;border:0!important;background:transparent!important;border-radius:0!important}
-body.hx-tool .hx-cmseg button,body.hx-tool .hx-mode button{font:600 var(--fs-small)/1.2 var(--hx-font)!important;min-height:36px!important;padding:8px 18px!important;border:1.5px solid var(--hx-accent)!important;border-radius:9999px!important;background:transparent!important;color:var(--hx-accent)!important;box-shadow:none!important;transform:none!important;transition:transform 150ms,box-shadow 150ms,background-color 150ms!important}
-body.hx-tool .hx-cmseg button[aria-pressed="true"],body.hx-tool .hx-mode button[aria-pressed="true"]{background:color-mix(in srgb,var(--hx-ui,#E8E041) 45%,#fff)!important;color:var(--hx-accent)!important}
-body.hx-tool .hx-cmseg button:hover,body.hx-tool .hx-mode button:hover,body.hx-tool .hx-act button:not(.primary):hover{box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important;transform:translate(-3px,-3px)!important}
-body.hx-tool .hx-cmseg button:active,body.hx-tool .hx-mode button:active,body.hx-tool .hx-act button:active{box-shadow:none!important;transform:none!important}
-@media (prefers-reduced-motion:reduce){body.hx-tool .hx-cmseg button,body.hx-tool .hx-mode button,body.hx-tool .hx-act button{transition:none!important;transform:none!important}}
+/* ===== Buttons: one system, by purpose, one toolbar size ===================================
+   Primary    .primary                 purple fill, white text            the one main action (Export)
+   Secondary  default                  purple outline, purple text        supporting actions (Save, Open, Present)
+   Quiet      Undo, Redo               no outline, purple text            low emphasis
+   Toggle     [aria-pressed]           tinted pill, black text; on = sub-colour 45%      settings that switch on and off (Grid, Casual | Official)
+   Colour mode  .hx-cmseg              RGB = the main purple as on screen, CMYK = the same purple as it prints (#564897);
+                                       the selected one has a ring in its own colour
+   Toolbar size 32px high, 14px type, pill. No grey or black outlines. Hover lifts with a sub-colour shadow (Component Library). */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{display:inline-flex!important;align-items:center;justify-content:center;height:32px!important;min-height:32px!important;padding:0 14px!important;border-radius:9999px!important;font:600 var(--fs-small)/1 var(--hx-font)!important;white-space:nowrap;transition:transform 150ms,box-shadow 150ms,background-color 150ms!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode{display:inline-flex!important;gap:8px!important;padding:0!important;border:0!important;background:transparent!important;border-radius:0!important}
+
+/* Quiet */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #undo,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #redo{width:32px;padding:0!important;border:0!important;background:transparent!important;color:var(--hx-accent)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #undo:hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #redo:hover{background:color-mix(in srgb,var(--hx-ui,#E8E041) 15%,#fff)!important}
+
+/* Toggle: tinted pill, no outline; on = sub-colour 45% */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed]:not(.primary):not([data-m]),html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{border:0!important;background:color-mix(in srgb,var(--hx-ui,#E8E041) 15%,#fff)!important;color:var(--hx-fg)!important;box-shadow:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed="true"]:not(.primary):not([data-m]),html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button[aria-pressed="true"]{background:color-mix(in srgb,var(--hx-ui,#E8E041) 45%,#fff)!important;color:var(--hx-fg)!important}
+
+/* Colour mode toggle */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button{border:0!important;color:#fff!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=rgb]{background:#6B00FF!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=cmyk]{background:#564897!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=rgb][aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px #6B00FF!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=cmyk][aria-pressed="true"]{box-shadow:0 0 0 2px #fff,0 0 0 4px #564897!important}
+
+/* Hover (all purposes except Quiet): lifts up-left with a hard sub-colour shadow; press = flat */
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:not(#undo):not(#redo):hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button:hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button:hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=rgb][aria-pressed="true"]:hover{box-shadow:0 0 0 2px #fff,0 0 0 4px #6B00FF,6px 6px 0 var(--hx-ui,#E8E041)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button[data-m=cmyk][aria-pressed="true"]:hover{box-shadow:0 0 0 2px #fff,0 0 0 4px #564897,6px 6px 0 var(--hx-ui,#E8E041)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button:active{transform:none!important;box-shadow:none!important}
+@media (prefers-reduced-motion:reduce){html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-cmseg button,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-mode button{transition:none!important;transform:none!important}}
+
+/* Poster and Slides on a desktop screen: the workspace fits the window and the page itself does not scroll.
+   The side panels scroll inside, so the canvas stays in view while you work. */
+@media (min-width:981px){
+  html:has(body.hx-p-poster),html:has(body.hx-p-slides){height:100%!important}
+  :is(body.hx-p-poster,body.hx-p-slides){display:flex!important;flex-direction:column;box-sizing:border-box!important;height:100dvh!important;overflow:hidden!important;padding-bottom:12px!important}
+  :is(body.hx-p-poster,body.hx-p-slides)>*{flex:none}
+  body.hx-p-poster>main.app{flex:1 1 0!important;min-height:0!important;height:auto!important}
+  body.hx-p-slides>.app{flex:1 1 0!important;min-height:0!important;height:auto!important;display:grid!important;grid-template-rows:auto auto minmax(0,1fr)!important}
+  body.hx-p-slides .main{height:auto!important;min-height:0!important}
+  :is(body.hx-p-poster>header.top,body.hx-p-slides header.top){margin-top:12px!important}
+  :is(body.hx-p-poster,body.hx-p-slides) .hx-steps,body.hx-p-slides .app>.hx-steps{margin:12px auto!important}
+  body.hx-p-poster>main.app,body.hx-p-poster>header.top,body.hx-p-poster>.hx-steps,body.hx-p-poster>.hx-official,body.hx-p-slides>.app{width:100%!important;max-width:var(--hx-max)!important;box-sizing:border-box}
+}
+
+/* Letter on a desktop screen: the form and the page preview scroll on their own, so the preview stays in view while you type */
+@media (min-width:981px){
+  body.hx-p-letter{display:flex;flex-direction:column;box-sizing:border-box;height:100dvh;overflow:hidden}
+  body.hx-p-letter>.wrap{flex:1 1 0;min-height:0;display:flex!important;flex-direction:column;width:100%;box-sizing:border-box}
+  body.hx-p-letter>.wrap>header,body.hx-p-letter>.wrap>.hx-steps{flex:none}
+  body.hx-p-letter>.wrap>main{flex:1 1 0;min-height:0;grid-template-rows:minmax(0,1fr)!important;align-items:stretch}
+  body.hx-p-letter>.wrap>main>*{min-height:0;overflow:auto}
+  body.hx-p-letter .pvbar{top:0!important}
+}

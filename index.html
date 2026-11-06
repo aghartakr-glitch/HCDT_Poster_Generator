@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261105d">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261107f">
 
 <style>
 html,body{margin:0}
@@ -253,15 +253,17 @@ html.hx-wide .hx-steps{display:none!important}
 })();
 </script>
 <section class="hx-official" id="hxOfficial" hidden>
-  <iframe id="hxOfficialFrame" title="Official poster generator" data-src="https://hcdt.unist.ac.kr/poster-test" loading="lazy"></iframe>
+  <iframe id="hxOfficialFrame" title="Official poster generator" data-src="official/index.html"></iframe>
 </section>
 <style>
 .hx-mode{margin-left:auto;margin-right:8px}
-.hx-official{height:calc(100% - 53px)}
+.hx-official{height:calc(100dvh - 140px)}
 .hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
-body.hx-official-on main.app,body.hx-official-on .hx-act{display:none!important}
+/* Official: the generator below has its own panels; the top bar keeps Save and Export (PDF / PNG) */
+body.hx-official-on main.app{display:none!important}
+body.hx-official-on #undo,body.hx-official-on #redo,body.hx-official-on #hxGrid,body.hx-official-on #openJson,body.hx-official-on #hxCmyk,body.hx-official-on .hx-act .hx-sep{display:none!important}
 body.hx-official-on .hx-official{display:block}
-@media(max-width:900px){.hx-official{height:calc(100vh - 110px)}}
+@media(min-width:981px){body.hx-p-poster>.hx-official{flex:1 1 0;min-height:0;height:auto}}
 </style>
 <script>
 (function(){
@@ -293,6 +295,15 @@ body.hx-official-on .hx-official{display:block}
   }
   window.HX_TPL_GROUP='casual';
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.mode)});
+  /* Official: Save / PDF / PNG in the top bar run the generator's own export */
+  document.addEventListener('click',function(e){
+    if(!B.classList.contains('hx-official-on'))return;
+    var t=e.target.closest('#saveJson,#savePdf,#savePng');if(!t)return;
+    var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
+    e.preventDefault();e.stopImmediatePropagation();
+    var pop=t.closest('.hx-menu-pop');if(pop){pop.hidden=true;var mb=pop.parentNode.querySelector('[data-hx-menu]');if(mb)mb.setAttribute('aria-expanded','false');}
+    if(t.id==='savePdf')HP.exportPdf();else if(t.id==='savePng')HP.exportPng();else HP.saveProject();
+  },true);
   window.addEventListener('load',function(){if(location.hash==='#official')set('official')});
 })();
 </script>

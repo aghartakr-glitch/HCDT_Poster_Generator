@@ -1,0 +1,31 @@
+@font-face{font-family:'Helvetica Neue';font-weight:400;font-display:swap;src:url('../assets/helvetica-400.otf') format('opentype');unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:'Helvetica Neue';font-weight:500 900;font-display:swap;src:url('../assets/helvetica-700.otf') format('opentype');unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122}
+@font-face{font-family:'Spoqa Han Sans Neo';font-weight:400;font-display:swap;src:url('../assets/spoqa-400.woff2') format('woff2')}
+@font-face{font-family:'Spoqa Han Sans Neo';font-weight:500 900;font-display:swap;src:url('../assets/spoqa-700.woff2') format('woff2')}
+/* Used inside the HCDT Poster tool (Official mode).
+   The tool's own top bar drives Save / PDF / PNG, so this page hides its header and fills the frame.
+   Buttons follow the global (Component Library) style: purple pill, purple outline, primary filled. */
+html, body { height: 100%; overflow: hidden; }
+body { font-family: 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', 'Noto Sans KR', sans-serif; font-weight: 400; }
+.hp-bar { display: none; }
+.hp-app { height: 100vh; }
+#hp-editor { overflow: auto; }
+
+button, .btn { border-radius: 9999px; border: 1.5px solid var(--ui-accent); background: transparent; color: var(--ui-accent); font-weight: 600; padding: 6px 14px; transition: background-color 150ms; }
+button:hover, .btn:hover { border-color: var(--ui-accent); background: color-mix(in srgb, var(--ui-accent) 8%, #fff); }
+button.pri { background: var(--ui-accent); color: #fff; }
+button.pri:hover { background: color-mix(in srgb, var(--ui-accent) 85%, #000); }
+.mini { padding: 3px 10px; }
+button[disabled] { opacity: .4; }
+
+.seg { border: 1.5px solid var(--ui-accent); border-radius: 9999px; }
+.seg button { border: 0; border-right: 1.5px solid var(--ui-accent); border-radius: 0; background: transparent; color: var(--ui-accent); padding: 6px 4px; }
+.seg button:last-child { border-right: 0; }
+.seg button.on { background: var(--ui-accent); color: #fff; }
+
+/* swatches keep their round look */
+.sw button { border-radius: 50%; padding: 0; }
+
+details.sec > summary { font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) { button, .btn { transition: none; } }
