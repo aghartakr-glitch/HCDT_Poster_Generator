@@ -74,7 +74,7 @@
   function init() {
     roots = window.HX_CMYK || []; if (!roots.length) return;
     var grid = document.querySelector('[data-hx-grid]') || document.querySelector('#btn-grid,#grid-btn,[id*=rid][aria-pressed]'); var act = document.querySelector('.hx-act'); if (!grid && !act) return;
-    var g = document.createElement('div'); g.id = 'hxCmyk'; g.className = 'seg vseg hx-cmseg'; g.setAttribute('role', 'group'); g.setAttribute('aria-label', 'Color mode');
+    var g = document.createElement('div'); g.id = 'hxCmyk'; g.className = 'seg vseg hx-cmseg hx-toggle-group'; g.setAttribute('role', 'group'); g.setAttribute('aria-label', 'Color mode');
     g.title = 'RGB: screen colors / CMYK: print preview (coated offset, approximate)';
     [['rgb', 'RGB'], ['cmyk', 'CMYK']].forEach(function (m) {
       var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-m', m[0]); b.textContent = m[1]; b.setAttribute('aria-pressed', String(m[0] === 'rgb'));
