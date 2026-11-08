@@ -34,17 +34,22 @@
     window.addEventListener('resize', schedule);
     HP.render();
     HP.resetHistory();
-    HP.setGrid(true);
+    /* The construction grid belongs to the free-form Custom editor only.
+       Defense and Seminar use approved structured layouts without an overlay. */
+    HP.setGrid(false);
     window.addEventListener('message', function (e) {
       var d = e.data || {}, next = d.hcdtPosterType;
-      if (d.hcdtAux) document.documentElement.style.setProperty('--ui-sub', d.hcdtAux);
+      if (d.hcdtAux) {
+        document.documentElement.style.setProperty('--ui-sub', d.hcdtAux);
+        document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
+      }
       if (next !== 'defense' && next !== 'seminar' && next !== 'custom') return;
       if (next === HP.state.type) return;
       HP.state = HP.initialState(next, next === 'custom' ? 3 : Math.max(3, HP.state.speakers.length));
       HP.ui.rebuild();
       HP.render();
       HP.resetHistory();
-      HP.setGrid(HP.gridOn);
+      HP.setGrid(false);
     });
     // 글꼴이 다 불러와지면 글자 맞춤을 한 번 더 한다
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);

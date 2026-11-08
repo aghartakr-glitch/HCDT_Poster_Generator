@@ -28,15 +28,17 @@
     return el('label', { class: 'chk' }, [el('input', { type: 'checkbox', checked: !!val, onchange: function (e) { fn(e.target.checked); } }), label]);
   };
   K.btn = function (label, fn, cls, title) {
-    return el('button', { type: 'button', class: cls || '', title: title || '', onclick: fn, text: label });
+    return el('button', { type: 'button', class: ('btn ' + (cls || '')).trim(), title: title || '', onclick: fn, text: label });
   };
   // 버튼 묶음(하나만 선택)
   K.seg = function (opts, val, fn) {
-    var wrap = el('div', { class: 'seg' });
+    var wrap = el('div', { class: 'seg hx-toggle-group', role: 'group' });
     opts.forEach(function (o) {
-      var b = el('button', { type: 'button', class: String(o[0]) === String(val) ? 'on' : '', text: o[1], onclick: function () {
-        HP.qa('button', wrap).forEach(function (x) { x.className = ''; });
+      var selected = String(o[0]) === String(val);
+      var b = el('button', { type: 'button', class: selected ? 'on' : '', 'aria-pressed': String(selected), text: o[1], onclick: function () {
+        HP.qa('button', wrap).forEach(function (x) { x.className = ''; x.setAttribute('aria-pressed', 'false'); });
         b.className = 'on';
+        b.setAttribute('aria-pressed', 'true');
         fn(o[0]);
       } });
       wrap.appendChild(b);

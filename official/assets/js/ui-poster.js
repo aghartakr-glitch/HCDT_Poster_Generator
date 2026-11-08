@@ -23,13 +23,15 @@
   K.posterSection = function () {
     var st = S(), b = HP.brand;
     var types = Object.keys(HP.types).map(function (k) { return [k, HP.types[k].label]; });
+    var typeControl = K.seg(types, st.type, function (t) {
+      if (!confirm('Switch to "' + HP.types[t].label + '"? Current speakers and headline will be replaced.')) { K.rebuild(); return; }
+      HP.state = HP.initialState(t, t === 'custom' ? 3 : Math.max(3, st.speakers.length));
+      K.rebuild(); HP.emit();
+      window.parent.postMessage({ hcdtPosterType: t }, '*');
+    });
+    typeControl.classList.add('hx-poster-type');
     return K.section('Poster', [
-      K.field('Type', K.seg(types, st.type, function (t) {
-        if (!confirm('Switch to "' + HP.types[t].label + '"? Current speakers and headline will be replaced.')) { K.rebuild(); return; }
-        HP.state = HP.initialState(t, t === 'custom' ? 3 : Math.max(3, st.speakers.length));
-        K.rebuild(); HP.emit();
-        window.parent.postMessage({ hcdtPosterType: t }, '*');
-      })),
+      K.field('Type', typeControl),
       el('div', { class: 'row' }, [
         K.field('Orientation', K.seg([['portrait', 'Portrait'], ['landscape', 'Landscape']], st.format, function (v) { set('format', v); })),
         K.field('Paper', K.select(Object.keys(HP.papers).map(function (p) { return [p, p]; }), st.paper, function (v) { set('paper', v); }))])

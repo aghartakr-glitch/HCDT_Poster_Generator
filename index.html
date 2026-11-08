@@ -190,7 +190,7 @@ html.hx-wide .hx-steps{display:none!important}
     <section class="sec">
       <h3>Poster</h3>
       <div class="sub">Type</div>
-      <div class="seg vseg hx-poster-type" id="hxMode" role="group" aria-label="Poster type">
+      <div class="seg vseg hx-toggle-group hx-poster-type" id="hxMode" role="group" aria-label="Poster type">
         <button type="button" data-type="defense" aria-pressed="false">Public Defense</button>
         <button type="button" data-type="seminar" aria-pressed="false">Seminar series</button>
         <button type="button" data-type="custom" aria-pressed="true">Custom</button>
@@ -258,13 +258,14 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria
 })();
 </script>
 <section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108h"></iframe>
+  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261109b"></iframe>
 </section>
 <style>
 .hx-official{display:none;height:calc(100dvh - 140px)}
 .hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
 body.hx-official-on main.app{display:none!important}
 body.hx-official-on .hx-official{display:block}
+body.hx-official-on #hxGrid{display:none!important}
 @media(min-width:981px){body.hx-p-poster>.hx-official{flex:1 1 0;min-height:0;height:auto}}
 </style>
 <script>
@@ -284,6 +285,12 @@ body.hx-official-on .hx-official{display:block}
        iframe is only for the two official presets. Never replace Custom with it. */
     var official=type!=='custom';
     B.classList.toggle('hx-official-on',official);host.hidden=!official;
+    var gridButton=document.getElementById('hxGrid');
+    if(gridButton){
+      gridButton.hidden=official;
+      if(official)gridButton.style.setProperty('display','none','important');
+      else gridButton.style.removeProperty('display');
+    }
     if(official&&!fr.src)fr.src=fr.dataset.src;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}

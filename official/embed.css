@@ -6,36 +6,30 @@
    The tool's own top bar drives Save / PDF / PNG, so this page hides its header and fills the frame.
    Buttons follow the global (Component Library) style: purple pill, purple outline, primary filled. */
 html, body { height: 100%; overflow: hidden; }
-body { font-family: 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', 'Noto Sans KR', sans-serif; font-weight: 400; }
+html body.hx-tool.hx-p-poster { display:block!important; height:100%!important; overflow:hidden!important; padding:0!important; font-family:var(--hx-font); font-weight:400; }
 .hp-bar { display: none; }
 .hp-app { height: 100vh; }
 #hp-editor { overflow: auto; }
 
-:root { --ui-sub: #E8E041; --ui-sub-light: color-mix(in srgb, var(--ui-sub) 15%, #fff); }
-button, .btn { border-radius: 9999px; border: 1.5px solid var(--ui-accent); background: #fff; color: var(--ui-accent); font-weight: 600; padding: 6px 14px; box-shadow: none; transform: translate(0,0); transition: transform 150ms, box-shadow 150ms, background-color 150ms, color 150ms; }
-button:not(:disabled):not(.seg button):not(.sw button):hover, .btn:not(:disabled):hover { border-color: var(--ui-accent); transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--ui-sub); }
-button.pri { background: var(--ui-accent); color: #fff; }
-button.pri:hover { background: var(--ui-accent); }
-.mini { padding: 3px 10px; }
-button[disabled] { opacity: .4; }
-
-.seg { border: 1.5px solid var(--ui-accent); border-radius: 9999px; }
-.seg button { border: 0; border-right: 1.5px solid var(--ui-accent); border-radius: 0; background: #fff; color: var(--ui-accent); padding: 6px 4px; transform:none; box-shadow:none; }
-.seg button:last-child { border-right: 0; }
-.seg button:not(.on):hover { background: var(--ui-sub-light); transform:none; box-shadow:none; }
-.seg button.on { background: var(--ui-accent); color: #fff; }
+:root { --ui-sub:#E8E041; --ui-accent:var(--hx-accent); --ui-line:var(--hx-line); --ui-ink:var(--hx-fg); --ui-dim:var(--hx-muted); }
+/* Official uses the same shared controls as Custom/Component Library.
+   Only the legacy `pri` class needs mapping to the common primary state. */
+button.pri{background:var(--hx-accent)!important;border-color:var(--hx-accent)!important;color:var(--hx-accent-fg)!important;font-weight:600!important}
+button.pri:hover{background:#fff!important;color:var(--hx-accent)!important;border-color:var(--hx-ui,var(--hx-accent))!important;box-shadow:inset 0 0 0 2px var(--hx-ui,var(--hx-accent))!important}
+.mini{padding:3px 10px}
 
 /* swatches keep their round look */
 .sw button { border-radius: 50%; padding: 0; }
 
 details.sec > summary { font-weight: 600; }
 
-@media (prefers-reduced-motion: reduce) { button, .btn { transition: none; } }
-
 /* Same frame as the HCDT tools: 14px body text, 272px side pane, 12px labels in sentence case, 34px fields */
 html, body { font: 14px/1.5 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', sans-serif; }
-.hp-app { grid-template-columns: 272px 1fr; }
+.hp-app { grid-template-columns:272px minmax(0,1fr) 284px; }
 #hp-editor { border-right: 1px solid #dfe0e6; }
+#hp-inspector{overflow:auto;background:#fff;border-left:1px solid var(--hx-line);padding:16px;color:var(--hx-muted);font-size:var(--fs-small)}
+#hp-inspector strong{display:block;color:var(--hx-fg);font:var(--hx-t2);margin-bottom:8px}
+#hp-inspector p{margin:0;line-height:1.6}
 details.sec > summary { font-size: 14px; font-weight: 600; padding: 12px 16px; }
 .f > label, .lbl { font-size: 12px; font-weight: 400; color: #5f6066; text-transform: none; letter-spacing: 0; }
 input[type=text], input[type=url], input[type=number], select, textarea { min-height: 34px; padding: 6px 10px; border-radius: 6px; font-size: 14px; }
@@ -43,6 +37,8 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 #hp-editor details.sec:first-child .body > .row > .f:first-child { flex: 1.32 1 132px; }
 #hp-editor details.sec:first-child .body > .row > .f:last-child { flex: .68 1 92px; }
 #hp-editor details.sec:first-child .body > .row > .f:first-child .seg button { white-space: nowrap; }
+.hx-poster-type{width:100%!important}
+.hx-poster-type button{min-height:34px!important;padding:6px 4px!important;white-space:normal!important;line-height:1.2!important}
 
 /* Exact Custom-editor grid: 14mm margins, 4 x 42.5mm columns with 4mm
    gutters, and 14 x 15.5mm rows with 4mm gutters. Export stays clean. */
@@ -51,3 +47,4 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 .hp-grid-margin{border:1px solid rgba(255,0,150,.52)}
 .hp-grid-col{background:rgba(0,170,230,.055);border-left:1px solid rgba(0,170,230,.42);border-right:1px solid rgba(0,170,230,.42)}
 .hp-grid-row{border-top:1px solid rgba(255,0,150,.32);border-bottom:1px solid rgba(255,0,150,.32)}
+@media(max-width:980px){.hp-app{grid-template-columns:1fr;height:auto}#hp-editor{max-height:60vh}#hp-inspector{display:none}#hp-stage{min-height:70vh}}
