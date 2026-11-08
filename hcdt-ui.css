@@ -431,9 +431,9 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act #undo:hover,html:not(#
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed="true"]:not(.primary){background:var(--hx-accent)!important;color:#fff!important}
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button[aria-pressed="false"]:not(.primary){background:#fff!important;color:var(--hx-accent)!important}
 
-/* Toggle group: Casual | Official and RGB | CMYK (one rule set for both) */
+/* Toggle groups: poster type and RGB | CMYK (one rule set for both) */
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group{display:inline-flex!important;align-items:center;gap:0!important;padding:2px!important;border:1.33333px solid var(--hx-accent)!important;border-radius:9999px!important;background:#fff!important;box-shadow:none!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group button{height:27.05px!important;min-height:27.05px!important;padding:0 14.4px!important;border:0!important;border-radius:9999px!important;background:transparent!important;color:var(--hx-accent)!important;font:600 13px/15.6px var(--hx-font)!important;box-shadow:none!important;transform:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group button{display:inline-flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;height:27.05px!important;min-height:27.05px!important;margin:0!important;padding:0 14.4px!important;border:0!important;border-radius:9999px!important;background:transparent!important;color:var(--hx-accent)!important;font:600 13px/1 var(--hx-font)!important;box-shadow:none!important;transform:none!important}
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group button[aria-pressed="true"]{background:var(--hx-accent)!important;color:#fff!important}
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group button[aria-pressed="true"][data-m=cmyk]{background:#564897!important}
 

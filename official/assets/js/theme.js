@@ -11,10 +11,12 @@
 
   // Visual Identity Guideline v1.0: the right-facing plane and H, C, D, T are HCDT Purple;
   // the left-facing plane and the – and + use ONE auxiliary colour (P = purple, A = auxiliary).
-  // 1 = white background. 2 and 3 are the single-colour versions for purple and highlight backgrounds.
+  // 1 = white background. 2 and 3 are complete single-colour reversals for purple and highlight backgrounds.
+  // Never omit either set of symbol planes: doing so makes half of the mark disappear.
   HP.logoMaps = function (P, A) {
     var one = { base: P, hi: A, wordmark: P, accent: A };
-    return { 1: one, 2: { base: null, hi: A, wordmark: A, accent: A }, 3: { base: null, hi: P, wordmark: P, accent: P }, 4: one, 5: one, 6: one };
+    return { 1: one, 2: { base: '#FFFFFF', hi: '#FFFFFF', wordmark: '#FFFFFF', accent: '#FFFFFF' },
+      3: { base: P, hi: P, wordmark: P, accent: P }, 4: one, 5: one, 6: one };
   };
 
   HP.theme = function (st) {

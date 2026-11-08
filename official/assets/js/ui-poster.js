@@ -25,9 +25,15 @@
     var types = Object.keys(HP.types).map(function (k) { return [k, HP.types[k].label]; });
     return K.section('Poster', [
       K.field('Type (resets text and speakers)', K.seg(types, st.type, function (t) {
+        if (t === 'custom') {
+          window.parent.postMessage({ hcdtPosterType: 'custom' }, '*');
+          K.rebuild();
+          return;
+        }
         if (!confirm('Switch to "' + HP.types[t].label + '"? Current speakers and headline will be replaced.')) { K.rebuild(); return; }
         HP.state = HP.initialState(t, Math.max(3, st.speakers.length));
         K.rebuild(); HP.emit();
+        window.parent.postMessage({ hcdtPosterType: t }, '*');
       })),
       el('div', { class: 'row' }, [
         K.field('Orientation', K.seg([['portrait', 'Portrait'], ['landscape', 'Landscape']], st.format, function (v) { set('format', v); })),
