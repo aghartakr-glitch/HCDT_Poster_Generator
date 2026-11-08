@@ -166,11 +166,6 @@ html.hx-wide .hx-steps{display:none!important}
 
 <header class="top">
   <div class="brand"><b>HCDT Poster</b><span>A4 · 4 columns × 14 rows</span><span class="badge" id="fontBadge">Checking fonts</span></div>
-  <div class="seg vseg hx-mode hx-toggle-group" id="hxMode" role="group" aria-label="Poster type">
-    <button type="button" data-type="defense" aria-pressed="true">Public Defense</button>
-    <button type="button" data-type="seminar" aria-pressed="false">Seminar series</button>
-    <button type="button" data-type="custom" aria-pressed="false" title="Original free-form poster templates">Custom</button>
-  </div>
   <div class="hx-act">
     <button class="btn" id="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
     <button class="btn" id="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
@@ -193,23 +188,28 @@ html.hx-wide .hx-steps{display:none!important}
 <main class="app">
   <aside class="pane left">
     <section class="sec">
-      <h3>Templates</h3>
+      <h3>Poster</h3>
+      <div class="sub">Type</div>
+      <div class="seg vseg hx-poster-type" id="hxMode" role="group" aria-label="Poster type">
+        <button type="button" data-type="defense" aria-pressed="false">Public Defense</button>
+        <button type="button" data-type="seminar" aria-pressed="false">Seminar series</button>
+        <button type="button" data-type="custom" aria-pressed="true">Custom</button>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h3>Look</h3>
+      <div class="sub">Templates</div>
       <div class="thumbs" id="thumbs"></div>
       <div class="row" style="margin-top:8px"><button class="btn" id="blank">Blank poster</button></div>
-    </section>
-
-    <section class="sec">
-      <h3>Text layout</h3>
+      <div class="sub">Text layout</div>
       <button class="btn primary" id="shuffle" style="width:100%">Shuffle text layout</button>
-    </section>
-
-    <section class="sec">
-      <h3>Color</h3>
+      <div class="sub">Color</div>
       <div id="combos"></div>
     </section>
 
     <section class="sec">
-      <h3>Add element</h3>
+      <h3>Content</h3>
       <div class="sub">Text</div>
       <div class="grid3" id="addText"></div>
       <div class="sub">Logo</div>
@@ -232,14 +232,18 @@ html.hx-wide .hx-steps{display:none!important}
   <aside class="pane right" id="props"></aside>
 </main>
 <style>
-.pane.left .sec{border-left:3px solid var(--accordion-rest,rgba(0,0,0,.2));padding:0 0 0 12px;margin:0 0 14px}
-.pane.left .sec.is-open{border-left-color:var(--sub,#73D888)}
-.pane.left .sec>h3{display:flex;align-items:center;justify-content:space-between;margin:0;padding:6px 0;cursor:pointer;user-select:none;font-size:1rem;font-weight:600;letter-spacing:0;color:#000}
-.pane.left .sec>h3::after{content:"+";font-size:18px;font-weight:400;line-height:1}
+.pane.left{padding:0 0 60px;gap:0;background:#fff}
+.pane.left .sec{border-bottom:1px solid #dcdce4;padding:0 16px 14px;margin:0}
+.pane.left .sec>h3{display:flex;align-items:center;justify-content:space-between;margin:0 -16px;padding:11px 16px;cursor:pointer;user-select:none;font-size:13px;font-weight:700;letter-spacing:0;color:#16161d}
+.pane.left .sec>h3::after{content:"+";color:#6b6b78;font-size:14px;font-weight:400;line-height:1}
 .pane.left .sec.is-open>h3::after{content:"\2212"}
 .pane.left .sec>h3:focus-visible{outline:2px solid #000;outline-offset:2px}
 .pane.left .sec:not(.is-open)>:not(h3){display:none}
-.pane.left .sec.is-open>h3{margin-bottom:8px}
+.pane.left .sec.is-open>h3{margin-bottom:2px}
+.pane.left .sec .sub{margin:10px 0 4px;color:#6b6b78;font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
+.hx-poster-type{width:100%!important}
+.hx-poster-type button{min-height:34px!important;padding:6px 4px!important;white-space:normal!important;line-height:1.2!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria-pressed="true"]{background:#6b00ff!important;color:#fff!important;font-weight:600!important}
 </style>
 <script>
 (function(){
@@ -254,10 +258,9 @@ html.hx-wide .hx-steps{display:none!important}
 })();
 </script>
 <section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108c"></iframe>
+  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108d"></iframe>
 </section>
 <style>
-.hx-mode{margin-left:auto;margin-right:8px}
 .hx-official{display:none;height:calc(100dvh - 140px)}
 .hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
 body.hx-official-on main.app{display:none!important}

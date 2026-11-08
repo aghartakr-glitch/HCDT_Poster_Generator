@@ -24,7 +24,7 @@
     var st = S(), b = HP.brand;
     var types = Object.keys(HP.types).map(function (k) { return [k, HP.types[k].label]; });
     return K.section('Poster', [
-      K.field('Type (resets text and speakers)', K.seg(types, st.type, function (t) {
+      K.field('Type', K.seg(types, st.type, function (t) {
         if (t === 'custom') {
           window.parent.postMessage({ hcdtPosterType: 'custom' }, '*');
           K.rebuild();
