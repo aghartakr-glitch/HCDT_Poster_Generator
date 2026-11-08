@@ -69,9 +69,24 @@
   };
 
   // 상태 변경 알림
-  var subs = [], saveTimer = null;
+  var subs = [], saveTimer = null, history = [], historyIndex = -1, historyLock = false;
+  function snapshot() { try { return JSON.stringify(HP.state); } catch (e) { return ''; } }
+  function historyStatus() {
+    try { parent.postMessage({ hcdtPosterHistory: 1, undo: historyIndex > 0, redo: historyIndex >= 0 && historyIndex < history.length - 1 }, '*'); } catch (e) { /* standalone */ }
+  }
+  function remember() {
+    if (historyLock || !HP.state) return;
+    var s = snapshot();
+    if (!s || history[historyIndex] === s) return;
+    history = history.slice(0, historyIndex + 1);
+    history.push(s);
+    if (history.length > 100) history.shift();
+    historyIndex = history.length - 1;
+    historyStatus();
+  }
   HP.on = function (fn) { subs.push(fn); };
   HP.emit = function () {
+    remember();
     subs.forEach(function (f) { f(HP.state); });
     clearTimeout(saveTimer);
     saveTimer = setTimeout(HP.save, 500);
@@ -79,6 +94,24 @@
   HP.set = function (patch, quiet) {
     Object.keys(patch).forEach(function (k) { HP.state[k] = patch[k]; });
     if (!quiet) HP.emit();
+  };
+  HP.resetHistory = function () {
+    var s = snapshot(); history = s ? [s] : []; historyIndex = history.length ? 0 : -1; historyStatus();
+  };
+  function replay(i) {
+    if (i < 0 || i >= history.length || i === historyIndex) return;
+    historyIndex = i; historyLock = true;
+    try { HP.state = JSON.parse(history[i]); } finally { historyLock = false; }
+    if (HP.ui && HP.ui.rebuild) HP.ui.rebuild();
+    subs.forEach(function (f) { f(HP.state); });
+    clearTimeout(saveTimer); saveTimer = setTimeout(HP.save, 0); historyStatus();
+  }
+  HP.undo = function () { replay(historyIndex - 1); };
+  HP.redo = function () { replay(historyIndex + 1); };
+  HP.setGrid = function (v) {
+    HP.gridOn = !!v;
+    var sheet = HP.q('#hp-sheet'); if (sheet) sheet.classList.toggle('hp-grid', HP.gridOn);
+    try { parent.postMessage({ hcdtPosterGrid: 1, on: HP.gridOn }, '*'); } catch (e) { /* standalone */ }
   };
 
   var KEY = 'hp-state-v1';

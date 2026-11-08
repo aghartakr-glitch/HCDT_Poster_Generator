@@ -48,7 +48,7 @@
         var s = JSON.parse(fr.result);
         if (!s || !s.speakers) throw new Error('bad');
         HP.state = Object.assign(HP.initialState(s.type || 'defense', 3), s);
-        K.rebuild(); HP.emit();
+        K.rebuild(); HP.resetHistory(); HP.emit();
       } catch (e) { alert('This file is not a poster project.'); }
     };
     fr.readAsText(file);

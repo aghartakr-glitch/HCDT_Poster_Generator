@@ -11,16 +11,18 @@ body { font-family: 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoq
 .hp-app { height: 100vh; }
 #hp-editor { overflow: auto; }
 
-button, .btn { border-radius: 9999px; border: 1.5px solid var(--ui-accent); background: transparent; color: var(--ui-accent); font-weight: 600; padding: 6px 14px; transition: background-color 150ms; }
-button:hover, .btn:hover { border-color: var(--ui-accent); background: color-mix(in srgb, var(--ui-accent) 8%, #fff); }
+:root { --ui-sub: #E8E041; --ui-sub-light: color-mix(in srgb, var(--ui-sub) 15%, #fff); }
+button, .btn { border-radius: 9999px; border: 1.5px solid var(--ui-accent); background: #fff; color: var(--ui-accent); font-weight: 600; padding: 6px 14px; box-shadow: none; transform: translate(0,0); transition: transform 150ms, box-shadow 150ms, background-color 150ms, color 150ms; }
+button:not(:disabled):not(.seg button):not(.sw button):hover, .btn:not(:disabled):hover { border-color: var(--ui-accent); transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--ui-sub); }
 button.pri { background: var(--ui-accent); color: #fff; }
-button.pri:hover { background: color-mix(in srgb, var(--ui-accent) 85%, #000); }
+button.pri:hover { background: var(--ui-accent); }
 .mini { padding: 3px 10px; }
 button[disabled] { opacity: .4; }
 
 .seg { border: 1.5px solid var(--ui-accent); border-radius: 9999px; }
-.seg button { border: 0; border-right: 1.5px solid var(--ui-accent); border-radius: 0; background: transparent; color: var(--ui-accent); padding: 6px 4px; }
+.seg button { border: 0; border-right: 1.5px solid var(--ui-accent); border-radius: 0; background: #fff; color: var(--ui-accent); padding: 6px 4px; transform:none; box-shadow:none; }
 .seg button:last-child { border-right: 0; }
+.seg button:not(.on):hover { background: var(--ui-sub-light); transform:none; box-shadow:none; }
 .seg button.on { background: var(--ui-accent); color: #fff; }
 
 /* swatches keep their round look */
@@ -41,3 +43,6 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 #hp-editor details.sec:first-child .body > .row > .f:first-child { flex: 1.32 1 132px; }
 #hp-editor details.sec:first-child .body > .row > .f:last-child { flex: .68 1 92px; }
 #hp-editor details.sec:first-child .body > .row > .f:first-child .seg button { white-space: nowrap; }
+
+/* 4-column / 14-row guideline preview. It lives on the sheet chrome, so exports stay clean. */
+#hp-sheet.hp-grid::after { content:""; position:absolute; inset:4.7138% 6.6667%; z-index:50; pointer-events:none; border:1px solid rgba(255,0,150,.45); background-image:linear-gradient(to right,rgba(0,170,230,.35) 1px,transparent 1px),linear-gradient(to bottom,rgba(255,0,150,.28) 1px,transparent 1px); background-size:25% 100%,100% 7.142857%; }

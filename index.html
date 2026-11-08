@@ -258,18 +258,12 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria
 })();
 </script>
 <section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108f"></iframe>
+  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108g"></iframe>
 </section>
 <style>
 .hx-official{display:none;height:calc(100dvh - 140px)}
 .hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
 body.hx-official-on main.app{display:none!important}
-body.hx-official-on #undo,body.hx-official-on #redo,body.hx-official-on #hxGrid,body.hx-official-on #openJson,body.hx-official-on #hxCmyk,body.hx-official-on .hx-act .hx-sep{display:none!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool.hx-official-on .hx-act>#hxGrid,
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool.hx-official-on .hx-act>#undo,
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool.hx-official-on .hx-act>#redo,
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool.hx-official-on .hx-act>#openJson,
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool.hx-official-on .hx-act>#hxCmyk{display:none!important}
 body.hx-official-on .hx-official{display:block}
 @media(min-width:981px){body.hx-p-poster>.hx-official{flex:1 1 0;min-height:0;height:auto}}
 </style>
@@ -277,7 +271,12 @@ body.hx-official-on .hx-official{display:block}
 (function(){
   var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
   var hash=location.hash.slice(1),type=/^(defense|seminar|custom)$/.test(hash)?hash:'defense';
-  function notify(){try{if(fr.contentWindow)fr.contentWindow.postMessage({hcdtPosterType:type},'*')}catch(e){}}
+  function notify(){
+    try{
+      var aux=getComputedStyle(document.documentElement).getPropertyValue('--hx-ui').trim()||'#E8E041';
+      if(fr.contentWindow)fr.contentWindow.postMessage({hcdtPosterType:type,hcdtAux:aux},'*');
+    }catch(e){}
+  }
   function set(t){
     type=/^(defense|seminar|custom)$/.test(t)?t:'defense';
     /* All poster presets now use one editor. Type changes content and constraints,
@@ -291,15 +290,37 @@ body.hx-official-on .hx-official{display:block}
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
   fr.addEventListener('load',notify);
-  window.addEventListener('message',function(e){var d=e.data,t=d&&d.hcdtPosterType;if(/^(defense|seminar|custom)$/.test(t))set(t)});
-  /* Export always comes from the shared editor, including Custom. */
+  window.addEventListener('message',function(e){
+    var d=e.data||{},t=d.hcdtPosterType;
+    if(/^(defense|seminar|custom)$/.test(t))set(t);
+    if(d.hcdtPosterHistory){
+      var u=document.getElementById('undo'),r=document.getElementById('redo');
+      if(u)u.disabled=!d.undo;if(r)r.disabled=!d.redo;
+    }
+    if(d.hcdtPosterGrid){var g=document.getElementById('hxGrid');if(g)g.setAttribute('aria-pressed',String(!!d.on));}
+  });
+  new MutationObserver(notify).observe(document.documentElement,{attributes:true,attributeFilter:['style']});
+  /* The common application bar controls the shared editor in every poster type. */
   document.addEventListener('click',function(e){
     if(!B.classList.contains('hx-official-on'))return;
-    var t=e.target.closest('#saveJson,#savePdf,#savePng');if(!t)return;
+    var c=e.target.closest('#hxCmyk button');
+    if(c){var cw=fr.contentWindow,ca=cw&&cw.HX_CMYK_API;if(ca)ca.set(c.getAttribute('data-m')==='cmyk');return;}
+    var t=e.target.closest('#undo,#redo,#hxGrid,#saveJson,#openJson,#savePdf,#savePng');if(!t)return;
     var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
     e.preventDefault();e.stopImmediatePropagation();
     var pop=t.closest('.hx-menu-pop');if(pop){pop.hidden=true;var mb=pop.parentNode.querySelector('[data-hx-menu]');if(mb)mb.setAttribute('aria-expanded','false');}
-    if(t.id==='savePdf')HP.exportPdf();else if(t.id==='savePng')HP.exportPng();else HP.saveProject();
+    if(t.id==='undo')HP.undo();
+    else if(t.id==='redo')HP.redo();
+    else if(t.id==='hxGrid'){var on=t.getAttribute('aria-pressed')!=='true';t.setAttribute('aria-pressed',String(on));HP.setGrid(on);}
+    else if(t.id==='openJson')document.getElementById('jsonFile').click();
+    else if(t.id==='savePdf')HP.exportPdf();
+    else if(t.id==='savePng')HP.exportPng();
+    else HP.saveProject();
+  },true);
+  document.addEventListener('change',function(e){
+    if(!B.classList.contains('hx-official-on')||e.target.id!=='jsonFile'||!e.target.files[0])return;
+    var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
+    e.preventDefault();e.stopImmediatePropagation();HP.openProject(e.target.files[0]);e.target.value='';
   },true);
   set(type);
 })();
@@ -967,6 +988,6 @@ function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();
 
 <script src="dict-poster.js"></script>
 <script src="hcdt-ui.js?v=20261103e" data-tool="poster"></script>
-<script>window.HX_CMYK=['#stage','#thumbs','#combos']</script><script src="hcdt-cmyk.js?v=20261105b"></script>
+<script>window.HX_CMYK=['#stage','#thumbs','#combos']</script><script src="hcdt-cmyk.js?v=20261108g"></script>
 </body>
 </html>

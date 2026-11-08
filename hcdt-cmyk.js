@@ -71,6 +71,8 @@
     if (!mo) mo = new MutationObserver(function () { if (on) later(); });
     applyAll(); note();
   }
+  /* Public bridge used by embedded applications that share the outer RGB/CMYK control. */
+  window.HX_CMYK_API = { set: set, get: function () { return on; } };
   function init() {
     roots = window.HX_CMYK || []; if (!roots.length) return;
     var grid = document.querySelector('[data-hx-grid]') || document.querySelector('#btn-grid,#grid-btn,[id*=rid][aria-pressed]'); var act = document.querySelector('.hx-act'); if (!grid && !act) return;
