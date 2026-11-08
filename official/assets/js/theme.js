@@ -11,16 +11,19 @@
 
   // Visual Identity Guideline v1.0: the right-facing plane and H, C, D, T are HCDT Purple;
   // the left-facing plane and the – and + use ONE auxiliary colour (P = purple, A = auxiliary).
-  // 1 = white background. 2 and 3 are complete single-colour reversals for purple and highlight backgrounds.
-  // Never omit either set of symbol planes: doing so makes half of the mark disappear.
-  HP.logoMaps = function (P, A) {
+  // The logo uses the same foreground / point pair as the approved theme swatches used by Slides and Custom posters.
+  // 1 White: purple + selected auxiliary. 2 Purple: white + selected auxiliary.
+  // 3 Auxiliary background: purple + the paired auxiliary from guideline combination C.
+  HP.logoMaps = function (P, A, Q) {
     var one = { base: P, hi: A, wordmark: P, accent: A };
-    return { 1: one, 2: { base: '#FFFFFF', hi: '#FFFFFF', wordmark: '#FFFFFF', accent: '#FFFFFF' },
-      3: { base: P, hi: P, wordmark: P, accent: P }, 4: one, 5: one, 6: one };
+    return { 1: one, 2: { base: '#FFFFFF', hi: A, wordmark: '#FFFFFF', accent: A },
+      3: { base: P, hi: Q, wordmark: P, accent: Q }, 4: one, 5: one, 6: one };
   };
 
   HP.theme = function (st) {
     var p = HP.palette(st), P = p.purple, A = st.aux || p.aux, D = st.aux ? HP.mix(A, '#000000', 0.07) : p.auxDeep;
+    var pairs = { '#64D8D8': '#E8E041', '#E8B9AA': '#64D8D8', '#73D888': '#E8B9AA', '#E8E041': '#73D888' };
+    var Q = pairs[String(A).toUpperCase()] || A;
     var th = { scheme: st.scheme, purple: P, aux: A, deep: D }, auxTone = st.photo.tone === 'aux';
     if (st.scheme === 'purple') {
       th.bg = P; th.fg = '#FFFFFF'; th.ac = A; th.dark = HP.mix(P, '#000000', 0.45); th.light = A;
@@ -32,7 +35,7 @@
       th.bg = '#FFFFFF'; th.fg = '#000000'; th.ac = P; th.dark = P; th.light = auxTone ? HP.mix(A, '#FFFFFF', 0.4) : '#FFFFFF';
       th.dot = P; th.dotInv = false; th.map = '1';
     }
-    th.maps = HP.logoMaps(P, A, D);
+    th.maps = HP.logoMaps(P, A, Q);
     th.qr = st.qrColor === 'accent' ? P : '#000000';
     return th;
   };
