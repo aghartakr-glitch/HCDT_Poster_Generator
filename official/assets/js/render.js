@@ -74,6 +74,7 @@
     P.style.transform = 'scale(' + HP.scale + ')';
     HP.fitAll(P, spec, ctx);
     spec.items.forEach(function (it) { fillPhoto(it, my, st, th); });
+    if (HP.gridOn) HP.setGrid(true);
     HP.warn();
     HP.emitRendered();
   };

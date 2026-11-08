@@ -258,7 +258,7 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria
 })();
 </script>
 <section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108g"></iframe>
+  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261108h"></iframe>
 </section>
 <style>
 .hx-official{display:none;height:calc(100dvh - 140px)}
@@ -272,6 +272,7 @@ body.hx-official-on .hx-official{display:block}
   var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
   var hash=location.hash.slice(1),type=/^(defense|seminar|custom)$/.test(hash)?hash:'defense';
   function notify(){
+    if(type==='custom')return;
     try{
       var aux=getComputedStyle(document.documentElement).getPropertyValue('--hx-ui').trim()||'#E8E041';
       if(fr.contentWindow)fr.contentWindow.postMessage({hcdtPosterType:type,hcdtAux:aux},'*');
@@ -279,25 +280,25 @@ body.hx-official-on .hx-official{display:block}
   }
   function set(t){
     type=/^(defense|seminar|custom)$/.test(t)?t:'defense';
-    /* All poster presets now use one editor. Type changes content and constraints,
-       never the interface or canvas. The old free-form code remains untouched as
-       a rollback path, but it is no longer exposed as a separate mode. */
-    B.classList.add('hx-official-on');host.hidden=false;
-    if(!fr.src)fr.src=fr.dataset.src;
+    /* Custom is the original six-template, free-form editor. The structured
+       iframe is only for the two official presets. Never replace Custom with it. */
+    var official=type!=='custom';
+    B.classList.toggle('hx-official-on',official);host.hidden=!official;
+    if(official&&!fr.src)fr.src=fr.dataset.src;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}
-    notify();
+    if(official)notify();
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
   fr.addEventListener('load',notify);
   window.addEventListener('message',function(e){
     var d=e.data||{},t=d.hcdtPosterType;
     if(/^(defense|seminar|custom)$/.test(t))set(t);
-    if(d.hcdtPosterHistory){
+    if(B.classList.contains('hx-official-on')&&d.hcdtPosterHistory){
       var u=document.getElementById('undo'),r=document.getElementById('redo');
       if(u)u.disabled=!d.undo;if(r)r.disabled=!d.redo;
     }
-    if(d.hcdtPosterGrid){var g=document.getElementById('hxGrid');if(g)g.setAttribute('aria-pressed',String(!!d.on));}
+    if(B.classList.contains('hx-official-on')&&d.hcdtPosterGrid){var g=document.getElementById('hxGrid');if(g)g.setAttribute('aria-pressed',String(!!d.on));}
   });
   new MutationObserver(notify).observe(document.documentElement,{attributes:true,attributeFilter:['style']});
   /* The common application bar controls the shared editor in every poster type. */

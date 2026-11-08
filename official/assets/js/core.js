@@ -110,7 +110,37 @@
   HP.redo = function () { replay(historyIndex + 1); };
   HP.setGrid = function (v) {
     HP.gridOn = !!v;
-    var sheet = HP.q('#hp-sheet'); if (sheet) sheet.classList.toggle('hp-grid', HP.gridOn);
+    var sheet = HP.q('#hp-sheet');
+    if (sheet) {
+      var old = sheet.querySelector('.hp-grid-overlay');
+      if (old) old.remove();
+      if (HP.gridOn) {
+        var landscape = HP.state && HP.state.format === 'landscape';
+        var pw = landscape ? 297 : 210, ph = landscape ? 210 : 297;
+        var margin = 14, gutter = 4;
+        var colW = (pw - margin * 2 - gutter * 3) / 4;
+        var rowH = (ph - margin * 2 - gutter * 13) / 14;
+        var ov = document.createElement('div');
+        ov.className = 'hp-grid-overlay';
+        var mg = document.createElement('i');
+        mg.className = 'hp-grid-margin';
+        mg.style.cssText = 'left:' + (margin / pw * 100) + '%;right:' + (margin / pw * 100) + '%;top:' + (margin / ph * 100) + '%;bottom:' + (margin / ph * 100) + '%';
+        ov.appendChild(mg);
+        for (var c = 0; c < 4; c++) {
+          var col = document.createElement('i');
+          col.className = 'hp-grid-col';
+          col.style.cssText = 'left:' + ((margin + c * (colW + gutter)) / pw * 100) + '%;width:' + (colW / pw * 100) + '%;top:' + (margin / ph * 100) + '%;bottom:' + (margin / ph * 100) + '%';
+          ov.appendChild(col);
+        }
+        for (var r = 0; r < 14; r++) {
+          var row = document.createElement('i');
+          row.className = 'hp-grid-row';
+          row.style.cssText = 'left:' + (margin / pw * 100) + '%;right:' + (margin / pw * 100) + '%;top:' + ((margin + r * (rowH + gutter)) / ph * 100) + '%;height:' + (rowH / ph * 100) + '%';
+          ov.appendChild(row);
+        }
+        sheet.appendChild(ov);
+      }
+    }
     try { parent.postMessage({ hcdtPosterGrid: 1, on: HP.gridOn }, '*'); } catch (e) { /* standalone */ }
   };
 

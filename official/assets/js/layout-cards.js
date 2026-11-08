@@ -53,7 +53,7 @@
   function cards(id, label, shape, stagger, ideal) {
     HP.defineLayout(id, label, function (ctx) {
       var F = HP.frame(ctx), o = { shape: shape, stagger: stagger === 'var' ? ctx.v.stagger : stagger, amp: ctx.v.amp,
-        ideal: ideal, capAsp: 2.1, gap: 22 };
+        ideal: ideal, capAsp: 2.1, gap: ctx.grid ? ctx.grid.gapX : 22 };
       if (stagger === 'none') o.amp = 0;
       return { frame: F, items: HP.cardsIn(ctx, F.content, ctx.idx, o), bmax: 18 };
     });
