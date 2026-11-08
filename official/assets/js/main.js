@@ -35,9 +35,9 @@
     HP.render();
     window.addEventListener('message', function (e) {
       var d = e.data, next = d && d.hcdtPosterType;
-      if (next !== 'defense' && next !== 'seminar') return;
+      if (next !== 'defense' && next !== 'seminar' && next !== 'custom') return;
       if (next === HP.state.type) return;
-      HP.state = HP.initialState(next, Math.max(3, HP.state.speakers.length));
+      HP.state = HP.initialState(next, next === 'custom' ? 3 : Math.max(3, HP.state.speakers.length));
       HP.ui.rebuild();
       HP.render();
     });

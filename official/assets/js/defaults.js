@@ -62,7 +62,7 @@
   HP.initialState = function (type, n) {
     var t = HP.types[type || 'defense'], b = HP.brand, sp = [], i;
     for (i = 0; i < (n || 5); i++) sp.push(HP.newSpeaker(type || 'defense', i));
-    return {
+    var state = {
       v: 1, type: type || 'defense', format: 'portrait', paper: 'A3', scheme: 'light',
       palette: b.defaultPalette || '001', aux: '', layout: 'auto', seed: 2026, logo: b.defaultLogo || 'long', logoMap: 'auto',
       logoCustom: null, photo: { mode: 'halftone', contrast: 1.15, dot: 7, shape: 'auto', tone: 'white' },
@@ -71,5 +71,17 @@
         { id: 'info', label: b.footerLabel || 'More information', url: b.infoUrl || '', on: true, img: null }],
       qrColor: 'ink', speakers: sp
     };
+    /* Custom is a preset inside the same editor, not a second application.
+       Keep the earlier casual direction: auxiliary-colour background, purple
+       typography, three staggered portraits and the general-use logo. */
+    if ((type || 'defense') === 'custom') {
+      state.scheme = 'aux';
+      state.layout = 'list-zigzag';
+      state.seed = 2026;
+      state.logo = 'long';
+      state.photo.shape = 'slant';
+      state.photo.tone = 'aux';
+    }
+    return state;
   };
 })();

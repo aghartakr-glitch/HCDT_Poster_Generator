@@ -205,8 +205,8 @@
       ['Back', '뒷면', 'Your name, title and contacts; then design and colors.', '이름, 직책, 연락처 입력 후 디자인과 색.'],
       ['Export', '내보내기', 'PDF with both sides, or each side as SVG.', '앞뒤 2쪽 PDF, 또는 면별 SVG.']],
     poster: [
-      ['Start', '시작', 'Pick a template and a color combination on the left.', '왼쪽에서 템플릿과 배색 선택.'],
-      ['Edit', '편집', 'Click a block to move or resize it; double-click text to type.', '블록을 눌러 옮기고 크기 조절, 글은 두 번 눌러 입력.'],
+      ['Start', '시작', 'Choose a poster preset, paper size and approved color combination.', '포스터 프리셋, 용지 크기와 승인된 배색 선택.'],
+      ['Edit', '편집', 'Edit the headline, speakers, photos and links in the left panel.', '왼쪽 패널에서 제목, 발표자, 사진과 링크 편집.'],
       ['Export', '내보내기', 'PDF or PNG at the top right.', '오른쪽 위에서 PDF 또는 PNG.']],
     letter: [
       ['Addresses', '주소', 'Fill in To and From. Empty contact rows are not printed.', '받는 사람, 보내는 사람 입력. 빈 연락처 줄은 인쇄 안 됨.'],

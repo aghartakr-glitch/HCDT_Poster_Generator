@@ -25,13 +25,8 @@
     var types = Object.keys(HP.types).map(function (k) { return [k, HP.types[k].label]; });
     return K.section('Poster', [
       K.field('Type', K.seg(types, st.type, function (t) {
-        if (t === 'custom') {
-          window.parent.postMessage({ hcdtPosterType: 'custom' }, '*');
-          K.rebuild();
-          return;
-        }
         if (!confirm('Switch to "' + HP.types[t].label + '"? Current speakers and headline will be replaced.')) { K.rebuild(); return; }
-        HP.state = HP.initialState(t, Math.max(3, st.speakers.length));
+        HP.state = HP.initialState(t, t === 'custom' ? 3 : Math.max(3, st.speakers.length));
         K.rebuild(); HP.emit();
         window.parent.postMessage({ hcdtPosterType: t }, '*');
       })),
