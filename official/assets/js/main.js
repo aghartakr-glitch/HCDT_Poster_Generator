@@ -33,6 +33,20 @@
     HP.on(schedule);
     window.addEventListener('resize', schedule);
     HP.render();
+    var currentMode = HP.state.type === 'custom' ? 'casual' : 'official';
+    var modeStates = {};
+    window.addEventListener('message', function (e) {
+      var d = e.data, next = d && d.hcdtPosterMode;
+      if (next !== 'casual' && next !== 'official') return;
+      if (next === currentMode) return;
+      modeStates[currentMode] = JSON.parse(JSON.stringify(HP.state));
+      currentMode = next;
+      HP.state = modeStates[next] || HP.initialState(next === 'casual' ? 'custom' : 'defense', next === 'casual' ? 3 : 5);
+      document.body.setAttribute('data-poster-mode', next);
+      HP.ui.rebuild();
+      HP.render();
+    });
+    document.body.setAttribute('data-poster-mode', currentMode);
     // 글꼴이 다 불러와지면 글자 맞춤을 한 번 더 한다
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
   }

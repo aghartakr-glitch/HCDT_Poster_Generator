@@ -438,8 +438,8 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group button[aria-p
 html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-toggle-group button[aria-pressed="true"][data-m=cmyk]{background:#564897!important}
 
 /* Hover: standalone toolbar buttons lift with a hard sub-colour shadow (Component Library hover). Groups do not lift. */
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:not(#undo):not(#redo):hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important}
-html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act .hx-menu>button:active{transform:none!important;box-shadow:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:not(#undo):not(#redo):hover,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>.hx-menu>button:hover{transform:translate(-3px,-3px)!important;box-shadow:6px 6px 0 var(--hx-ui,#E8E041)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>.hx-menu>button:active{transform:none!important;box-shadow:none!important}
 @media (prefers-reduced-motion:reduce){html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act button{transition:none!important;transform:none!important}}
 
 /* Poster and Slides on a desktop screen: the workspace fits the window and the page itself does not scroll.
