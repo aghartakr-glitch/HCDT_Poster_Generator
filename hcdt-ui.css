@@ -465,3 +465,52 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
   body.hx-p-letter>.wrap>main>*{min-height:0;overflow:auto}
   body.hx-p-letter .pvbar{top:0!important}
 }
+
+/* Final layout authority -------------------------------------------------
+   Keep normal framed editors compact, let Wide view use the whole viewport,
+   and give Custom the same panel rhythm as the official poster modes. */
+@media (min-width:981px){
+  html.hx-framed:not(.hx-wide) body.hx-p-poster,
+  html.hx-framed:not(.hx-wide) body.hx-p-slides{
+    height:100%!important;
+    min-height:0!important;
+    padding-bottom:0!important;
+  }
+
+  html.hx-wide body.hx-p-poster>header.top,
+  html.hx-wide body.hx-p-poster>.hx-steps,
+  html.hx-wide body.hx-p-poster>.hx-official,
+  html.hx-wide body.hx-p-poster>main.app,
+  html.hx-wide body.hx-p-slides>.app{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
+  body.hx-poster-custom>main.app{
+    grid-template-columns:minmax(300px,340px) minmax(520px,1fr) minmax(260px,300px)!important;
+    column-gap:0!important;
+  }
+
+  body.hx-poster-custom>main.app>.pane{
+    padding:24px!important;
+    box-sizing:border-box!important;
+  }
+
+  body.hx-poster-custom>main.app .sec{
+    padding:24px 0!important;
+    margin:0!important;
+    border-bottom:1px solid var(--hx-line)!important;
+  }
+
+  body.hx-poster-custom>main.app .sec:first-child{padding-top:0!important}
+  body.hx-poster-custom>main.app .sec:last-child{border-bottom:0!important;padding-bottom:0!important}
+}
+
+@media (max-width:1180px) and (min-width:981px){
+  body.hx-poster-custom>main.app{
+    grid-template-columns:minmax(280px,320px) minmax(440px,1fr)!important;
+  }
+  body.hx-poster-custom>main.app>.pane.right{display:none!important}
+}

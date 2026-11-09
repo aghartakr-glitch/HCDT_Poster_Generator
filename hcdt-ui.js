@@ -77,8 +77,21 @@
       var d = e.data;
       if (d && d.hcdtTipOK) window.__hxParentTip = true;
       if (d && (d.hcdtLang === 'en' || d.hcdtLang === 'ko') && d.hcdtLang !== LANG) setLang(d.hcdtLang, false, true);
-      if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
+      if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) {
+        document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
+      }
       if (d && typeof d.hcdtWide === 'boolean') { document.documentElement.classList.toggle('hx-wide', d.hcdtWide); window.dispatchEvent(new Event('resize')); }
+    });
+    /* Keep the page-level auxiliary colour and the selected poster colour in one state. */
+    document.addEventListener('click', function (e) {
+      var chip = e.target.closest && e.target.closest('.hx-chip');
+      if (!chip) return;
+      setTimeout(function () {
+        var hex = getComputedStyle(chip).getPropertyValue('--p').trim();
+        if (!/^#[0-9a-f]{6}$/i.test(hex)) return;
+        document.documentElement.style.setProperty('--hx-ui', hex);
+        try { parent.postMessage({ hcdtAuxChange: hex }, '*'); } catch (err) {}
+      }, 0);
     });
     window.addEventListener('load', post); window.addEventListener('resize', post);
     if (window.ResizeObserver) new ResizeObserver(post).observe(document.body);
@@ -259,6 +272,20 @@
     else if (ADAPT[TOOL]) ADAPT[TOOL](l, first);
   }
 
+  function wirePosterMode() {
+    if (TOOL !== 'poster') return;
+    function sync() {
+      var custom = document.querySelector('#hxMode [data-type="custom"]');
+      document.body.classList.toggle('hx-poster-custom', !!(custom && custom.getAttribute('aria-pressed') === 'true'));
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('#hxMode [data-type]');
+      if (b) setTimeout(sync, 0);
+    });
+    if (window.MutationObserver) new MutationObserver(sync).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['aria-pressed'] });
+    sync();
+  }
+
   function start() {
     document.body.classList.add('hx-p-' + TOOL);
     if (TOOL !== 'home') document.body.classList.add('hx-tool');
@@ -266,6 +293,7 @@
     if (TOOL === 'home') document.querySelectorAll('a[data-anim]').forEach(function (a) { var t = TOOLS.filter(function (x) { return x.id === a.getAttribute('data-anim'); })[0]; if (t) a.href = href(t); });
     buildSteps();
     setLang(LANG, true);
+    wirePosterMode();
     /* keep tabs in sync when the language changes in another tool */
     window.addEventListener('storage', function (e) { if (e.key === KEY && (e.newValue === 'en' || e.newValue === 'ko') && e.newValue !== LANG) setLang(e.newValue); });
     window.addEventListener('pageshow', function (e) { if (e.persisted) { var l = readLang(); if (l !== LANG) setLang(l); } });
