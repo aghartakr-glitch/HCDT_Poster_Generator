@@ -73,12 +73,12 @@ button{cursor:pointer}
 .tool span{line-height:1.25}
 #addArt .tool{align-items:center}
 
-.grp{display:grid;grid-template-columns:52px 1fr;align-items:start;gap:6px;margin-bottom:10px}
+.grp{display:grid;grid-template-columns:52px minmax(0,1fr);align-items:start;gap:6px;margin-bottom:10px}
 .vcol{display:grid;gap:6px;min-width:0}
 .vseg{width:fit-content}
 .vseg button{padding:4px 12px}
 .grp>b{font-size:var(--fs-small);color:var(--muted);font-weight:700}
-.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
 .pre[data-lc]{background-image:linear-gradient(135deg,transparent 82%,rgba(0,0,0,.4) 82%)}
 .pre{aspect-ratio:1.6;border:0;border-radius:4px;padding:0;display:flex;align-items:center;justify-content:center;gap:4px;font-size:var(--fs-small);font-weight:700;line-height:1}
 .pre i{display:block;width:6px;height:6px;border-radius:50%;background:var(--p)}
@@ -150,9 +150,9 @@ button{cursor:pointer}
 .toast.on{opacity:1}
 .rasterhost{position:fixed;left:0;top:0;z-index:-1000;pointer-events:none}
 
-@media (max-width:980px){
+@media (max-width:1180px){
   body{overflow:auto}
-  .app{display:grid;grid-template-columns:280px minmax(0,1fr);height:max(640px,calc(100dvh - 260px))}
+  .app{display:grid;grid-template-columns:clamp(240px,28vw,280px) minmax(0,1fr);height:max(640px,calc(100dvh - 260px))}
   .pane{overflow:auto;border-right:1px solid var(--line);border-bottom:0}
   .pane.right{display:none}
   .stagewrap{height:auto;order:0}
@@ -264,7 +264,7 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria
 })();
 </script>
 <section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261109h"></iframe>
+  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261109i"></iframe>
 </section>
 <style>
 .hx-official{display:none;height:calc(100dvh - 140px)}

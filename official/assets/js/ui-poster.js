@@ -40,15 +40,19 @@
 
   K.styleSection = function () {
     var st = S(), b = HP.brand, pal = HP.palette(st);
+    var auxPairs = { '#64D8D8': '#E8E041', '#E8B9AA': '#64D8D8', '#73D888': '#E8B9AA', '#E8E041': '#73D888' };
     var sw = el('div', { class: 'hx-chips', role: 'group', 'aria-label': 'Auxiliary color' }, (b.palettes || []).map(function (p) {
       var selected = p.id === pal.id && !st.aux;
+      var bg = '#FFFFFF', text = p.purple, point = p.aux;
+      if (st.scheme === 'purple') { bg = p.purple; text = '#FFFFFF'; }
+      if (st.scheme === 'aux') { bg = p.aux; text = p.purple; point = auxPairs[String(p.aux).toUpperCase()] || p.aux; }
       return el('button', {
         type: 'button',
         class: 'hx-chip',
         title: p.id + ' ' + p.name,
         'aria-label': p.name,
         'aria-pressed': String(selected),
-        style: '--b:' + p.purple + ';--t:#fff;--p:' + p.aux,
+        style: '--b:' + bg + ';--t:' + text + ';--p:' + point,
         onclick: function () { HP.set({ palette: p.id, aux: '' }); K.rebuild(); }
       }, ['Aa', el('i', { 'aria-hidden': 'true' })]);
     }));
