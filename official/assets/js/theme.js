@@ -6,7 +6,7 @@
   HP.palette = function (st) {
     var list = HP.brand.palettes || [];
     return list.filter(function (p) { return p.id === st.palette; })[0] || list[0] ||
-      { id: '000', name: 'Purple', purple: '#6B00FF', aux: '#DAF61F', auxDeep: '#CFE500' };
+      { id: '000', name: 'Purple', purple: '#6B00FF', aux: '#64D8D8', auxDeep: '#44C1C4' };
   };
 
   // Visual Identity Guideline v1.0: the right-facing plane and H, C, D, T are HCDT Purple;
