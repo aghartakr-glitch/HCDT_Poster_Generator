@@ -595,8 +595,19 @@ body.hx-p-poster #hxMode.hx-toggle-group button{
 
 /* ===== Two-way choices = Component Library .unist-segmented (pill group, 1.5px purple ring, 45% selected fill) ===== */
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{box-sizing:border-box!important;gap:0!important;padding:3px!important;border:1.5px solid #6b00ff!important;background:#fff!important;box-shadow:none!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg:not(.hx-poster-type),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{border-radius:9999em!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{border-radius:9999em!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{background:transparent!important;border:0!important;color:#000!important;font-weight:600!important;box-shadow:none!important;transform:none!important;transition:background-color 150ms!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg:not(.hx-poster-type) button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{border-radius:9999em!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{border-radius:9999em!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button:hover:not([aria-pressed=true]):not([aria-checked=true]),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button:hover:not([aria-pressed=true]):not([aria-checked=true]){background:var(--sub-light,color-mix(in srgb,#64d8d8 15%,transparent))!important;color:#000!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-checked=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true][data-m=cmyk]{background:var(--sub-medium,color-mix(in srgb,#64d8d8 45%,transparent))!important;box-shadow:inset 0 0 0 1.5px #6b00ff!important;color:#6b00ff!important}
+
+/* Custom left panel = same spacing as the Public Defense / Seminar editor:
+   summary 12px 24px, content on the 24px line, 0.67px divider, 24px bottom. */
+@media (min-width:981px){
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left{padding:0!important;gap:0!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec{padding:0 24px 24px!important;margin:0!important;border-bottom:.666667px solid var(--hx-line)!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec:first-child{padding-top:0!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec:last-child{border-bottom:.666667px solid var(--hx-line)!important;padding-bottom:24px!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec>h3{margin:0 -24px 2px!important;padding:12px 24px!important;font:600 14px/1.5 var(--hx-font)!important;letter-spacing:0!important;color:#000!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec .sub{margin:10px 0 4px!important;color:#5f6066!important;font-size:12px!important}
+}

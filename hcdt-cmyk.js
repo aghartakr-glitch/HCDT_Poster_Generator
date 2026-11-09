@@ -36,13 +36,46 @@
     if (c[0] === +m[1] && c[1] === +m[2] && c[2] === +m[3]) return null;
     return m[4] !== undefined && m[4] !== '1' ? 'rgba(' + c.join(',') + ',' + m[4] + ')' : 'rgb(' + c.join(',') + ')';
   }
-  function revert() { saved.forEach(function (s) { s.el.style.setProperty(s.p, s.v, s.imp); if (!s.v) s.el.style.removeProperty(s.p); }); saved = []; }
+  /* Raster images (photos, halftones) are converted through the same LUT so they match the colour preview. */
+  var imgSaved = [], imgCache = {};
+  function convertImg(img) {
+    try {
+      if (!img.complete || !img.naturalWidth || img.naturalWidth > 3000) return false;
+      var key = img.currentSrc || img.src; if (!key) return false;
+      var out = imgCache[key];
+      if (!out) {
+        var c = document.createElement('canvas'); c.width = img.naturalWidth; c.height = img.naturalHeight;
+        var x = c.getContext('2d'); x.drawImage(img, 0, 0);
+        var d = x.getImageData(0, 0, c.width, c.height), p = d.data, memo = {};
+        for (var i = 0; i < p.length; i += 4) {
+          if (!p[i + 3]) continue;
+          var k = (p[i] << 16) | (p[i + 1] << 8) | p[i + 2], m = memo[k];
+          if (!m) m = memo[k] = map(p[i], p[i + 1], p[i + 2]);
+          p[i] = m[0]; p[i + 1] = m[1]; p[i + 2] = m[2];
+        }
+        x.putImageData(d, 0, 0); out = imgCache[key] = c.toDataURL('image/png');
+      }
+      imgSaved.push({ el: img, orig: img.getAttribute('src'), conv: out });
+      img.setAttribute('src', out); return true;
+    } catch (e) { return false; }
+  }
+  function convertImages(list) {
+    list.forEach(function (el) {
+      if (el.tagName !== 'IMG') return;
+      if (!convertImg(el) && !el.complete) el.addEventListener('load', later, { once: true });
+    });
+  }
+  function revertImages() {
+    imgSaved.forEach(function (s) { if (s.el.getAttribute('src') === s.conv) { if (s.orig === null) s.el.removeAttribute('src'); else s.el.setAttribute('src', s.orig); } });
+    imgSaved = [];
+  }
+  function revert() { revertImages(); saved.forEach(function (s) { s.el.style.setProperty(s.p, s.v, s.imp); if (!s.v) s.el.style.removeProperty(s.p); }); saved = []; }
   function applyAll() {
     if (mo) mo.disconnect(); revert();
     if (on) {
       var batch = [];
       roots.forEach(function (sel) { [].slice.call(document.querySelectorAll(sel)).forEach(function (r) { batch.push(r); [].push.apply(batch, r.querySelectorAll('*')); }); });
-      var jobs = [];
+      convertImages(batch); var jobs = [];
       batch.forEach(function (el) {
         if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return;
         var cs = getComputedStyle(el);

@@ -22,7 +22,7 @@
 
   K.posterSection = function () {
     var st = S(), b = HP.brand;
-    var types = Object.keys(HP.types).map(function (k) { return [k, HP.types[k].label]; });
+    var types = Object.keys(HP.types).map(function (k) { return [k, { defense: 'Defense', seminar: 'Seminar', custom: 'Custom' }[k] || HP.types[k].label]; });
     var typeControl = K.seg(types, st.type, function (t) {
       if (!confirm('Switch to "' + HP.types[t].label + '"? Current speakers and headline will be replaced.')) { K.rebuild(); return; }
       HP.state = HP.initialState(t, t === 'custom' ? 3 : Math.max(3, st.speakers.length));
