@@ -538,12 +538,12 @@ function checkOverflow(){
 function renderThumbs(){
   const box=$("#thumbs"); box.replaceChildren();
   const custom=(window.HX_TPL_GROUP||"casual")==="casual";
-  (custom?[0]:[6,7]).forEach(i=>{
+  (custom?[0,1,2,3,4,5]:[6,7]).forEach(i=>{
     const fn=TPL[i];
     const t=fn(); const btn=document.createElement("button");
-    btn.className="thumb"; btn.title=custom?"Load Custom template":`Load template ${i+1}`;
+    btn.className="thumb"; btn.title=`Load template ${i+1}`;
     const p=buildPoster({scheme:{...S.scheme},blocks:t.blocks},false);
-    btn.append(p); btn.insertAdjacentHTML("beforeend",custom?"<em>Custom</em>":`<em>${i+1}</em>`);
+    btn.append(p); btn.insertAdjacentHTML("beforeend",`<em>${i+1}</em>`);
     btn.onclick=()=>loadTpl(i);
     box.append(btn);
     requestAnimationFrame(()=>{p.style.transform=`scale(${btn.clientWidth/(PW*PX)})`});
