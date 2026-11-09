@@ -68,3 +68,11 @@ html body .hx-poster-type button{flex:none!important;width:100%!important;min-wi
   #hp-editor{max-height:none!important;order:0}
   #hp-stage{min-height:70vh!important;order:-1}
 }
+
+/* ===== Two-way choices = Component Library .unist-segmented (pill group, 1.5px purple ring, 45% selected fill) ===== */
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{box-sizing:border-box!important;gap:0!important;padding:3px!important;border:1.5px solid #6b00ff!important;background:#fff!important;box-shadow:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg:not(.hx-poster-type),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{border-radius:9999em!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{background:transparent!important;border:0!important;color:#000!important;font-weight:600!important;box-shadow:none!important;transform:none!important;transition:background-color 150ms!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg:not(.hx-poster-type) button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{border-radius:9999em!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button:hover:not([aria-pressed=true]):not([aria-checked=true]),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button:hover:not([aria-pressed=true]):not([aria-checked=true]){background:var(--sub-light,color-mix(in srgb,#64d8d8 15%,transparent))!important;color:#000!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-checked=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true][data-m=cmyk]{background:var(--sub-medium,color-mix(in srgb,#64d8d8 45%,transparent))!important;box-shadow:inset 0 0 0 1.5px #6b00ff!important;color:#6b00ff!important}
