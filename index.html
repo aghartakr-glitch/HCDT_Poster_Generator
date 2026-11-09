@@ -247,8 +247,9 @@ html.hx-wide .hx-steps{display:none!important}
 .pane.left .sec:not(.is-open)>:not(h3){display:none}
 .pane.left .sec.is-open>h3{margin-bottom:2px}
 .pane.left .sec .sub{margin:10px 0 4px;color:#6b6b78;font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
-.hx-poster-type{width:100%!important;display:flex!important;flex-direction:column!important}
-.hx-poster-type button{flex:none!important;width:100%!important;min-width:0!important;min-height:34px!important;padding:6px 4px!important;white-space:nowrap!important;line-height:1.2!important}
+.hx-poster-type{width:100%!important;display:flex!important;flex-direction:column!important;border-radius:14px!important;padding:3px!important}
+.hx-poster-type button{flex:none!important;width:100%!important;min-width:0!important;min-height:30px!important;padding:4px 10px!important;white-space:nowrap!important;line-height:1.2!important;border-radius:10px!important}
+.hx-official{border:0.666667px solid rgba(0,0,0,.2);border-radius:8px;background:#fff;margin:0 64px;overflow:hidden}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria-pressed="true"]{background:#6b00ff!important;color:#fff!important;font-weight:600!important}
 </style>
 <script>
@@ -534,12 +535,13 @@ function checkOverflow(){
 /* ---------- 좌측 패널 ---------- */
 function renderThumbs(){
   const box=$("#thumbs"); box.replaceChildren();
-  TPL.forEach((fn,i)=>{
-    if((i>=6)!==((window.HX_TPL_GROUP||"casual")==="official"))return;
+  const custom=(window.HX_TPL_GROUP||"casual")==="casual";
+  (custom?[0]:[6,7]).forEach(i=>{
+    const fn=TPL[i];
     const t=fn(); const btn=document.createElement("button");
-    btn.className="thumb"; btn.title=`Load template ${i+1}`;
+    btn.className="thumb"; btn.title=custom?"Load Custom template":`Load template ${i+1}`;
     const p=buildPoster({scheme:{...S.scheme},blocks:t.blocks},false);
-    btn.append(p); btn.insertAdjacentHTML("beforeend",`<em>${i+1}</em>`);
+    btn.append(p); btn.insertAdjacentHTML("beforeend",custom?"<em>Custom</em>":`<em>${i+1}</em>`);
     btn.onclick=()=>loadTpl(i);
     box.append(btn);
     requestAnimationFrame(()=>{p.style.transform=`scale(${btn.clientWidth/(PW*PX)})`});
@@ -809,14 +811,15 @@ window.addEventListener("keydown",e=>{
 });
 
 /* ---------- 기록 · 저장 ---------- */
-const KEY="hcdt-poster-v3";
+const KEY="hcdt-poster-v3", KEY_OFFICIAL="hcdt-poster-v3-official";
+const storageKey=()=>(window.HX_TPL_GROUP||"casual")==="casual"?KEY:KEY_OFFICIAL;
 const validBlock=b=>b&&(b.type==="text"||(b.type==="logo"&&LOGOS[b.kind])||(b.type==="art"&&ARTS[b.kind]));
 const cleanScheme=sc=>(sc&&findCombo(sc))?sc:{bg:"white",text:"purple",point:"verdigris"};
 const snapshot=()=>JSON.stringify({scheme:S.scheme,blocks:S.blocks.map(({_over,_hit,...b})=>b),ui:S.ui});
 function commit(){
   const s=snapshot(); if(hist[hi]===s)return;
   hist.splice(hi+1); hist.push(s); if(hist.length>120)hist.shift(); hi=hist.length-1;
-  try{localStorage.setItem(KEY,s);}catch(_){}
+  try{localStorage.setItem(storageKey(),s);}catch(_){}
   updUndo();
 }
 function restore(s){const o=JSON.parse(s);S.scheme=cleanScheme(o.scheme);S.blocks=o.blocks.filter(validBlock);S.ui=o.ui||S.ui;if(sel&&!get(sel))sel=null;renderAll();try{localStorage.setItem(KEY,s);}catch(_){}}
@@ -874,8 +877,8 @@ $("#jsonFile").onchange=e=>{
   r.readAsText(f); e.target.value="";
 };
 $("#blank").onclick=()=>{endEdit();S.blocks=[L(colX(3),M)];sel=null;commit();renderAll();};
-$("#optGrid").onchange=e=>{S.ui.grid=e.target.checked;renderPoster();try{localStorage.setItem(KEY,snapshot());}catch(_){}};
-$("#optSnap").onchange=e=>{S.ui.snap=e.target.checked;try{localStorage.setItem(KEY,snapshot());}catch(_){}};
+$("#optGrid").onchange=e=>{S.ui.grid=e.target.checked;renderPoster();try{localStorage.setItem(storageKey(),snapshot());}catch(_){}};
+$("#optSnap").onchange=e=>{S.ui.snap=e.target.checked;try{localStorage.setItem(storageKey(),snapshot());}catch(_){}};
 
 let tt; function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("on"),2400);}
 
@@ -1026,7 +1029,7 @@ window.addEventListener('hcdtpostermodechange',function(e){switchPosterMode((e.d
   try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(Array.isArray(o.blocks)&&o.blocks.length){S.scheme=cleanScheme(o.scheme);S.blocks=o.blocks.filter(validBlock);S.ui=o.ui||S.ui;loaded=true;}}}catch(_){}
   if(!loaded){const t=TPL[0]();S.scheme={bg:"white",text:"navy",point:"navy"};S.blocks=t.blocks;}
   renderAdders(); commit(); renderAll(); fit(); checkFonts();
-  switchPosterMode(window.hxPosterRequestedMode||'defense',true);
+  switchPosterMode(window.hxPosterRequestedMode||(location.hash==='#custom'?'custom':'defense'),true);
   /* the default start screen changed (white + UNIST): offer the poster saved under the previous storage key */
   if(!loaded){try{const old=localStorage.getItem("hcdt-poster-v2");if(old&&!localStorage.getItem("hcdt-poster-v2-seen")){localStorage.setItem("hcdt-poster-v2-seen","1");const o=JSON.parse(old);if(Array.isArray(o.blocks)&&o.blocks.length&&confirm("A poster from your last visit was found in this browser. Open it? (Cancel keeps the new default start screen.)"))restore(old);}}catch(_){}}
 })();
