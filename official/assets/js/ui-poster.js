@@ -40,15 +40,23 @@
 
   K.styleSection = function () {
     var st = S(), b = HP.brand, pal = HP.palette(st);
-    var sw = el('div', { class: 'sw' }, (b.palettes || []).map(function (p) {
-      return el('button', { type: 'button', class: p.id === pal.id && !st.aux ? 'on' : '', title: p.id + ' ' + p.name,
-        style: 'background:linear-gradient(135deg,' + p.purple + ' 50%,' + p.aux + ' 50%)', onclick: function () { HP.set({ palette: p.id, aux: '' }); K.rebuild(); } });
+    var sw = el('div', { class: 'hx-chips', role: 'group', 'aria-label': 'Auxiliary color' }, (b.palettes || []).map(function (p) {
+      var selected = p.id === pal.id && !st.aux;
+      return el('button', {
+        type: 'button',
+        class: 'hx-chip',
+        title: p.id + ' ' + p.name,
+        'aria-label': p.name,
+        'aria-pressed': String(selected),
+        style: '--b:' + p.purple + ';--t:#fff;--p:' + p.aux,
+        onclick: function () { HP.set({ palette: p.id, aux: '' }); K.rebuild(); }
+      }, ['Aa', el('i', { 'aria-hidden': 'true' })]);
     }));
     var layouts = [['auto', 'Auto (by seed)']].concat(HP.layoutsFor(st.speakers.length, st.format === 'landscape').map(function (id) { return [id, HP.layouts[id].label]; }));
     var logos = (b.logos || []).map(function (l) { return [l.id, l.label]; });
     return K.section('Look', [
       K.field('Background', K.seg([['light', 'White'], ['purple', 'Purple'], ['aux', 'Highlight']], st.scheme, function (v) { set('scheme', v); })),
-      K.field('Auxiliary color (main purple stays)', el('div', { class: 'row' }, [sw])),
+      K.field('Auxiliary color (main purple stays)', sw),
       K.field('Layout', el('div', { class: 'row' }, [K.select(layouts, st.layout, function (v) { set('layout', v); }),
         K.btn('Shuffle', function () { set('seed', Math.floor(Math.random() * 99999)); K.refresh(); }, 'pri', 'New variation')]),
         'Seed ' + st.seed + ' · same seed gives the same poster'),
