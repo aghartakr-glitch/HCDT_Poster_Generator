@@ -26,7 +26,7 @@ details.sec > summary { font-weight: 600; }
 
 /* Same frame as the HCDT tools: 14px body text, 272px side pane, 12px labels in sentence case, 34px fields */
 html, body { font: 14px/1.5 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', sans-serif; }
-.hp-app { grid-template-columns:272px minmax(0,1fr) 284px; }
+.hp-app { grid-template-columns:280px minmax(0,1fr) 284px; }
 #hp-editor { border-right: 1px solid #dfe0e6; }
 #hp-inspector{overflow:auto;background:#fff;border-left:1px solid var(--hx-line);padding:16px;color:var(--hx-muted);font-size:var(--fs-small)}
 #hp-inspector strong{display:block;color:var(--hx-fg);font:var(--hx-t2);margin-bottom:8px}
@@ -38,6 +38,8 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 #hp-editor details.sec:first-child .body > .row > .f:first-child { flex: 1.32 1 132px; }
 #hp-editor details.sec:first-child .body > .row > .f:last-child { flex: .68 1 92px; }
 #hp-editor details.sec:first-child .body > .row > .f:first-child .seg button { white-space: nowrap; }
+#hp-editor details.sec:first-child .body>.row{display:grid;grid-template-columns:1fr;align-items:stretch}
+#hp-editor details.sec:first-child .body>.row>.f{width:100%;min-width:0}
 .hx-poster-type{display:flex!important;width:100%!important;box-sizing:border-box!important}
 .hx-poster-type button{min-width:0!important;min-height:34px!important;padding:4px!important;white-space:normal!important;line-height:1.1!important;font-size:12px!important}
 
@@ -53,8 +55,6 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 @media(max-width:1100px){
   .hp-app{grid-template-columns:280px minmax(0,1fr)!important;height:100vh!important}
   #hp-editor{max-height:none!important;min-width:0}
-  #hp-editor details.sec:first-child .body>.row{display:grid;grid-template-columns:1fr;align-items:stretch}
-  #hp-editor details.sec:first-child .body>.row>.f{width:100%;min-width:0}
   #hp-stage{min-width:0;min-height:0!important;padding:16px}
   #hp-inspector{display:none}
 }
