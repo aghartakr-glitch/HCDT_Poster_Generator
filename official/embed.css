@@ -41,8 +41,8 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 #hp-editor details.sec:first-child .body > .row > .f:first-child .seg button { white-space: nowrap; }
 #hp-editor details.sec:first-child .body>.row{display:grid;grid-template-columns:1fr;align-items:stretch}
 #hp-editor details.sec:first-child .body>.row>.f{width:100%;min-width:0}
-.hx-poster-type{display:flex!important;width:100%!important;box-sizing:border-box!important}
-.hx-poster-type button{min-width:0!important;min-height:34px!important;padding:4px!important;white-space:normal!important;line-height:1.1!important;font-size:12px!important}
+.hx-poster-type{display:flex!important;flex-direction:column!important;width:100%!important;box-sizing:border-box!important}
+.hx-poster-type button{flex:none!important;width:100%!important;min-width:0!important;min-height:34px!important;padding:4px!important;white-space:nowrap!important;line-height:1.1!important}
 
 /* Exact Custom-editor grid: 14mm margins, 4 x 42.5mm columns with 4mm
    gutters, and 14 x 15.5mm rows with 4mm gutters. Export stays clean. */

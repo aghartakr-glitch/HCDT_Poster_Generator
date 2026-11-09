@@ -247,8 +247,8 @@ html.hx-wide .hx-steps{display:none!important}
 .pane.left .sec:not(.is-open)>:not(h3){display:none}
 .pane.left .sec.is-open>h3{margin-bottom:2px}
 .pane.left .sec .sub{margin:10px 0 4px;color:#6b6b78;font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
-.hx-poster-type{width:100%!important}
-.hx-poster-type button{min-height:34px!important;padding:6px 4px!important;white-space:normal!important;line-height:1.2!important;word-break:keep-all!important;overflow-wrap:normal!important;hyphens:none!important}
+.hx-poster-type{width:100%!important;display:flex!important;flex-direction:column!important}
+.hx-poster-type button{flex:none!important;width:100%!important;min-width:0!important;min-height:34px!important;padding:6px 4px!important;white-space:nowrap!important;line-height:1.2!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria-pressed="true"]{background:#6b00ff!important;color:#fff!important;font-weight:600!important}
 </style>
 <script>
@@ -301,7 +301,16 @@ body.hx-official-on #hxGrid{display:none!important}
     if(official)notify();
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
-  fr.addEventListener('load',notify);
+  fr.addEventListener('load',function(){
+    notify();
+    try{
+      fr.contentDocument.addEventListener('click',function(e){
+        var x=e.target.closest&&e.target.closest('.hx-poster-type button');
+        var t={'Public Defense':'defense','Seminar series':'seminar','Custom':'custom'}[x&&x.textContent.trim()];
+        if(t)set(t);
+      });
+    }catch(err){}
+  });
   window.addEventListener('message',function(e){
     var d=e.data||{},t=d.hcdtPosterType;
     if(/^(defense|seminar|custom)$/.test(t))set(t);
