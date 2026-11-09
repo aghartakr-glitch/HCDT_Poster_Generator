@@ -26,7 +26,7 @@
     var typeControl = K.seg(types, st.type, function (t) {
       if (!confirm('Switch to "' + HP.types[t].label + '"? Current speakers and headline will be replaced.')) { K.rebuild(); return; }
       HP.state = HP.initialState(t, t === 'custom' ? 3 : Math.max(3, st.speakers.length));
-      K.rebuild(); HP.emit();
+      K.rebuild(); HP.emit(); HP.setGrid(t === 'custom');
       window.parent.postMessage({ hcdtPosterType: t }, '*');
     });
     typeControl.classList.add('hx-poster-type');

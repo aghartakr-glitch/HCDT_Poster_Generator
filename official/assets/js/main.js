@@ -59,7 +59,7 @@
     HP.resetHistory();
     /* The construction grid belongs to the free-form Custom editor only.
        Defense and Seminar use approved structured layouts without an overlay. */
-    HP.setGrid(false);
+    HP.setGrid(HP.state.type === 'custom');
     window.addEventListener('message', function (e) {
       var d = e.data || {}, next = d.hcdtPosterType, changed = false;
       if (next === 'defense' || next === 'seminar' || next === 'custom') {
@@ -70,7 +70,7 @@
       }
       if (d.hcdtAux) changed = applyParentAux(d.hcdtAux) || changed;
       if (!changed) return;
-      HP.ui.rebuild(); HP.render(); HP.resetHistory(); HP.setGrid(false); broadcastAux();
+      HP.ui.rebuild(); HP.render(); HP.resetHistory(); HP.setGrid(HP.state.type === 'custom'); broadcastAux();
     });
     // 글꼴이 다 불러와지면 글자 맞춤을 한 번 더 한다
     lastAux = selectedAux();

@@ -449,6 +449,9 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
 @media (min-width:981px){
   html:has(body.hx-p-poster),html:has(body.hx-p-slides){height:100%!important}
   :is(body.hx-p-poster,body.hx-p-slides){display:flex!important;flex-direction:column;box-sizing:border-box!important;height:100dvh!important;overflow:hidden!important;padding-bottom:12px!important}
+  /* The 64px page margin already belongs to the shared 12-column grid.
+     A second 16px body inset shifted every poster edge off the grid line. */
+  body.hx-p-poster{padding-left:0!important;padding-right:0!important}
   :is(body.hx-p-poster,body.hx-p-slides)>*{flex:none}
   body.hx-p-poster>main.app{flex:1 1 0!important;min-height:0!important;height:auto!important}
   body.hx-p-slides>.app{flex:1 1 0!important;min-height:0!important;height:auto!important;display:grid!important;grid-template-rows:auto auto minmax(0,1fr)!important}
@@ -479,6 +482,18 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
     padding-bottom:0!important;
   }
 
+  /* The parent guideline page already places the tool on its 12-column grid.
+     Do not apply the 64px global page margin a second time inside the iframe. */
+  html.hx-framed:not(.hx-wide) body.hx-p-poster>header.top,
+  html.hx-framed:not(.hx-wide) body.hx-p-poster>.hx-steps,
+  html.hx-framed:not(.hx-wide) body.hx-p-poster>.hx-official,
+  html.hx-framed:not(.hx-wide) body.hx-p-poster>main.app{
+    width:100%!important;
+    max-width:none!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+
   html.hx-wide body.hx-p-poster>header.top,
   html.hx-wide body.hx-p-poster>.hx-steps,
   html.hx-wide body.hx-p-poster>.hx-official,
@@ -490,48 +505,72 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
     margin-right:0!important;
   }
 
-  body.hx-poster-custom>main.app{
+  body.hx-p-poster>main.app{
     grid-template-columns:minmax(260px,3fr) minmax(0,6fr) minmax(260px,3fr)!important;
     column-gap:0!important;
   }
 
-  body.hx-poster-custom>main.app>.pane{
+  body.hx-p-poster>main.app>.pane{
     padding:24px!important;
     box-sizing:border-box!important;
   }
 
-  body.hx-poster-custom>main.app .sec{
+  body.hx-p-poster>main.app .sec{
     padding:24px 0!important;
     margin:0!important;
     border-bottom:1px solid var(--hx-line)!important;
   }
 
-  body.hx-poster-custom>main.app .sec:first-child{padding-top:0!important}
-  body.hx-poster-custom>main.app .sec:last-child{border-bottom:0!important;padding-bottom:0!important}
+  body.hx-p-poster>main.app .sec:first-child{padding-top:0!important}
+  body.hx-p-poster>main.app .sec:last-child{border-bottom:0!important;padding-bottom:0!important}
 }
 
 @media (max-width:1180px) and (min-width:981px){
-  body.hx-poster-custom>main.app{
+  body.hx-p-poster>main.app{
     grid-template-columns:minmax(260px,3fr) minmax(0,9fr)!important;
   }
-  body.hx-poster-custom>main.app>.pane.right{display:none!important}
+  body.hx-p-poster>main.app>.pane.right{display:none!important}
 }
 
 /* Narrow screens keep every shared control reachable without a horizontal page scroll. */
 @media (max-width:620px){
   html,body.hx-tool{max-width:100%;overflow-x:hidden!important}
-  body.hx-p-poster>header.top{display:flex!important;flex-wrap:wrap!important;height:auto!important;min-height:var(--hx-h);padding:12px var(--grid-margin)!important;gap:10px!important}
-  body.hx-p-poster>header.top .brand{width:100%;flex:none}
-  body.hx-p-poster>header.top .hx-act{display:flex!important;width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;padding:3px 3px 8px;scrollbar-width:thin}
+  body.hx-p-poster>header.top{display:flex!important;flex-wrap:wrap!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;min-height:var(--hx-h);margin:0!important;padding:12px var(--grid-margin)!important;gap:10px!important;box-sizing:border-box!important}
+  body.hx-p-poster>header.top .brand{width:100%;min-width:0;flex:none;white-space:normal!important}
+  body.hx-p-poster>header.top .hx-act{display:flex!important;width:100%;max-width:100%;overflow:visible!important;padding:3px 0 8px;flex-wrap:wrap!important;justify-content:flex-start!important}
   body.hx-p-poster>.hx-steps{width:calc(100% - (var(--grid-margin) * 2))!important;margin:12px auto!important}
   body.hx-p-poster>.hx-steps li{min-width:0!important}
   body.hx-p-poster>.hx-steps p{overflow-wrap:anywhere}
-  body.hx-p-poster>main.app,body.hx-p-poster>.hx-official{width:100%!important;max-width:100%!important;margin-inline:0!important}
+  body.hx-p-poster>main.app,body.hx-p-poster>.hx-official{width:100%!important;max-width:100%!important;min-width:0!important;margin-inline:0!important}
   body.hx-p-poster>main.app>.pane{width:100%;max-width:100%;box-sizing:border-box!important;padding-inline:var(--grid-margin)!important}
-  body.hx-poster-custom>main.app>.stagewrap{order:-1!important;min-height:70vh!important}
-  body.hx-poster-custom>main.app>.pane.left{order:0!important}
+  body.hx-p-poster>main.app>.stagewrap{order:-1!important;min-width:0!important;width:100%!important;max-width:100%!important;min-height:70vh!important;overflow:hidden!important}
+  body.hx-p-poster>main.app>.pane.left{order:0!important}
   body.hx-p-poster #hxMode.hx-toggle-group{display:flex!important;width:100%!important;max-width:100%!important;min-width:0!important}
   body.hx-p-poster #hxMode.hx-toggle-group button{flex:1 1 0!important;min-width:0!important;white-space:normal!important}
   html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-p-poster #hxMode.hx-toggle-group button{padding-inline:6px!important;font-size:11.5px!important;line-height:1.1!important}
   body.hx-p-poster .thumbs{min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (max-width:600px){
+  /* Do not turn the shared action bar into a clipped horizontal strip. */
+  body.hx-p-poster>header.top .hx-act{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    width:100%!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+  }
+  body.hx-p-poster>header.top .hx-act>.hx-sep{display:none!important}
+  body.hx-p-poster>header.top .hx-act>button,
+  body.hx-p-poster>header.top .hx-act>.hx-menu,
+  body.hx-p-poster>header.top .hx-act>.hx-toggle-group{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    box-sizing:border-box!important;
+  }
+  body.hx-p-poster>header.top .hx-act>.hx-menu>button{width:100%!important}
+  body.hx-p-poster>header.top .hx-act>#undo,
+  body.hx-p-poster>header.top .hx-act>#redo{display:none!important}
 }

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261109n">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261109p">
 
 <style>
 html,body{margin:0}
@@ -263,79 +263,38 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria
   });
 })();
 </script>
-<section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261109j"></iframe>
-</section>
+<section class="hx-official" id="hxOfficial" hidden aria-hidden="true"></section>
 <style>
-.hx-official{display:none;height:calc(100dvh - 140px)}
-.hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
-body.hx-official-on main.app{display:none!important}
-body.hx-official-on .hx-official{display:block}
-body.hx-official-on #hxGrid{display:none!important}
-@media(min-width:981px){body.hx-p-poster>.hx-official{flex:1 1 0;min-height:0;height:auto}}
+.hx-official{display:none!important}
+body:not(.hx-mode-custom) #hxGrid{display:none!important}
 </style>
 <script>
 (function(){
-  var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
+  var B=document.body,box=document.getElementById('hxMode');
   var hash=location.hash.slice(1),type=/^(defense|seminar|custom)$/.test(hash)?hash:'defense';
-  function notify(){
-    if(type==='custom')return;
-    try{
-      var aux=getComputedStyle(document.documentElement).getPropertyValue('--hx-ui').trim()||'#E8E041';
-      if(fr.contentWindow)fr.contentWindow.postMessage({hcdtPosterType:type,hcdtAux:aux},'*');
-    }catch(e){}
-  }
   function set(t){
     type=/^(defense|seminar|custom)$/.test(t)?t:'defense';
-    /* Custom is the original six-template, free-form editor. The structured
-       iframe is only for the two official presets. Never replace Custom with it. */
-    var official=type!=='custom';
-    B.classList.toggle('hx-official-on',official);host.hidden=!official;
+    /* One DOM, one editor, one spacing system. Only the poster state changes. */
+    B.classList.remove('hx-official-on');
+    B.classList.toggle('hx-mode-custom',type==='custom');
+    B.dataset.posterMode=type;
     var gridButton=document.getElementById('hxGrid');
     if(gridButton){
-      gridButton.hidden=official;
-      if(official)gridButton.style.setProperty('display','none','important');
+      gridButton.hidden=type!=='custom';
+      if(type!=='custom')gridButton.style.setProperty('display','none','important');
       else gridButton.style.removeProperty('display');
     }
-    if(official&&!fr.src)fr.src=fr.dataset.src;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}
-    if(official)notify();
+    window.hxPosterRequestedMode=type;
+    window.dispatchEvent(new CustomEvent('hcdtpostermodechange',{detail:{type:type}}));
+    try{parent.postMessage({hcdtPosterType:type},'*')}catch(e){}
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
-  fr.addEventListener('load',notify);
   window.addEventListener('message',function(e){
     var d=e.data||{},t=d.hcdtPosterType;
     if(/^(defense|seminar|custom)$/.test(t))set(t);
-    if(B.classList.contains('hx-official-on')&&d.hcdtPosterHistory){
-      var u=document.getElementById('undo'),r=document.getElementById('redo');
-      if(u)u.disabled=!d.undo;if(r)r.disabled=!d.redo;
-    }
-    if(B.classList.contains('hx-official-on')&&d.hcdtPosterGrid){var g=document.getElementById('hxGrid');if(g)g.setAttribute('aria-pressed',String(!!d.on));}
   });
-  new MutationObserver(notify).observe(document.documentElement,{attributes:true,attributeFilter:['style']});
-  /* The common application bar controls the shared editor in every poster type. */
-  document.addEventListener('click',function(e){
-    if(!B.classList.contains('hx-official-on'))return;
-    var c=e.target.closest('#hxCmyk button');
-    if(c){var cw=fr.contentWindow,ca=cw&&cw.HX_CMYK_API;if(ca)ca.set(c.getAttribute('data-m')==='cmyk');return;}
-    var t=e.target.closest('#undo,#redo,#hxGrid,#saveJson,#openJson,#savePdf,#savePng');if(!t)return;
-    var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
-    e.preventDefault();e.stopImmediatePropagation();
-    var pop=t.closest('.hx-menu-pop');if(pop){pop.hidden=true;var mb=pop.parentNode.querySelector('[data-hx-menu]');if(mb)mb.setAttribute('aria-expanded','false');}
-    if(t.id==='undo')HP.undo();
-    else if(t.id==='redo')HP.redo();
-    else if(t.id==='hxGrid'){var on=t.getAttribute('aria-pressed')!=='true';t.setAttribute('aria-pressed',String(on));HP.setGrid(on);}
-    else if(t.id==='openJson')document.getElementById('jsonFile').click();
-    else if(t.id==='savePdf')HP.exportPdf();
-    else if(t.id==='savePng')HP.exportPng();
-    else HP.saveProject();
-  },true);
-  document.addEventListener('change',function(e){
-    if(!B.classList.contains('hx-official-on')||e.target.id!=='jsonFile'||!e.target.files[0])return;
-    var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
-    e.preventDefault();e.stopImmediatePropagation();HP.openProject(e.target.files[0]);e.target.value='';
-  },true);
   set(type);
 })();
 </script>
@@ -989,12 +948,39 @@ async function checkFonts(){
 
 function renderAll(){renderPoster();renderProps();renderScheme();renderThumbs();$("#optGrid").checked=S.ui.grid;$("#optSnap").checked=S.ui.snap;}
 
+/* ---------- one editor, three poster modes ---------- */
+let posterMode='custom';
+const posterModeStates={};
+function switchPosterMode(next,first){
+  next=/^(defense|seminar|custom)$/.test(next)?next:'defense';
+  if(!first&&next===posterMode)return;
+  if(first)posterModeStates.custom=snapshot();
+  else posterModeStates[posterMode]=snapshot();
+  posterMode=next;
+  window.HX_TPL_GROUP=next==='custom'?'casual':'official';
+  const saved=posterModeStates[next];
+  if(saved){
+    const o=JSON.parse(saved);
+    S.scheme=cleanScheme(o.scheme);S.blocks=o.blocks.filter(validBlock);S.ui=o.ui||S.ui;
+  }else{
+    const t=TPL[next==='defense'?6:7]();
+    S.scheme={bg:'white',text:'purple',point:'verdigris'};
+    S.blocks=t.blocks;S.ui={grid:false,snap:true};
+  }
+  S.ui.grid=next==='custom';
+  sel=null;hist.length=0;hi=-1;commit();renderAll();fit();
+  document.body.classList.toggle('hx-mode-custom',next==='custom');
+  document.body.classList.add('hx-poster-editor');
+}
+window.addEventListener('hcdtpostermodechange',function(e){switchPosterMode((e.detail||{}).type,false)});
+
 /* ---------- 시작 ---------- */
 (function init(){
   let loaded=false;
   try{const s=localStorage.getItem(KEY);if(s){const o=JSON.parse(s);if(Array.isArray(o.blocks)&&o.blocks.length){S.scheme=cleanScheme(o.scheme);S.blocks=o.blocks.filter(validBlock);S.ui=o.ui||S.ui;loaded=true;}}}catch(_){}
   if(!loaded){const t=TPL[0]();S.scheme={bg:"white",text:"navy",point:"navy"};S.blocks=t.blocks;}
   renderAdders(); commit(); renderAll(); fit(); checkFonts();
+  switchPosterMode(window.hxPosterRequestedMode||'defense',true);
   /* the default start screen changed (white + UNIST): offer the poster saved under the previous storage key */
   if(!loaded){try{const old=localStorage.getItem("hcdt-poster-v2");if(old&&!localStorage.getItem("hcdt-poster-v2-seen")){localStorage.setItem("hcdt-poster-v2-seen","1");const o=JSON.parse(old);if(Array.isArray(o.blocks)&&o.blocks.length&&confirm("A poster from your last visit was found in this browser. Open it? (Cancel keeps the new default start screen.)"))restore(old);}}catch(_){}}
 })();
