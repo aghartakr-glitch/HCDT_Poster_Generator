@@ -22,7 +22,6 @@ window.HX_DICT_POSTER = (function () {
     'Symbol + H–C D+T': '심볼 + H–C D+T', 'Cross marks': '십자 표시',
     'White background + purple text + auxiliary point': '흰 배경 + 보라 글자 + 보조색 포인트',
     'Purple background + white text + auxiliary point': '보라 배경 + 흰 글자 + 보조색 포인트',
-    'Purple background + auxiliary text + auxiliary point': '보라 배경 + 보조색 글자 + 보조색 포인트',
     'Auxiliary background + purple text + auxiliary point': '보조색 배경 + 보라 글자 + 보조색 포인트',
     'Auxiliary background + auxiliary text + purple point': '보조색 배경 + 보조색 글자 + 보라 포인트',
     'Auxiliary background + auxiliary text + auxiliary point': '보조색 배경 + 보조색 글자 + 보조색 포인트',

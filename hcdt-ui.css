@@ -472,7 +472,7 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
 }
 
 /* Final layout authority -------------------------------------------------
-   Keep normal framed editors compact, let Wide view use the whole viewport,
+   Keep framed editors compact and use the available viewport,
    and give Custom the same panel rhythm as the official poster modes. */
 @media (min-width:981px){
   html.hx-framed:not(.hx-wide) body.hx-p-poster,

@@ -248,7 +248,7 @@ html.hx-wide .hx-steps{display:none!important}
 .pane.left .sec.is-open>h3{margin-bottom:2px}
 .pane.left .sec .sub{margin:10px 0 4px;color:#6b6b78;font-size:12px;font-weight:400;text-transform:none;letter-spacing:0}
 .hx-poster-type{width:100%!important}
-.hx-poster-type button{min-height:34px!important;padding:6px 4px!important;white-space:normal!important;line-height:1.2!important}
+.hx-poster-type button{min-height:34px!important;padding:6px 4px!important;white-space:normal!important;line-height:1.2!important;word-break:keep-all!important;overflow-wrap:normal!important;hyphens:none!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria-pressed="true"]{background:#6b00ff!important;color:#fff!important;font-weight:600!important}
 </style>
 <script>
@@ -263,40 +263,76 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-tool #hxMode button[aria
   });
 })();
 </script>
-<section class="hx-official" id="hxOfficial" hidden aria-hidden="true"></section>
+<section class="hx-official" id="hxOfficial">
+  <iframe id="hxOfficialFrame" title="HCDT poster generator" data-src="official/index.html?v=20261109r2"></iframe>
+</section>
 <style>
-.hx-official{display:none!important}
-body:not(.hx-mode-custom) #hxGrid{display:none!important}
+.hx-official{display:none;height:calc(100dvh - 140px)}
+.hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
+body.hx-official-on main.app{display:none!important}
+body.hx-official-on .hx-official{display:block}
+body.hx-official-on #hxGrid{display:none!important}
+@media(min-width:981px){body.hx-p-poster>.hx-official{flex:1 1 0;min-height:0;height:auto}}
 </style>
 <script>
 (function(){
-  var B=document.body,box=document.getElementById('hxMode');
+  var B=document.body,box=document.getElementById('hxMode'),host=document.getElementById('hxOfficial'),fr=document.getElementById('hxOfficialFrame');
   var hash=location.hash.slice(1),type=/^(defense|seminar|custom)$/.test(hash)?hash:'defense';
+  function notify(){
+    if(type==='custom')return;
+    try{
+      var aux=getComputedStyle(document.documentElement).getPropertyValue('--hx-ui').trim()||'#E8E041';
+      if(fr.contentWindow)fr.contentWindow.postMessage({hcdtPosterType:type,hcdtAux:aux},'*');
+    }catch(e){}
+  }
   function set(t){
     type=/^(defense|seminar|custom)$/.test(t)?t:'defense';
-    /* One DOM, one editor, one spacing system. Only the poster state changes. */
-    B.classList.remove('hx-official-on');
-    B.classList.toggle('hx-mode-custom',type==='custom');
-    B.dataset.posterMode=type;
+    var official=type!=='custom';
+    B.classList.toggle('hx-official-on',official);host.hidden=!official;
     var gridButton=document.getElementById('hxGrid');
     if(gridButton){
-      gridButton.hidden=type!=='custom';
-      if(type!=='custom')gridButton.style.setProperty('display','none','important');
+      gridButton.hidden=official;
+      if(official)gridButton.style.setProperty('display','none','important');
       else gridButton.style.removeProperty('display');
     }
+    if(official&&!fr.src)fr.src=fr.dataset.src;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}
-    window.hxPosterRequestedMode=type;
-    window.dispatchEvent(new CustomEvent('hcdtpostermodechange',{detail:{type:type}}));
-    /* Only notify an embedding page. Posting to our own window creates an endless
-       message echo and lets stale mode messages overwrite the current tab. */
-    try{if(parent!==window)parent.postMessage({hcdtPosterType:type},'*')}catch(e){}
+    if(official)notify();
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
+  fr.addEventListener('load',notify);
   window.addEventListener('message',function(e){
     var d=e.data||{},t=d.hcdtPosterType;
     if(/^(defense|seminar|custom)$/.test(t))set(t);
+    if(B.classList.contains('hx-official-on')&&d.hcdtPosterHistory){
+      var u=document.getElementById('undo'),r=document.getElementById('redo');
+      if(u)u.disabled=!d.undo;if(r)r.disabled=!d.redo;
+    }
+    if(B.classList.contains('hx-official-on')&&d.hcdtPosterGrid){var g=document.getElementById('hxGrid');if(g)g.setAttribute('aria-pressed',String(!!d.on));}
   });
+  new MutationObserver(notify).observe(document.documentElement,{attributes:true,attributeFilter:['style']});
+  document.addEventListener('click',function(e){
+    if(!B.classList.contains('hx-official-on'))return;
+    var c=e.target.closest('#hxCmyk button');
+    if(c){var cw=fr.contentWindow,ca=cw&&cw.HX_CMYK_API;if(ca)ca.set(c.getAttribute('data-m')==='cmyk');return;}
+    var t=e.target.closest('#undo,#redo,#hxGrid,#saveJson,#openJson,#savePdf,#savePng');if(!t)return;
+    var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
+    e.preventDefault();e.stopImmediatePropagation();
+    var pop=t.closest('.hx-menu-pop');if(pop){pop.hidden=true;var mb=pop.parentNode.querySelector('[data-hx-menu]');if(mb)mb.setAttribute('aria-expanded','false');}
+    if(t.id==='undo')HP.undo();
+    else if(t.id==='redo')HP.redo();
+    else if(t.id==='hxGrid'){var on=t.getAttribute('aria-pressed')!=='true';t.setAttribute('aria-pressed',String(on));HP.setGrid(on);}
+    else if(t.id==='openJson')document.getElementById('jsonFile').click();
+    else if(t.id==='savePdf')HP.exportPdf();
+    else if(t.id==='savePng')HP.exportPng();
+    else HP.saveProject();
+  },true);
+  document.addEventListener('change',function(e){
+    if(!B.classList.contains('hx-official-on')||e.target.id!=='jsonFile'||!e.target.files[0])return;
+    var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
+    e.preventDefault();e.stopImmediatePropagation();HP.openProject(e.target.files[0]);e.target.value='';
+  },true);
   set(type);
 })();
 </script>
@@ -331,7 +367,6 @@ const GROUPS=[
   {k:"U",label:"UNIST Navy",c:[["white","navy","navy"],["navy","white","white"]]},
   {k:"Base",label:"White background + purple text + auxiliary point",c:[["white","purple","verdigris"],["white","purple","terracotta"],["white","purple","fluoxetine"],["white","purple","asparagus"]]},
   {k:"A",label:"Purple background + white text + auxiliary point",c:[["purple","white","verdigris"],["purple","white","terracotta"],["purple","white","fluoxetine"],["purple","white","asparagus"]]},
-  {k:"B",label:"Purple background + auxiliary text + auxiliary point",c:[["purple","terracotta","verdigris"],["purple","fluoxetine","asparagus"],["purple","verdigris","asparagus"],["purple","asparagus","fluoxetine"]]},
   {k:"C",label:"Auxiliary background + purple text + auxiliary point",c:[["verdigris","purple","asparagus"],["terracotta","purple","verdigris"],["fluoxetine","purple","terracotta"],["asparagus","purple","fluoxetine"]]},
   /* F: from the faculty review (purple backgrounds are hard to read). Not yet in the guide. */
   {k:"D",label:"Auxiliary background + auxiliary text + purple point",c:[["verdigris","terracotta","purple"],["terracotta","fluoxetine","purple"],["fluoxetine","asparagus","purple"],["asparagus","verdigris","purple"]]},
@@ -509,7 +544,7 @@ function loadTpl(i){
 }
 const _lum=h=>{const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4));return .2126*c[0]+.7152*c[1]+.0722*c[2]};
 const ratio=(a,b)=>{const x=_lum(a),y=_lum(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
-const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A","B"]},{t:"Color",ks:["C"]}];
+const VROWS=[{t:"UNIST",ks:["U"]},{t:"White",ks:["Base"]},{t:"Purple",ks:["A"]},{t:"Color",ks:["C"]}];
 const varSel={};
 function renderScheme(){
   const cur=findCombo(S.scheme);

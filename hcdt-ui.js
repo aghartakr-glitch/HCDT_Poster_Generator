@@ -65,11 +65,12 @@
   function frameLink() {
     var last = -1;
     /* poster and slides stay fixed-height editors (stacked they would be thousands of px tall); Logo Motion only on desktop widths (stacked on phones, so the page grows) */
-    function isApp() { var w = window.innerWidth; return TOOL === 'poster' || TOOL === 'slides' || (TOOL === 'motion' && w >= 1000); }
+    function isApp() { return window.innerWidth >= 783 && /^(poster|slides|letter|card|motion)$/.test(TOOL); }
+    function appHeight() { var a = (window.screen && screen.availHeight) || 900; return Math.max(680, Math.min(900, a - 180)); }
     document.documentElement.classList.add('hx-framed');
     function post() {
       var app = isApp();
-      var h = app ? 0 : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
+      var h = app ? appHeight() : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
       if (h === last) return; last = h;
       try { parent.postMessage({ hcdtFrame: 1, tool: TOOL, app: app, h: h }, '*'); } catch (e) {}
     }
@@ -80,7 +81,6 @@
       if (d && d.hcdtAux && /^#[0-9a-f]{6}$/i.test(d.hcdtAux)) {
         document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
       }
-      if (d && typeof d.hcdtWide === 'boolean') { document.documentElement.classList.toggle('hx-wide', d.hcdtWide); window.dispatchEvent(new Event('resize')); }
     });
     /* Keep the page-level auxiliary colour and the selected poster colour in one state. */
     document.addEventListener('click', function (e) {
