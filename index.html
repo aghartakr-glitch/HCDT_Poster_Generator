@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
-<link rel="stylesheet" href="hcdt-ui.css?v=20261109p">
+<link rel="stylesheet" href="hcdt-ui.css?v=20261109q">
 
 <style>
 html,body{margin:0}
@@ -288,7 +288,9 @@ body:not(.hx-mode-custom) #hxGrid{display:none!important}
     try{history.replaceState(null,'','#'+type)}catch(e){}
     window.hxPosterRequestedMode=type;
     window.dispatchEvent(new CustomEvent('hcdtpostermodechange',{detail:{type:type}}));
-    try{parent.postMessage({hcdtPosterType:type},'*')}catch(e){}
+    /* Only notify an embedding page. Posting to our own window creates an endless
+       message echo and lets stale mode messages overwrite the current tab. */
+    try{if(parent!==window)parent.postMessage({hcdtPosterType:type},'*')}catch(e){}
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
   window.addEventListener('message',function(e){
@@ -987,7 +989,7 @@ window.addEventListener('hcdtpostermodechange',function(e){switchPosterMode((e.d
 </script>
 
 <script src="dict-poster.js"></script>
-<script src="hcdt-ui.js?v=20261109l" data-tool="poster"></script>
+<script src="hcdt-ui.js?v=20261109q" data-tool="poster"></script>
 <script>window.HX_CMYK=['#stage','#thumbs','#combos']</script><script src="hcdt-cmyk.js?v=20261108g"></script>
 </body>
 </html>

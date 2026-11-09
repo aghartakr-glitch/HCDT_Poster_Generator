@@ -506,9 +506,15 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
   }
 
   body.hx-p-poster>main.app{
-    grid-template-columns:minmax(260px,3fr) minmax(0,6fr) minmax(260px,3fr)!important;
-    column-gap:0!important;
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    column-gap:var(--grid-gap)!important;
+    align-items:stretch;
   }
+
+  body.hx-p-poster>main.app>.pane.left{grid-column:1/span 3;min-width:0;overflow-x:hidden!important}
+  body.hx-p-poster>main.app>.stagewrap{grid-column:4/span 6;min-width:0}
+  body.hx-p-poster>main.app>.pane.right{grid-column:10/span 3;min-width:0;overflow-x:hidden!important}
 
   body.hx-p-poster>main.app>.pane{
     padding:24px!important;
@@ -527,9 +533,22 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
 
 @media (max-width:1180px) and (min-width:981px){
   body.hx-p-poster>main.app{
-    grid-template-columns:minmax(260px,3fr) minmax(0,9fr)!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
   }
+  body.hx-p-poster>main.app>.pane.left{grid-column:1/span 3}
+  body.hx-p-poster>main.app>.stagewrap{grid-column:4/-1}
   body.hx-p-poster>main.app>.pane.right{display:none!important}
+}
+
+/* The three poster types are one component, not three differently sized buttons. */
+body.hx-p-poster #hxMode.hx-toggle-group{display:flex!important;width:100%!important;min-width:0!important}
+body.hx-p-poster #hxMode.hx-toggle-group button{
+  flex:1 1 0!important;
+  min-width:0!important;
+  padding-inline:6px!important;
+  white-space:normal!important;
+  text-align:center!important;
+  overflow-wrap:anywhere;
 }
 
 /* Narrow screens keep every shared control reachable without a horizontal page scroll. */
