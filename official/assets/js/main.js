@@ -17,10 +17,33 @@
   }
 
   var queued = false;
+  var lastAux = '';
+  function selectedAux() {
+    var p = HP.palette(HP.state);
+    return String((HP.state && HP.state.aux) || (p && p.aux) || '').toUpperCase();
+  }
+  function broadcastAux() {
+    var hex = selectedAux();
+    if (!/^#[0-9A-F]{6}$/.test(hex) || hex === lastAux) return;
+    lastAux = hex;
+    try { parent.postMessage({ hcdtAuxChange: hex }, '*'); } catch (_) {}
+  }
+  function applyParentAux(hex) {
+    hex = String(hex || '').toUpperCase();
+    var p = (HP.brand.palettes || []).filter(function (x) { return String(x.aux).toUpperCase() === hex; })[0];
+    if (!p || !HP.state) return false;
+    document.documentElement.style.setProperty('--ui-sub', p.aux);
+    document.documentElement.style.setProperty('--hx-ui', p.aux);
+    lastAux = String(p.aux).toUpperCase();
+    if (HP.state.palette === p.id && !HP.state.aux) return false;
+    HP.state.palette = p.id;
+    HP.state.aux = '';
+    return true;
+  }
   function schedule() {
     if (queued) return;
     queued = true;
-    requestAnimationFrame(function () { queued = false; HP.render(); });
+    requestAnimationFrame(function () { queued = false; HP.render(); broadcastAux(); });
   }
 
   function boot() {
@@ -38,20 +61,19 @@
        Defense and Seminar use approved structured layouts without an overlay. */
     HP.setGrid(false);
     window.addEventListener('message', function (e) {
-      var d = e.data || {}, next = d.hcdtPosterType;
-      if (d.hcdtAux) {
-        document.documentElement.style.setProperty('--ui-sub', d.hcdtAux);
-        document.documentElement.style.setProperty('--hx-ui', d.hcdtAux);
+      var d = e.data || {}, next = d.hcdtPosterType, changed = false;
+      if (next === 'defense' || next === 'seminar' || next === 'custom') {
+        if (next !== HP.state.type) {
+          HP.state = HP.initialState(next, next === 'custom' ? 3 : Math.max(3, HP.state.speakers.length));
+          changed = true;
+        }
       }
-      if (next !== 'defense' && next !== 'seminar' && next !== 'custom') return;
-      if (next === HP.state.type) return;
-      HP.state = HP.initialState(next, next === 'custom' ? 3 : Math.max(3, HP.state.speakers.length));
-      HP.ui.rebuild();
-      HP.render();
-      HP.resetHistory();
-      HP.setGrid(false);
+      if (d.hcdtAux) changed = applyParentAux(d.hcdtAux) || changed;
+      if (!changed) return;
+      HP.ui.rebuild(); HP.render(); HP.resetHistory(); HP.setGrid(false); broadcastAux();
     });
     // 글꼴이 다 불러와지면 글자 맞춤을 한 번 더 한다
+    lastAux = selectedAux();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(schedule);
   }
 

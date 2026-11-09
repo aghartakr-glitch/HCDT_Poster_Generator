@@ -26,12 +26,13 @@ details.sec > summary { font-weight: 600; }
 
 /* Same frame as the HCDT tools: 14px body text, 272px side pane, 12px labels in sentence case, 34px fields */
 html, body { font: 14px/1.5 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', sans-serif; }
-.hp-app { grid-template-columns:280px minmax(0,1fr) 284px; }
+.hp-app { grid-template-columns:minmax(260px,3fr) minmax(0,6fr) minmax(260px,3fr); }
 #hp-editor { border-right: 1px solid #dfe0e6; }
-#hp-inspector{overflow:auto;background:#fff;border-left:1px solid var(--hx-line);padding:16px;color:var(--hx-muted);font-size:var(--fs-small)}
+#hp-inspector{overflow:auto;background:#fff;border-left:1px solid var(--hx-line);padding:24px;color:var(--hx-muted);font-size:var(--fs-small)}
 #hp-inspector strong{display:block;color:var(--hx-fg);font:var(--hx-t2);margin-bottom:8px}
 #hp-inspector p{margin:0;line-height:1.6}
-details.sec > summary { font-size: 14px; font-weight: 600; padding: 12px 16px; }
+details.sec > summary { font-size: 14px; font-weight: 600; padding: 12px 24px; }
+.sec .body{padding:2px 24px 24px}
 .f > label, .lbl { font-size: 12px; font-weight: 400; color: #5f6066; text-transform: none; letter-spacing: 0; }
 input[type=text], input[type=url], input[type=number], select, textarea { min-height: 34px; padding: 6px 10px; border-radius: 6px; font-size: 14px; }
 /* Orientation needs more room than Paper in the compact 272px editor pane. */
@@ -53,7 +54,7 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 /* The guideline embeds this tool at about 750 CSS px. Keep the canvas beside
    the controls there; stacking at 900 px was what pushed the preview off-screen. */
 @media(max-width:1100px){
-  .hp-app{grid-template-columns:280px minmax(0,1fr)!important;height:100vh!important}
+  .hp-app{grid-template-columns:minmax(260px,3fr) minmax(0,9fr)!important;height:100vh!important}
   #hp-editor{max-height:none!important;min-width:0}
   #hp-stage{min-width:0;min-height:0!important;padding:16px}
   #hp-inspector{display:none}
@@ -61,6 +62,6 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 @media(max-width:620px){
   html,body{height:auto;overflow:auto}
   .hp-app{grid-template-columns:1fr!important;height:auto!important}
-  #hp-editor{max-height:none!important}
-  #hp-stage{min-height:70vh!important}
+  #hp-editor{max-height:none!important;order:0}
+  #hp-stage{min-height:70vh!important;order:-1}
 }
