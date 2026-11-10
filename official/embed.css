@@ -26,7 +26,8 @@ details.sec > summary { font-weight: 600; }
 
 /* Same frame as the HCDT tools: 14px body text, 272px side pane, 12px labels in sentence case, 34px fields */
 html, body { font: 14px/1.5 'neue-haas-unica', 'Helvetica Neue', Helvetica, Arial, 'Spoqa Han Sans Neo', sans-serif; }
-.hp-app { grid-template-columns:minmax(260px,3fr) minmax(0,6fr) minmax(260px,3fr); }
+.hp-app { grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:24px; }
+#hp-editor{grid-column:1/span 3}#hp-stage{grid-column:4/span 6}#hp-inspector{grid-column:10/span 3}
 #hp-editor { border-right: 1px solid #dfe0e6; }
 #hp-inspector{overflow:auto;background:#fff;border-left:1px solid var(--hx-line);padding:24px;color:var(--hx-muted);font-size:var(--fs-small)}
 #hp-inspector strong{display:block;color:var(--hx-fg);font:var(--hx-t2);margin-bottom:8px}
@@ -75,3 +76,5 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):
 html body .hx-poster-type{display:flex!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
 html body .hx-poster-type button{flex:1 1 0!important;min-width:0!important;padding-inline:4px!important;white-space:nowrap!important;overflow:hidden}
 #hp-editor select{max-width:100%;box-sizing:border-box}
+
+/* first label sits on the same line as in the Custom editor */

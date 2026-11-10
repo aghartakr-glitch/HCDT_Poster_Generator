@@ -269,7 +269,6 @@ html.hx-wide .hx-steps{display:none!important}
 .hx-official iframe{width:100%;height:100%;border:0;display:block;background:#fff}
 body.hx-official-on main.app{display:none!important}
 body.hx-official-on .hx-official{display:block}
-body.hx-official-on #hxGrid{display:none!important}
 @media(min-width:981px){body.hx-p-poster>.hx-official{flex:1 1 0;min-height:0;height:auto}}
 </style>
 <script>
@@ -288,11 +287,7 @@ body.hx-official-on #hxGrid{display:none!important}
     var official=type!=='custom';
     B.classList.toggle('hx-official-on',official);host.hidden=!official;
     var gridButton=document.getElementById('hxGrid');
-    if(gridButton){
-      gridButton.hidden=official;
-      if(official)gridButton.style.setProperty('display','none','important');
-      else gridButton.style.removeProperty('display');
-    }
+    if(gridButton){gridButton.hidden=false;gridButton.style.removeProperty('display');if(official){gridButton.setAttribute('aria-pressed','false');try{fr.contentWindow.HP&&fr.contentWindow.HP.setGrid(false)}catch(e){}}}
     if(official&&!fr.src)fr.src=fr.dataset.src;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}
