@@ -611,3 +611,6 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec>h3{margin:0 -24px 2px!important;padding:12px 24px!important;font:600 14px/1.5 var(--hx-font)!important;letter-spacing:0!important;color:#000!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec .sub{margin:10px 0 4px!important;color:#5f6066!important;font-size:12px!important}
 }
+
+/* Embedded in the guideline: content sits exactly on the page's grid edges (no extra side padding). */
+html.hx-framed body{padding-left:0!important;padding-right:0!important}

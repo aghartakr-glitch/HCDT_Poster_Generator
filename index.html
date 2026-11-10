@@ -296,6 +296,7 @@ body.hx-official-on #hxGrid{display:none!important}
     if(official&&!fr.src)fr.src=fr.dataset.src;
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}
+    try{window.dispatchEvent(new CustomEvent('hcdtpostermodechange',{detail:{type:type}}))}catch(e){}
     if(official)notify();
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
