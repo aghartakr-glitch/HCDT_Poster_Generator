@@ -24,6 +24,7 @@
   --text-primary:#000;
   --text-secondary:#5f6066;
   --steps-min-height:89px;
+  --toolbar-h:50px;
 }
 
 /* ---------- width contract: the OUTER page owns the width and the gutters; an embedded tool uses 100% of the frame ---------- */
@@ -39,10 +40,14 @@ header.top .hx-act,.wrap>header .hx-act{display:flex;flex-wrap:wrap;justify-cont
 
 /* ---------- one vertical rhythm for every tool (embedded and standalone): 24px above the title row, between title row, step guide and workspace ---------- */
 html.hx-framed body{padding:0}
+/* the same 24px above the toolbar in all five tools: Poster/Slides put it on the header, Name Card/Letter/Logo Motion on .wrap */
 body.hx-p-poster>header.top,
-body.hx-p-slides header.top{margin-top:var(--space-4)}
+body.hx-p-slides header.top,
+html.hx-framed :is(body.hx-p-card,body.hx-p-letter,body.hx-p-motion)>.wrap{margin-top:var(--space-4)}
 body.hx-p-poster>.hx-steps,
 body.hx-p-slides .hx-steps{margin:var(--space-4) auto}
+/* one toolbar height for every tool (title row + 14px rule) */
+html.hx-framed :is(header.top,.wrap>header){min-height:var(--toolbar-h);align-items:center}
 html.hx-framed :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 212px)}
 
 /* ---------- step guide 1 / 2 / 3: one frame, equal columns, divider between columns ---------- */
@@ -57,6 +62,9 @@ html.hx-framed body.hx-p-poster>main.app,
 html.hx-framed body.hx-p-poster .hx-official,
 html.hx-framed body.hx-p-slides .app>.main{border:1px solid var(--line-structural);border-radius:var(--radius-panel)}
 html.hx-framed body.hx-p-poster .hx-official{margin:0}
+/* the grey canvas of the Poster editor runs from panel border to panel border: the 24px column gutters beside it are painted grey too (content stays on the 12-column grid) */
+@media (min-width:981px){html.hx-framed body.hx-p-poster>main.app>.stagewrap{margin-left:calc(var(--grid-gap)*-1);padding-left:var(--grid-gap)}}
+@media (min-width:1181px){html.hx-framed body.hx-p-poster>main.app>.stagewrap{margin-right:calc(var(--grid-gap)*-1);padding-right:var(--grid-gap)}}
 
 /* ---------- Letter: the whole A4 page and the form stay reachable (natural document height) ---------- */
 html.hx-framed body.hx-p-letter{display:block;height:auto;overflow:visible}

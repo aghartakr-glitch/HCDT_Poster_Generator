@@ -52,11 +52,18 @@ input[type=text], input[type=url], input[type=number], select, textarea { min-he
 .hp-grid-row{border-top:1px solid rgba(255,0,150,.32);border-bottom:1px solid rgba(255,0,150,.32)}
 /* The guideline embeds this tool at about 750 CSS px. Keep the canvas beside
    the controls there; stacking at 900 px was what pushed the preview off-screen. */
-@media(max-width:1100px){
-  .hp-app{grid-template-columns:minmax(260px,3fr) minmax(0,9fr)!important;height:100vh!important}
-  #hp-editor{max-height:none!important;min-width:0}
-  #hp-stage{min-width:0;min-height:0!important;padding:16px}
+/* same columns as the Custom editor: 3 + 9 on the 12-column grid while the inspector is hidden (981-1100px) ... */
+@media(max-width:1179px){
+  .hp-app{height:100vh!important}
+  #hp-editor{grid-column:1/span 3;max-height:none!important;min-width:0}
+  #hp-stage{grid-column:4/-1;min-width:0;min-height:0!important}
   #hp-inspector{display:none}
+}
+/* ... and controls clamp(240px,28vw,280px) + canvas, no gutter, below that (the Custom editor's own rule) */
+@media(max-width:979px){
+  .hp-app{grid-template-columns:clamp(240px,28vw,280px) minmax(0,1fr)!important;column-gap:0}
+  #hp-editor{grid-column:1}
+  #hp-stage{grid-column:2}
 }
 @media(max-width:620px){
   html,body{height:auto;overflow:auto}
@@ -92,3 +99,6 @@ html body .hx-poster-type button{flex:1 1 0!important;min-width:0!important;padd
 .zoombar{top:10px;left:10px}
 .zoombar button,.zoombar output{font-size:14px}
 #hp-inspector strong{font-size:14px!important;line-height:1.5}
+/* same as the Custom editor: the grey canvas runs from panel border to panel border (the 24px gutters are painted too); the sheet stays centred on the grid */
+@media(min-width:980px){#hp-stage{margin-left:-24px;padding-left:48px}}
+@media(min-width:1180px){#hp-stage{margin-right:-24px;padding-right:48px}}
