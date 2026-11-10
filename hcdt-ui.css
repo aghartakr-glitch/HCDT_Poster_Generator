@@ -618,3 +618,7 @@ html.hx-framed body{padding-left:0!important;padding-right:0!important}
 html.hx-framed body{padding-top:0!important;padding-bottom:0!important}
 
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec>h3+.sub{margin-top:0!important}
+/* Embedded: no boxed frames around the app, the step guide or the editor (rows are separated by thin dividers only) */
+html.hx-framed .hx-steps{border:0!important;border-radius:0!important}
+html.hx-framed body.hx-p-poster>main.app,html.hx-framed body.hx-p-poster .hx-official,html.hx-framed body.hx-p-slides>.app,html.hx-framed body.hx-p-card .zone{border:0!important;border-radius:0!important}
+html.hx-framed body.hx-p-letter .blk{border:0!important;border-radius:0!important;border-top:1px solid var(--hx-line,#ddd)!important;padding-inline:0!important;background:transparent!important}
