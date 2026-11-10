@@ -78,3 +78,5 @@ html body .hx-poster-type button{flex:1 1 0!important;min-width:0!important;padd
 #hp-editor select{max-width:100%;box-sizing:border-box}
 
 /* first label sits on the same line as in the Custom editor */
+/* Same canvas colour as the Custom editor (shared --hx-soft), so Defense, Seminar and Custom look alike */
+#hp-stage{background:var(--hx-soft)!important}
