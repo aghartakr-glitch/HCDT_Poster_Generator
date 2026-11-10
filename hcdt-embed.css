@@ -26,6 +26,17 @@
   --steps-min-height:89px;
 }
 
+/* ---------- width contract: the OUTER page owns the width and the gutters; an embedded tool uses 100% of the frame ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html.hx-framed,html.hx-framed body{width:100%;max-width:100%}
+html.hx-framed body,html.hx-framed .wrap,html.hx-framed .app{width:100%;max-width:100%;min-width:0;margin-inline:0;padding-inline:0}
+.hx-steps,.main,.stage-wrap,.hx-act,header.top,.brand,.wrap>*{min-width:0}
+
+/* ---------- toolbar: title left, actions right; the whole action group wraps to the next line, never clips ---------- */
+header.top,.wrap>header{display:flex;flex-wrap:wrap;width:100%;gap:var(--space-2) var(--space-3)}
+header.top .brand{min-width:0}
+header.top .hx-act,.wrap>header .hx-act{display:flex;flex-wrap:wrap;justify-content:flex-end;max-width:100%;min-width:0;margin-left:auto}
+
 /* ---------- one vertical rhythm for every tool (embedded and standalone): 24px above the title row, between title row, step guide and workspace ---------- */
 html.hx-framed body{padding:0}
 body.hx-p-poster>header.top,
@@ -35,10 +46,11 @@ body.hx-p-slides .hx-steps{margin:var(--space-4) auto}
 html.hx-framed :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 212px)}
 
 /* ---------- step guide 1 / 2 / 3: one frame, equal columns, divider between columns ---------- */
-html.hx-framed .hx-steps{border:1px solid var(--line-structural);border-radius:var(--radius-panel);background:#fff}
+html.hx-framed .hx-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border:1px solid var(--line-structural);border-radius:var(--radius-panel);background:#fff}
+html.hx-framed .hx-steps>li{min-width:0;overflow-wrap:anywhere}
 html.hx-framed .hx-steps>li{min-height:var(--steps-min-height);box-sizing:border-box}
 html.hx-framed .hx-steps>li+li{border-left:1px solid var(--line-structural)}
-@media (max-width:760px){html.hx-framed .hx-steps>li+li{border-left:0;border-top:1px solid var(--line-structural)}}
+@media (max-width:760px){html.hx-framed .hx-steps{grid-template-columns:minmax(0,1fr)}html.hx-framed .hx-steps>li+li{border-left:0;border-top:1px solid var(--line-structural)}}
 
 /* ---------- workspaces: 1px structural frame, no rounded cards ---------- */
 html.hx-framed body.hx-p-poster>main.app,
@@ -51,6 +63,10 @@ html.hx-framed body.hx-p-letter{display:block;height:auto;overflow:visible}
 html.hx-framed body.hx-p-letter>.wrap{display:grid;height:auto;min-height:0;grid-template-rows:none}
 html.hx-framed body.hx-p-letter>.wrap>main{grid-template-rows:none;align-items:start;height:auto}
 html.hx-framed body.hx-p-letter>.wrap>main>*{overflow:visible}
+
+/* ---------- below the side-by-side breakpoint the editors stack and the page flows at its natural height (no scroll inside the frame) ---------- */
+@media (max-width:980px){html.hx-framed:has(body.hx-p-poster),html.hx-framed body.hx-p-poster{height:auto;min-height:0;overflow:visible}}
+@media (max-width:820px){html.hx-framed:has(body.hx-p-slides),html.hx-framed body.hx-p-slides{height:auto;min-height:0;overflow:visible}}
 
 /* ---------- field labels: 12px secondary text in every tool; checkbox labels keep body text ---------- */
 body.hx-p-card label:not(.chk),

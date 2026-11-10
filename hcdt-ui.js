@@ -65,7 +65,7 @@
   function frameLink() {
     var last = -1;
     /* poster and slides stay fixed-height editors (stacked they would be thousands of px tall); Logo Motion only on desktop widths (stacked on phones, so the page grows) */
-    function isApp() { return window.innerWidth >= 783 && /^(poster|slides)$/.test(TOOL); }
+    function isApp() { return window.innerWidth >= (TOOL === 'slides' ? 821 : 981) && /^(poster|slides)$/.test(TOOL); }  /* fixed-height editor only where the side-by-side layout applies; below that the page flows */
     function appHeight() { var a = (window.screen && screen.availHeight) || 900; return Math.max(680, Math.min(900, a - 180)); }
     document.documentElement.classList.add('hx-framed');
     function post() {
