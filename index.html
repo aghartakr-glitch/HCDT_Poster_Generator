@@ -965,13 +965,13 @@ $("#shuffle").onclick=e=>{const b=e.currentTarget;b.disabled=true;shuffleText().
 /* ---------- 확대·축소 ---------- */
 function fit(){
   const w=$("#stagewrap"); const z=Math.min((w.clientWidth-48)/(PW*PX),(w.clientHeight-70)/(PH*PX));
-  setZoom(clamp(z,.2,3));
+  setZoom(clamp(z,.1,3));
 }
 function setZoom(z){zoom=z;$("#zVal").value=Math.round(z*100)+"%";renderPoster();}
-$("#zIn").onclick=()=>setZoom(Math.min(4,zoom*1.2));
-$("#zOut").onclick=()=>setZoom(Math.max(.15,zoom/1.2));
-$("#zFit").onclick=fit;
-let fitT; new ResizeObserver(()=>{clearTimeout(fitT);fitT=setTimeout(()=>{fit();renderThumbs();},120);}).observe($("#stagewrap"));
+let userZoomed=false;$("#zIn").onclick=()=>{userZoomed=true;setZoom(Math.min(8,zoom*1.2));};
+$("#zOut").onclick=()=>{userZoomed=true;setZoom(Math.max(.1,zoom/1.2));};
+$("#zFit").onclick=()=>{userZoomed=false;fit();};
+let fitT; new ResizeObserver(()=>{clearTimeout(fitT);fitT=setTimeout(()=>{if(!userZoomed)fit();renderThumbs();},120);}).observe($("#stagewrap"));
 
 /* ---------- 서체 확인 ---------- */
 async function checkFonts(){

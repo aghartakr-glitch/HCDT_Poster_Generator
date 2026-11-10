@@ -622,3 +622,10 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.
 html.hx-framed .hx-steps{border:0!important;border-radius:0!important}
 html.hx-framed body.hx-p-poster>main.app,html.hx-framed body.hx-p-poster .hx-official,html.hx-framed body.hx-p-slides>.app,html.hx-framed body.hx-p-card .zone{border:0!important;border-radius:0!important}
 html.hx-framed body.hx-p-letter .blk{border:0!important;border-radius:0!important;border-top:1px solid var(--hx-line,#ddd)!important;padding-inline:0!important;background:transparent!important}
+/* One vertical rhythm for every embedded app: 24px above the title row, 24px between title row, step guide and workspace. */
+html.hx-framed body.hx-p-card .wrap,html.hx-framed body.hx-p-letter .wrap{margin-top:24px!important}
+html.hx-framed body.hx-p-motion .wrap{margin-top:24px!important}
+html.hx-framed body.hx-p-poster>header.top,html.hx-framed body.hx-p-slides>header.top,html.hx-framed body.hx-p-slides .app>header.top{margin-top:24px!important}
+html.hx-framed body.hx-p-poster>.hx-steps,html.hx-framed body.hx-p-slides .hx-steps,html.hx-framed body.hx-p-slides .app>.hx-steps{margin:24px 0!important}
+html.hx-framed:not(.hx-wide) :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 212px)}
+html.hx-framed .hx-steps>li{min-height:89px;box-sizing:border-box}

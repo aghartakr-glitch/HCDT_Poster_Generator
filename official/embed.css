@@ -80,3 +80,10 @@ html body .hx-poster-type button{flex:1 1 0!important;min-width:0!important;padd
 /* first label sits on the same line as in the Custom editor */
 /* Same canvas colour as the Custom editor (shared --hx-soft), so Defense, Seminar and Custom look alike */
 #hp-stage{background:var(--hx-soft)!important}
+/* Zoom bar, same as the Custom editor */
+.zoombar{position:sticky;top:0;left:0;z-index:5;align-self:flex-start;display:inline-flex;gap:4px;align-items:center;margin:0 12px 0 0;background:#fff;border:1px solid var(--hx-line,#ddd);border-radius:8px;padding:3px;height:fit-content}
+.zoombar button{border:0;background:none;padding:3px 9px;border-radius:5px;line-height:1.4;font:inherit;cursor:pointer}
+.zoombar button:hover{background:var(--hx-soft,rgba(0,0,0,.06))}
+.zoombar output{padding:3px 6px;min-width:46px;text-align:center;font-variant-numeric:tabular-nums;color:var(--hx-muted,#666)}
+#hp-stage{justify-content:safe center;gap:0}
+.zoombar{position:absolute;top:12px;left:12px;margin:0}

@@ -34,7 +34,7 @@
 </header>
 <div class="hp-app">
 	<aside id="hp-editor" aria-label="Poster settings"></aside>
-	<main id="hp-stage"><div id="hp-sheet"><div id="hp-poster"></div></div><div id="hp-warn" role="status"></div></main>
+	<main id="hp-stage"><div class="zoombar" role="group" aria-label="Zoom"><button type="button" id="zOut" aria-label="Zoom out">−</button><output id="zVal" aria-live="polite">100%</output><button type="button" id="zIn" aria-label="Zoom in">+</button><button type="button" id="zFit">Fit</button></div><div id="hp-sheet"><div id="hp-poster"></div></div><div id="hp-warn" role="status"></div></main>
 	<aside id="hp-inspector" aria-label="Poster inspector">
 		<strong>Structured layout</strong>
 		<p>Use the controls on the left. Defense and Seminar keep their approved layout automatically.</p>
@@ -64,5 +64,6 @@
 	<script src="assets/js/main.js?v=20261109d"></script>
 	<script>window.HX_CMYK=['#hp-poster'];</script>
 	<script src="../hcdt-cmyk.js?v=20261108g"></script>
-	</body>
+	<script>(function(){function go(m){HP.zoomMul=m;if(HP.fitStage)HP.fitStage();}document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('#zIn,#zOut,#zFit');if(!t)return;var m=HP.zoomMul||1;if(t.id==='zIn')m=Math.min(8,m*1.2);else if(t.id==='zOut')m=Math.max(.1,m/1.2);else m=1;go(m);});})();</script>
+</body>
 </html>
