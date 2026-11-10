@@ -70,7 +70,7 @@
     document.documentElement.classList.add('hx-framed');
     function post() {
       var app = isApp();
-      var h = app ? appHeight() : Math.ceil(Math.max(document.body.scrollHeight, document.documentElement.getBoundingClientRect().height));
+      var h = app ? appHeight() : Math.ceil(document.body.getBoundingClientRect().bottom + window.pageYOffset + (parseFloat(getComputedStyle(document.body).marginBottom) || 0));  /* body bottom, not the document (which never shrinks below the frame) */
       if (h === last) return; last = h;
       try { parent.postMessage({ hcdtFrame: 1, tool: TOOL, app: app, h: h }, '*'); } catch (e) {}
     }
