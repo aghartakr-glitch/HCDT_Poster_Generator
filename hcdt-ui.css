@@ -59,7 +59,7 @@ header .lang,#lang.seg{display:none!important}
 /* ---------- page frame ---------- */
 body.hx-tool{padding-block:0 48px!important}
 :is(body.hx-p-poster,body.hx-p-slides){padding-bottom:0!important}
-body.hx-p-logo .wrap,body.hx-p-card .wrap,body.hx-p-letter .wrap,body.hx-p-motion main{max-width:var(--hx-max)!important;margin-top:28px!important}
+body.hx-p-logo .wrap,body.hx-p-card .wrap,body.hx-p-letter .wrap,body.hx-p-motion main{max-width:var(--hx-max)!important;margin-top:var(--space-4,24px)!important}
 body.hx-p-logo .wrap{padding:0!important}
 body.hx-p-logo{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 body.hx-p-motion{padding-top:0!important}
@@ -86,7 +86,7 @@ body.hx-p-logo .row>label,body.hx-p-card .sub>span,body.hx-p-card label,body.hx-
 body.hx-p-card .og>span b{font-weight:400}
 
 /* panels */
-body.hx-p-card .zone,body.hx-p-letter .blk,body.hx-p-card details.spec,body.hx-p-letter details.spec,body.hx-p-logo .card,body.hx-p-logo .col{border:1px solid var(--hx-line)!important;border-radius:var(--hx-r2)!important;background:var(--hx-bg)!important}
+body.hx-p-card .zone,body.hx-p-letter .blk,body.hx-p-card details.spec,body.hx-p-letter details.spec,body.hx-p-logo .card,body.hx-p-logo .col{border:1px solid var(--line-structural,var(--hx-line))!important;border-radius:var(--radius-panel,0)!important;background:var(--hx-bg)!important}
 body.hx-p-card .zl,body.hx-p-letter .stage,body.hx-p-motion .stage,:is(body.hx-p-poster,body.hx-p-slides) .stagewrap{background:var(--hx-soft)!important}
 body.hx-p-letter .stage{border-radius:var(--hx-r2)!important;border:0!important}
 body.hx-p-card .tag{border-radius:var(--hx-r)!important;font-size:var(--fs-small)!important;padding:4px 10px!important}
@@ -150,7 +150,7 @@ body.hx-p-card .wrap button.sw.def{min-height:28px}
    ====================================================================== */
 :root:root:root{--hx-t1:600 var(--fs-h4)/1.25 var(--hx-font);--hx-t2:600 var(--fs-small)/1.5 var(--hx-font);--hx-t3:400 var(--fs-small)/1.5 var(--hx-font);--hx-t4:400 var(--fs-small)/1.5 var(--hx-font);--hx-t5:600 var(--fs-small)/1.5 var(--hx-font)}
 body.hx-tool{font:var(--hx-t3)}
-body.hx-tool .wrap{gap:24px!important}
+body.hx-tool .wrap{row-gap:var(--space-4,24px)}
 
 /* how-to strip */
 .hx-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--hx-line);border-radius:var(--hx-r2);background:var(--hx-bg);counter-reset:none}
@@ -163,7 +163,7 @@ body.hx-tool .wrap{gap:24px!important}
 @media (max-width:760px){.hx-steps{grid-template-columns:minmax(0,1fr)}.hx-steps li+li{border-left:0;border-top:1px solid var(--hx-line)}}
 /* poster: one compact row under its app bar */
 :is(body.hx-p-poster,body.hx-p-slides){--hx-steps-h:89px}
-:is(body.hx-p-poster,body.hx-p-slides) .hx-steps{margin:12px 16px;background:var(--hx-bg)}
+:is(body.hx-p-poster,body.hx-p-slides) .hx-steps{background:var(--hx-bg);}
 @media (min-width:981px){:is(body.hx-p-poster,body.hx-p-slides){display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
 :is(body.hx-p-poster,body.hx-p-slides)>*{flex:none}:is(body.hx-p-poster,body.hx-p-slides)>.app{flex:1 1 0;min-height:0;height:auto!important}}
 @media (max-width:980px){:is(body.hx-p-poster,body.hx-p-slides) .app{height:auto!important}}
@@ -211,7 +211,7 @@ body.hx-p-logo .hx-steps{margin-block:24px}
 body.hx-p-slides .app{grid-template-rows:auto auto minmax(0,1fr)}
 body.hx-p-slides .brand{display:flex;align-items:baseline;gap:10px}
 body.hx-p-slides .brand b{font:var(--hx-t1)!important}
-body.hx-p-slides header.top{background:var(--hx-bg);border-bottom:1px solid var(--hx-line)}
+body.hx-p-slides header.top{background:var(--hx-bg);border-bottom:1px solid var(--hx-line);}
 
 /* pages built as artifacts relied on this reset; keep it for standalone hosting */
 [hidden]{display:none!important}
@@ -230,12 +230,12 @@ body.hx-p-slides{margin:0}
   :is(body.hx-p-poster,body.hx-p-slides){display:block!important;height:auto!important;overflow:auto!important;padding:0 max(16px,env(safe-area-inset-right,0px)) 48px max(16px,env(safe-area-inset-left,0px))!important}
 }
 body.hx-p-poster>header.top,body.hx-p-poster>.hx-steps,body.hx-p-poster>main.app,
-body.hx-p-slides>.app{max-width:var(--hx-max);margin-left:auto;margin-right:auto}
+body.hx-p-slides>.app{max-width:var(--hx-max);margin-left:auto;margin-right:auto;}
 body.hx-p-slides>.app{display:block!important;height:auto!important}
-:is(body.hx-p-poster>header.top,body.hx-p-slides header.top){background:transparent!important;border-bottom:1px solid var(--hx-line)!important;padding:0 0 14px!important;margin-top:28px;gap:8px 14px}
-:is(body.hx-p-poster,body.hx-p-slides) .hx-steps{margin:24px auto!important}
-body.hx-p-slides .app>.hx-steps{margin:24px 0!important}
-body.hx-p-slides .app>.hx-steps{max-width:none}
+:is(body.hx-p-poster>header.top,body.hx-p-slides header.top){background:transparent!important;border-bottom:1px solid var(--hx-line)!important;padding:0 0 14px!important;gap:8px 14px;}
+:is(body.hx-p-poster,body.hx-p-slides) .hx-steps{}
+body.hx-p-slides .app>.hx-steps{}
+body.hx-p-slides .app>.hx-steps{max-width:none;}
 body.hx-p-poster>main.app,body.hx-p-slides .main{border:1px solid var(--hx-line);border-radius:var(--hx-r2);overflow:hidden;background:var(--hx-bg)}
 @media (min-width:981px){body.hx-p-poster>main.app{height:var(--ed-h)!important}body.hx-p-slides .main{height:var(--ed-h)}}
 body.hx-p-poster .stagewrap{min-height:0}
@@ -456,9 +456,9 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
   body.hx-p-poster>main.app{flex:1 1 0!important;min-height:0!important;height:auto!important}
   body.hx-p-slides>.app{flex:1 1 0!important;min-height:0!important;height:auto!important;display:grid!important;grid-template-rows:auto auto minmax(0,1fr)!important}
   body.hx-p-slides .main{height:auto!important;min-height:0!important}
-  :is(body.hx-p-poster>header.top,body.hx-p-slides header.top){margin-top:12px!important}
-  :is(body.hx-p-poster,body.hx-p-slides) .hx-steps,body.hx-p-slides .app>.hx-steps{margin:12px auto!important}
-  body.hx-p-poster>main.app,body.hx-p-poster>header.top,body.hx-p-poster>.hx-steps,body.hx-p-poster>.hx-official,body.hx-p-slides>.app{width:min(calc(100% - (var(--grid-margin) * 2)),var(--grid-max))!important;max-width:var(--grid-max)!important;box-sizing:border-box}
+  :is(body.hx-p-poster>header.top,body.hx-p-slides header.top){}
+  :is(body.hx-p-poster,body.hx-p-slides) .hx-steps,body.hx-p-slides .app>.hx-steps{}
+  body.hx-p-poster>main.app,body.hx-p-poster>header.top,body.hx-p-poster>.hx-steps,body.hx-p-poster>.hx-official,body.hx-p-slides>.app{width:min(calc(100% - (var(--grid-margin) * 2)),var(--grid-max))!important;max-width:var(--grid-max)!important;box-sizing:border-box;}
 }
 
 /* Letter on a desktop screen: the form and the page preview scroll on their own, so the preview stays in view while you type */
@@ -491,8 +491,7 @@ html:not(#hxt):not(#hxt2):not(#hxt3) body.hx-tool .hx-act>button:active,html:not
     width:100%!important;
     max-width:none!important;
     margin-left:0!important;
-    margin-right:0!important;
-  }
+    margin-right:0!important;}
 
   
 
@@ -544,12 +543,12 @@ body.hx-p-poster #hxMode.hx-toggle-group button{
 /* Narrow screens keep every shared control reachable without a horizontal page scroll. */
 @media (max-width:620px){
   html,body.hx-tool{max-width:100%;overflow-x:hidden!important}
-  body.hx-p-poster>header.top{display:flex!important;flex-wrap:wrap!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;min-height:var(--hx-h);margin:0!important;padding:12px var(--grid-margin)!important;gap:10px!important;box-sizing:border-box!important}
-  body.hx-p-poster>header.top .brand{width:100%;min-width:0;flex:none;white-space:normal!important}
-  body.hx-p-poster>header.top .hx-act{display:flex!important;width:100%;max-width:100%;overflow:visible!important;padding:3px 0 8px;flex-wrap:wrap!important;justify-content:flex-start!important}
-  body.hx-p-poster>.hx-steps{width:calc(100% - (var(--grid-margin) * 2))!important;margin:12px auto!important}
-  body.hx-p-poster>.hx-steps li{min-width:0!important}
-  body.hx-p-poster>.hx-steps p{overflow-wrap:anywhere}
+  body.hx-p-poster>header.top{display:flex!important;flex-wrap:wrap!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;min-height:var(--hx-h);padding:12px var(--grid-margin)!important;gap:10px!important;box-sizing:border-box!important;}
+  body.hx-p-poster>header.top .brand{width:100%;min-width:0;flex:none;white-space:normal!important;}
+  body.hx-p-poster>header.top .hx-act{display:flex!important;width:100%;max-width:100%;overflow:visible!important;padding:3px 0 8px;flex-wrap:wrap!important;justify-content:flex-start!important;}
+  body.hx-p-poster>.hx-steps{width:calc(100% - (var(--grid-margin) * 2))!important;}
+  body.hx-p-poster>.hx-steps li{min-width:0!important;}
+  body.hx-p-poster>.hx-steps p{overflow-wrap:anywhere;}
   body.hx-p-poster>main.app,body.hx-p-poster>.hx-official{width:100%!important;max-width:100%!important;min-width:0!important;margin-inline:0!important}
   body.hx-p-poster>main.app>.pane{width:100%;max-width:100%;box-sizing:border-box!important;padding-inline:var(--grid-margin)!important}
   body.hx-p-poster>main.app>.stagewrap{order:-1!important;min-width:0!important;width:100%!important;max-width:100%!important;min-height:70vh!important;overflow:hidden!important}
@@ -568,29 +567,19 @@ body.hx-p-poster #hxMode.hx-toggle-group button{
     gap:8px!important;
     width:100%!important;
     min-width:0!important;
-    box-sizing:border-box!important;
-  }
-  body.hx-p-poster>header.top .hx-act>.hx-sep{display:none!important}
+    box-sizing:border-box!important;}
+  body.hx-p-poster>header.top .hx-act>.hx-sep{display:none!important;}
   body.hx-p-poster>header.top .hx-act>button,
   body.hx-p-poster>header.top .hx-act>.hx-menu,
   body.hx-p-poster>header.top .hx-act>.hx-toggle-group{
     width:100%!important;
     min-width:0!important;
     max-width:none!important;
-    box-sizing:border-box!important;
-  }
-  body.hx-p-poster>header.top .hx-act>.hx-menu>button{width:100%!important}
+    box-sizing:border-box!important;}
+  body.hx-p-poster>header.top .hx-act>.hx-menu>button{width:100%!important;}
   body.hx-p-poster>header.top .hx-act>#undo,
-  body.hx-p-poster>header.top .hx-act>#redo{display:none!important}
+  body.hx-p-poster>header.top .hx-act>#redo{display:none!important;}
 }
-
-/* ===== Two-way choices = Component Library .unist-segmented (pill group, 1.5px purple ring, 45% selected fill) ===== */
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{box-sizing:border-box!important;gap:0!important;padding:3px!important;border:1.5px solid #6b00ff!important;background:#fff!important;box-shadow:none!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{border-radius:9999em!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{background:transparent!important;border:0!important;color:#000!important;font-weight:600!important;box-shadow:none!important;transform:none!important;transition:background-color 150ms!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{border-radius:9999em!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button:hover:not([aria-pressed=true]):not([aria-checked=true]),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button:hover:not([aria-pressed=true]):not([aria-checked=true]){background:var(--sub-light,color-mix(in srgb,#64d8d8 15%,transparent))!important;color:#000!important}
-html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-checked=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true][data-m=cmyk]{background:var(--sub-medium,color-mix(in srgb,#64d8d8 45%,transparent))!important;box-shadow:inset 0 0 0 1.5px #6b00ff!important;color:#6b00ff!important}
 
 /* Custom left panel = same spacing as the Public Defense / Seminar editor:
    summary 12px 24px, content on the 24px line, 0.67px divider, 24px bottom. */
@@ -602,23 +591,4 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec>h3{margin:0 -24px 2px!important;padding:12px 24px!important;font:600 14px/1.5 var(--hx-font)!important;letter-spacing:0!important;color:#000!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec .sub{margin:10px 0 4px!important;color:#5f6066!important;font-size:12px!important}
 }
-
-/* Embedded in the guideline: content sits exactly on the page's grid edges (no extra side padding). */
-html.hx-framed body{padding-left:0!important;padding-right:0!important}
-/* Embedded: no extra top/bottom padding (the guideline page provides the spacing) */
-html.hx-framed body{padding-top:0!important;padding-bottom:0!important}
-
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body.hx-p-poster>main.app>.pane.left .sec>h3+.sub{margin-top:0!important}
-/* Embedded: no boxed frames around the app, the step guide or the editor (rows are separated by thin dividers only) */
-html.hx-framed .hx-steps{border:0!important;border-radius:0!important}
-html.hx-framed body.hx-p-poster>main.app,html.hx-framed body.hx-p-poster .hx-official,html.hx-framed body.hx-p-slides>.app,html.hx-framed body.hx-p-card .zone{border:0!important;border-radius:0!important}
-html.hx-framed body.hx-p-letter .blk{border:0!important;border-radius:0!important;border-top:1px solid var(--hx-line,#ddd)!important;padding-inline:0!important;background:transparent!important}
-/* One vertical rhythm for every embedded app: 24px above the title row, 24px between title row, step guide and workspace. */
-html.hx-framed body.hx-p-card .wrap,html.hx-framed body.hx-p-letter .wrap{margin-top:24px!important}
-html.hx-framed body.hx-p-motion .wrap{margin-top:24px!important}
-html.hx-framed body.hx-p-poster>header.top,html.hx-framed body.hx-p-slides>header.top,html.hx-framed body.hx-p-slides .app>header.top{margin-top:24px!important}
-html.hx-framed body.hx-p-poster>.hx-steps,html.hx-framed body.hx-p-slides .hx-steps,html.hx-framed body.hx-p-slides .app>.hx-steps{margin:24px 0!important}
-html.hx-framed:not(.hx-wide) :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 212px)}
-html.hx-framed .hx-steps>li{min-height:89px;box-sizing:border-box}
-/* Field labels: 12px, #5f6066 in every app (same as the poster editors); checkbox labels keep body text */
-body.hx-p-card label:not(.chk),body.hx-p-letter label:not(.chk),body.hx-p-letter .ctl,body.hx-p-motion .ctl>.lab{font-size:12px!important;font-weight:400!important;color:#5f6066!important}

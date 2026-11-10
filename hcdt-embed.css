@@ -1,0 +1,68 @@
+/* HCDT shared embed + component layer. CANONICAL SOURCE: HCDT_Guideline/shared/hcdt-embed.css
+   Copied unchanged into every tool repository by `node scripts/sync-shared.js`. Do not edit the copies.
+   Loaded after the tool's own hcdt-ui.css. Everything embedded is scoped by ONE modifier: html.hx-framed.            */
+
+/* ---------- tokens (single definition) ---------- */
+:root{
+  --layout-max:1280px;
+  --grid-columns:12;
+  --grid-gap:24px;
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:16px;
+  --space-4:24px;
+  --control-height:34px;
+  --line-subtle:rgba(0,0,0,.12);
+  --line-structural:rgba(0,0,0,.22);
+  --line-selected:#6B00FF;
+  --radius-control:6px;
+  --radius-panel:0;
+  --color-purple:#6B00FF;
+  --color-sub:var(--hx-ui,#64D8D8);
+  --color-sub-light:color-mix(in srgb,var(--color-sub) 15%,transparent);
+  --color-sub-medium:color-mix(in srgb,var(--color-sub) 45%,transparent);
+  --text-primary:#000;
+  --text-secondary:#5f6066;
+  --steps-min-height:89px;
+}
+
+/* ---------- one vertical rhythm for every tool (embedded and standalone): 24px above the title row, between title row, step guide and workspace ---------- */
+html.hx-framed body{padding:0}
+body.hx-p-poster>header.top,
+body.hx-p-slides header.top{margin-top:var(--space-4)}
+body.hx-p-poster>.hx-steps,
+body.hx-p-slides .hx-steps{margin:var(--space-4) auto}
+html.hx-framed :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 212px)}
+
+/* ---------- step guide 1 / 2 / 3: one frame, equal columns, divider between columns ---------- */
+html.hx-framed .hx-steps{border:1px solid var(--line-structural);border-radius:var(--radius-panel);background:#fff}
+html.hx-framed .hx-steps>li{min-height:var(--steps-min-height);box-sizing:border-box}
+html.hx-framed .hx-steps>li+li{border-left:1px solid var(--line-structural)}
+@media (max-width:760px){html.hx-framed .hx-steps>li+li{border-left:0;border-top:1px solid var(--line-structural)}}
+
+/* ---------- workspaces: 1px structural frame, no rounded cards ---------- */
+html.hx-framed body.hx-p-poster>main.app,
+html.hx-framed body.hx-p-poster .hx-official,
+html.hx-framed body.hx-p-slides .app>.main{border:1px solid var(--line-structural);border-radius:var(--radius-panel)}
+html.hx-framed body.hx-p-poster .hx-official{margin:0}
+
+/* ---------- Letter: the whole A4 page and the form stay reachable (natural document height) ---------- */
+html.hx-framed body.hx-p-letter{display:block;height:auto;overflow:visible}
+html.hx-framed body.hx-p-letter>.wrap{display:grid;height:auto;min-height:0;grid-template-rows:none}
+html.hx-framed body.hx-p-letter>.wrap>main{grid-template-rows:none;align-items:start;height:auto}
+html.hx-framed body.hx-p-letter>.wrap>main>*{overflow:visible}
+
+/* ---------- field labels: 12px secondary text in every tool; checkbox labels keep body text ---------- */
+body.hx-p-card label:not(.chk),
+body.hx-p-letter label:not(.chk),
+body.hx-p-letter .ctl,
+body.hx-p-motion .ctl>.lab{font-size:12px;font-weight:400;color:var(--text-secondary)}
+
+/* ===== Two-way choices = Component Library .unist-segmented (pill group, 1.5px purple ring, 45% selected fill) ===== */
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{box-sizing:border-box!important;gap:0!important;padding:3px!important;border:1.5px solid #6b00ff!important;background:#fff!important;box-shadow:none!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group{border-radius:9999em!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{background:transparent!important;border:0!important;color:#000!important;font-weight:600!important;box-shadow:none!important;transform:none!important;transition:background-color 150ms!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button{border-radius:9999em!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button:hover:not([aria-pressed=true]):not([aria-checked=true]),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button:hover:not([aria-pressed=true]):not([aria-checked=true]){background:var(--sub-light,color-mix(in srgb,#64d8d8 15%,transparent))!important;color:#000!important}
+html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-checked=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true][data-m=cmyk]{background:var(--sub-medium,color-mix(in srgb,#64d8d8 45%,transparent))!important;box-shadow:inset 0 0 0 1.5px #6b00ff!important;color:#6b00ff!important}
+
