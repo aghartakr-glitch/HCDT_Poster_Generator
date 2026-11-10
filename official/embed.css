@@ -87,3 +87,8 @@ html body .hx-poster-type button{flex:1 1 0!important;min-width:0!important;padd
 .zoombar output{padding:3px 6px;min-width:46px;text-align:center;font-variant-numeric:tabular-nums;color:var(--hx-muted,#666)}
 #hp-stage{justify-content:safe center;gap:0}
 .zoombar{position:absolute;top:12px;left:12px;margin:0}
+/* Same stage geometry as the Custom editor: poster sits 55px below the top, zoom bar 10px from the corner, 14px bar text */
+#hp-stage{padding:55px 24px 15px}
+.zoombar{top:10px;left:10px}
+.zoombar button,.zoombar output{font-size:14px}
+#hp-inspector strong{font-size:14px!important;line-height:1.5}

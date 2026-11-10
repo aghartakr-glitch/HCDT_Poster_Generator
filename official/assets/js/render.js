@@ -77,6 +77,7 @@
     if (HP.gridOn) HP.setGrid(true);
     HP.warn();
     HP.emitRendered();
+    try { parent.postMessage({ hcdtPosterPaper: HP.state.paper }, '*'); } catch (e) { /* standalone */ }
   };
 
   function fillPhoto(it, my, st, th) {

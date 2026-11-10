@@ -40,13 +40,14 @@
   // 미리보기 크기: 화면 안에 포스터가 통째로 보이게 축소한다
   HP.fitStage = function () {
     var st = HP.state, f = HP.formats[st.format], stage = HP.q('#hp-stage'), sheet = HP.q('#hp-sheet'), P = HP.q('#hp-poster');
-    var k = Math.min((stage.clientWidth - 48) / f.w, (stage.clientHeight - 64) / f.h);
+    var k = Math.min((stage.clientWidth - 48) / f.w, (stage.clientHeight - 70) / f.h);
     k = HP.clamp(k, 0.1, 1.5);
+    var kFit = k;
     k = HP.clamp(k * (HP.zoomMul || 1), 0.05, 4);  /* zoom bar: Fit = 1, steps of 1.2 */
     sheet.style.width = f.w * k + 'px';
     sheet.style.height = f.h * k + 'px';
     P.style.transform = 'scale(' + k + ')';
     HP.scale = k;
-    var zv = document.getElementById('zVal'); if (zv) zv.value = Math.round(k * 100) + '%';
+    var zv = document.getElementById('zVal'); if (zv) zv.value = Math.round(k / kFit * 100) + '%';
   };
 })();

@@ -23,7 +23,7 @@
       open[key] = d.open;
     });
     ed.innerHTML = '';
-    [K.posterSection(), K.styleSection(), K.photoSection(), K.headSection(), K.speakerSection(), K.qrSection(), K.exportSection()]
+    [K.posterSection(), K.styleSection(), K.photoSection(), K.headSection(), K.speakerSection(), K.qrSection()]
       .forEach(function (s) { ed.appendChild(s); });
     HP.qa('details', ed).forEach(function (d) {
       var key = d.getAttribute('data-id') || d.firstElementChild.textContent.replace(/\(.*$/, '').trim();

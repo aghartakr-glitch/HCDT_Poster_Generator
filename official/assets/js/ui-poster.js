@@ -34,7 +34,11 @@
       K.field('Type', typeControl),
       el('div', { class: 'row' }, [
         K.field('Orientation', K.seg([['portrait', 'Portrait'], ['landscape', 'Landscape']], st.format, function (v) { set('format', v); })),
-        K.field('Paper', K.select(Object.keys(HP.papers).map(function (p) { return [p, p]; }), st.paper, function (v) { set('paper', v); }))])
+        K.field('Paper', K.select(Object.keys(HP.papers).map(function (p) { return [p, p]; }), st.paper, function (v) { set('paper', v); }))]),
+      K.btn('Reset all', function () {
+        if (!confirm('Reset all settings and speakers?')) return;
+        HP.forget(); HP.state = HP.initialState('defense', 5); K.rebuild(); HP.emit();
+      }, 'mini')
     ]);
   };
 

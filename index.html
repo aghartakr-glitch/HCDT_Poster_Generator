@@ -165,7 +165,7 @@ button{cursor:pointer}
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
 <style>
-html.hx-wide .hx-steps{display:none!important}
+
 </style>
 </head>
 <body>
@@ -292,6 +292,7 @@ body.hx-official-on .hx-official{display:block}
     [].forEach.call(box.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed',String(x.dataset.type===type))});
     try{history.replaceState(null,'','#'+type)}catch(e){}
     try{window.dispatchEvent(new CustomEvent('hcdtpostermodechange',{detail:{type:type}}))}catch(e){}
+    var sp=document.querySelector('.brand span');if(sp&&!official)sp.textContent='A4 · 4 columns × 14 rows';
     if(official)notify();
   }
   box.addEventListener('click',function(e){var x=e.target.closest('button');if(x)set(x.dataset.type)});
@@ -308,6 +309,7 @@ body.hx-official-on .hx-official{display:block}
   window.addEventListener('message',function(e){
     var d=e.data||{},t=d.hcdtPosterType;
     if(/^(defense|seminar|custom)$/.test(t))set(t);
+    if(d.hcdtPosterPaper&&B.classList.contains('hx-official-on')){var sp2=document.querySelector('.brand span');if(sp2)sp2.textContent=d.hcdtPosterPaper+' · 4 columns × 14 rows';}
     if(B.classList.contains('hx-official-on')&&d.hcdtPosterHistory){
       var u=document.getElementById('undo'),r=document.getElementById('redo');
       if(u)u.disabled=!d.undo;if(r)r.disabled=!d.redo;
@@ -602,6 +604,7 @@ function renderProps(){
   if(!b){
     P.innerHTML=`<section class="sec"><h3>No selection</h3>
     <div class="keys"><kbd>Double-click</kbd><span>Edit text</span><kbd>Ctrl+B</kbd><span>Bold while typing</span><kbd>Arrow keys</kbd><span>Move 1mm (Shift 5mm)</span><kbd>Alt+drag</kbd><span>Ignore grid snap</span><kbd>Ctrl+D</kbd><span>Duplicate</span><kbd>Delete</kbd><span>Remove</span><kbd>Ctrl+Z</kbd><span>Undo</span></div></section>`;
+    P.querySelector(".sec").insertAdjacentHTML("beforeend",'<p class="note" style="margin:12px 0 0">PDF: choose "Save as PDF" in the print dialog, margins none, background graphics on.</p>');
     return;
   }
   const pos=`<div class="sub">Position${b.type==="text"?" & width":" & size"} (mm)</div><div class="duo"><label>X<input type="number" step="0.5" data-k="x" value="${r1(b.x)}"></label><label>Y<input type="number" step="0.5" data-k="y" value="${r1(b.y)}"></label>
@@ -963,11 +966,12 @@ async function shuffleText(){
 $("#shuffle").onclick=e=>{const b=e.currentTarget;b.disabled=true;shuffleText().catch(err=>{console.error(err);toast("Shuffle failed: "+err.message);}).finally(()=>{b.disabled=false;});};
 
 /* ---------- 확대·축소 ---------- */
+let fitZ=1;
 function fit(){
   const w=$("#stagewrap"); const z=Math.min((w.clientWidth-48)/(PW*PX),(w.clientHeight-70)/(PH*PX));
-  setZoom(clamp(z,.1,3));
+  fitZ=clamp(z,.1,3);setZoom(fitZ);
 }
-function setZoom(z){zoom=z;$("#zVal").value=Math.round(z*100)+"%";renderPoster();}
+function setZoom(z){zoom=z;$("#zVal").value=Math.round(z/fitZ*100)+"%";renderPoster();}  /* Fit = 100%, like the other editors */
 let userZoomed=false;$("#zIn").onclick=()=>{userZoomed=true;setZoom(Math.min(8,zoom*1.2));};
 $("#zOut").onclick=()=>{userZoomed=true;setZoom(Math.max(.1,zoom/1.2));};
 $("#zFit").onclick=()=>{userZoomed=false;fit();};
