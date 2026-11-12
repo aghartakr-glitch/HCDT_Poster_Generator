@@ -23,7 +23,7 @@
   --color-sub-medium:color-mix(in srgb,var(--color-sub) 45%,transparent);
   --text-primary:#000;
   --text-secondary:#5f6066;
-  --steps-min-height:89px;
+  --steps-min-height:90px;
   --toolbar-h:50px;
 }
 
@@ -50,12 +50,11 @@ body.hx-p-slides .hx-steps{margin:var(--space-4) auto}
 html.hx-framed :is(header.top,.wrap>header){min-height:var(--toolbar-h);align-items:center}
 html.hx-framed :is(body.hx-p-poster,body.hx-p-slides){--ed-h:calc(100vh - 212px)}
 
-/* ---------- step guide 1 / 2 / 3: one frame, equal columns, divider between columns ---------- */
-html.hx-framed .hx-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;border:1px solid var(--line-structural);border-radius:var(--radius-panel);background:#fff}
-html.hx-framed .hx-steps>li{min-width:0;overflow-wrap:anywhere}
-html.hx-framed .hx-steps>li{min-height:var(--steps-min-height);box-sizing:border-box}
+/* ---------- step guide 1 / 2 / 3: three cards, each exactly 4 of the 12 grid columns (24px gutter between them), same text inset in every tool ---------- */
+html.hx-framed .hx-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--grid-gap);width:100%;border:0;border-radius:0;background:transparent;padding:0}
+html.hx-framed .hx-steps>li{min-width:0;overflow-wrap:anywhere;min-height:var(--steps-min-height);box-sizing:border-box;border:1px solid var(--line-structural);border-radius:var(--radius-panel);background:#fff}
 html.hx-framed .hx-steps>li+li{border-left:1px solid var(--line-structural)}
-@media (max-width:760px){html.hx-framed .hx-steps{grid-template-columns:minmax(0,1fr)}html.hx-framed .hx-steps>li+li{border-left:0;border-top:1px solid var(--line-structural)}}
+@media (max-width:760px){html.hx-framed .hx-steps{grid-template-columns:minmax(0,1fr);row-gap:var(--space-2,8px)}}
 
 /* ---------- workspaces: 1px structural frame, no rounded cards ---------- */
 html.hx-framed body.hx-p-poster>main.app,
