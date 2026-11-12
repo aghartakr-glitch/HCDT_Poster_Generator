@@ -40,7 +40,8 @@
   // 미리보기 크기: 화면 안에 포스터가 통째로 보이게 축소한다
   HP.fitStage = function () {
     var st = HP.state, f = HP.formats[st.format], stage = HP.q('#hp-stage'), sheet = HP.q('#hp-sheet'), P = HP.q('#hp-poster');
-    var k = Math.min((stage.clientWidth - 48) / f.w, (stage.clientHeight - 70) / f.h);
+    var cs = getComputedStyle(stage), aw = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), ah = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+    var k = Math.min(aw / f.w, ah / f.h);
     k = HP.clamp(k, 0.1, 1.5);
     var kFit = k;
     k = HP.clamp(k * (HP.zoomMul || 1), 0.05, 4);  /* zoom bar: Fit = 1, steps of 1.2 */
@@ -50,4 +51,6 @@
     HP.scale = k;
     var zv = document.getElementById('zVal'); if (zv) zv.value = Math.round(k / kFit * 100) + '%';
   };
+  /* refit whenever the stage changes size (layout settles after load, window / iframe resize), so the grey margin stays equal on all sides */
+  if (window.ResizeObserver) { var _st = document.getElementById('hp-stage'); if (_st) { var _t; new ResizeObserver(function () { clearTimeout(_t); _t = setTimeout(function () { if (HP.state && HP.formats && HP.q('#hp-poster')) HP.fitStage(); }, 60); }).observe(_st); } }
 })();

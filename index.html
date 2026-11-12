@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HCDT Poster</title>
 <link rel="stylesheet" href="hcdt-ui.css?v=20261109q">
-<link rel="stylesheet" href="hcdt-embed.css?v=20261112g">
+<link rel="stylesheet" href="hcdt-embed.css?v=20261112k">
 
 <style>
 html,body{margin:0}
@@ -98,12 +98,12 @@ button{cursor:pointer}
 .check input{accent-color:var(--accent)}
 
 /* 지면 */
-.stagewrap{position:relative;overflow:auto;background:var(--stage);min-width:0}
-.zoombar{position:sticky;top:10px;left:10px;z-index:5;display:inline-flex;gap:4px;margin:10px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:3px}
+.stagewrap{position:relative;overflow:auto;background:var(--stage);min-width:0;display:flex;padding:48px;box-sizing:border-box}  /* equal 48px grey margin on all four sides; the sheet is centred in it */
+.zoombar{position:absolute;top:7px;left:12px;z-index:5;display:inline-flex;gap:4px;margin:0;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:3px}
 .zoombar button{border:0;background:none;padding:3px 9px;border-radius:5px}
 .zoombar button:hover{background:var(--chip)}
 .zoombar output{padding:3px 6px;min-width:46px;text-align:center;font-variant-numeric:tabular-nums;color:var(--muted)}
-.stage{position:relative;margin:0 auto 40px;box-shadow:0 1px 3px rgba(0,0,0,.12),0 12px 40px rgba(20,10,40,.14)}
+.stage{position:relative;flex:none;margin:auto;box-shadow:0 1px 3px rgba(0,0,0,.12),0 12px 40px rgba(20,10,40,.14)}
 .stage>.poster{transform-origin:0 0}
 
 .poster{position:relative;width:210mm;height:297mm;overflow:hidden;font-family:var(--poster);-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
@@ -263,7 +263,7 @@ button{cursor:pointer}
 })();
 </script>
 <section class="hx-official" id="hxOfficial">
-  <iframe id="hxOfficialFrame" aria-label="HCDT poster generator" data-src="official/index.html?v=20261112c"></iframe>
+  <iframe id="hxOfficialFrame" aria-label="HCDT poster generator" data-src="official/index.html?v=20261112k"></iframe>
 </section>
 <style>
 .hx-official{display:none;height:calc(100dvh - 140px)}
@@ -969,7 +969,7 @@ $("#shuffle").onclick=e=>{const b=e.currentTarget;b.disabled=true;shuffleText().
 /* ---------- 확대·축소 ---------- */
 let fitZ=1;
 function fit(){
-  const w=$("#stagewrap"); const z=Math.min((w.clientWidth-48)/(PW*PX),(w.clientHeight-70)/(PH*PX));
+  const w=$("#stagewrap"), cs=getComputedStyle(w); const aw=w.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight), ah=w.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom); const z=Math.min(aw/(PW*PX),ah/(PH*PX));
   fitZ=clamp(z,.1,3);setZoom(fitZ);
 }
 function setZoom(z){zoom=z;$("#zVal").value=Math.round(z/fitZ*100)+"%";renderPoster();}  /* Fit = 100%, like the other editors */

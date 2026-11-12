@@ -95,8 +95,10 @@ html body .hx-poster-type button{flex:1 1 0!important;min-width:0!important;padd
 #hp-stage{justify-content:safe center;gap:0}
 .zoombar{position:absolute;top:12px;left:12px;margin:0}
 /* Same stage geometry as the Custom editor: poster sits 55px below the top, zoom bar 10px from the corner, 14px bar text */
-#hp-stage{padding:55px 24px 15px}
-.zoombar{top:10px;left:10px}
+/* same equal 48px grey margin on all four sides as the Custom editor; the sheet is centred (margin:auto) */
+#hp-stage{padding:48px!important;box-sizing:border-box}
+#hp-sheet{margin:auto}
+.zoombar{top:7px;left:12px}
 .zoombar button,.zoombar output{font-size:14px}
 #hp-inspector strong{font-size:14px!important;line-height:1.5}
 /* same as the Custom editor: the grey canvas runs from panel border to panel border (the 24px gutters are painted too); the sheet stays centred on the grid */

@@ -38,6 +38,15 @@ header.top,.wrap>header{display:flex;flex-wrap:wrap;width:100%;gap:var(--space-2
 header.top .brand{min-width:0}
 header.top .hx-act,.wrap>header .hx-act{display:flex;flex-wrap:wrap;justify-content:flex-end;max-width:100%;min-width:0;margin-left:auto}
 
+/* ---------- toolbar slots: the same button is always the same distance from the right edge in every tool ----------
+   from the right: Export (88) | Save + Open (131, kept free when a tool has none) | RGB/CMYK (134) | Grid (56) | Undo/Redo | Present */
+html body .hx-act :is(.menu,.hx-menu){width:88px;flex:none}
+html body .hx-act :is(.menu,.hx-menu)>button{width:100%;justify-content:center}
+html body .hx-act .hx-ph{width:131px;flex:none}
+/* Name Card has no Save/Open: keep their 131px free so RGB/CMYK sits where it does in Letter, Slides and Poster */
+html body.hx-p-card .hx-act .hx-cmseg+.hx-sep{margin-right:148px}
+@media (max-width:760px){html body .hx-act .hx-ph{display:none}html body.hx-p-card .hx-act .hx-cmseg+.hx-sep{margin-right:0}}
+
 /* ---------- one vertical rhythm for every tool (embedded and standalone): 24px above the title row, between title row, step guide and workspace ---------- */
 html.hx-framed body{padding:0}
 /* the same 24px above the toolbar in all five tools: Poster/Slides put it on the header, Name Card/Letter/Logo Motion on .wrap */
@@ -56,14 +65,17 @@ html.hx-framed .hx-steps>li{min-width:0;overflow-wrap:anywhere;min-height:var(--
 html.hx-framed .hx-steps>li+li{border-left:1px solid var(--line-structural)}
 @media (max-width:760px){html.hx-framed .hx-steps{grid-template-columns:minmax(0,1fr);row-gap:var(--space-2,8px)}}
 
+/* ---------- Name Card: the preview zone is 5 grid columns (the grey side owns the gutter, like the Poster stage), the form starts on column 6 ---------- */
+@media (min-width:861px){html.hx-framed body.hx-p-card .zone:not(.one){column-gap:var(--grid-gap)}html.hx-framed body.hx-p-card .zone:not(.one)>.zl{margin-right:calc(var(--grid-gap)*-1)}}
+
 /* ---------- workspaces: 1px structural frame, no rounded cards ---------- */
 html.hx-framed body.hx-p-poster>main.app,
 html.hx-framed body.hx-p-poster .hx-official,
 html.hx-framed body.hx-p-slides .app>.main{border:1px solid var(--line-structural);border-radius:var(--radius-panel)}
 html.hx-framed body.hx-p-poster .hx-official{margin:0}
 /* the grey canvas of the Poster editor runs from panel border to panel border: the 24px column gutters beside it are painted grey too (content stays on the 12-column grid) */
-@media (min-width:981px){html.hx-framed body.hx-p-poster>main.app>.stagewrap{margin-left:calc(var(--grid-gap)*-1);padding-left:var(--grid-gap)}}
-@media (min-width:1181px){html.hx-framed body.hx-p-poster>main.app>.stagewrap{margin-right:calc(var(--grid-gap)*-1);padding-right:var(--grid-gap)}}
+@media (min-width:981px){html.hx-framed body.hx-p-poster>main.app>.stagewrap{margin-left:calc(var(--grid-gap)*-1);padding-left:48px}}
+@media (min-width:1181px){html.hx-framed body.hx-p-poster>main.app>.stagewrap{margin-right:calc(var(--grid-gap)*-1);padding-right:48px}}
 
 /* ---------- Letter: the whole A4 page and the form stay reachable (natural document height) ---------- */
 html.hx-framed body.hx-p-letter{display:block;height:auto;overflow:visible}
