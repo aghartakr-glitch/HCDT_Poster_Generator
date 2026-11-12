@@ -68,6 +68,16 @@ html.hx-framed .hx-steps>li+li{border-left:1px solid var(--line-structural)}
 /* ---------- Name Card: the preview zone is 5 grid columns (the grey side owns the gutter, like the Poster stage), the form starts on column 6 ---------- */
 @media (min-width:861px){html.hx-framed body.hx-p-card .zone:not(.one){column-gap:var(--grid-gap)}html.hx-framed body.hx-p-card .zone:not(.one)>.zl{margin-right:calc(var(--grid-gap)*-1)}}
 
+/* ---------- zoom bar: ONE design in every tool (Poster editors, Letter preview) ---------- */
+html:not(#hz1):not(#hz2):not(#hz3):not(#hz4) body .zoombar{display:inline-flex;gap:4px;align-items:center;height:fit-content;background:#fff;border:1px solid var(--line-structural,rgba(0,0,0,.2));border-radius:8px;padding:3px;box-sizing:content-box}
+html:not(#hz1):not(#hz2):not(#hz3):not(#hz4) body .zoombar button{appearance:none;border:0!important;background:none!important;box-shadow:none!important;min-height:0!important;height:auto!important;padding:3px 9px!important;border-radius:6px!important;font:inherit!important;font-size:14px!important;line-height:1.4!important;color:inherit;cursor:pointer}
+html:not(#hz1):not(#hz2):not(#hz3):not(#hz4) body .zoombar button:hover{background:rgba(0,0,0,.06)!important}
+html:not(#hz1):not(#hz2):not(#hz3):not(#hz4) body .zoombar output{padding:3px 6px;min-width:46px;text-align:center;font-size:14px;line-height:1.4;font-variant-numeric:tabular-nums;color:var(--text-secondary,rgba(0,0,0,.7))}
+
+/* ---------- icon buttons (×, ←, →, ↶, ↷ ...): the glyph sits in the exact centre of a round/square button ---------- */
+html:not(#hz1):not(#hz2):not(#hz3):not(#hz4) body :is(.mini.icon,.crow button,.hx-act #undo,.hx-act #redo,.hx-act #btn-undo,.hx-act #btn-redo,.thumb .tools button){display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;text-align:center}
+html:not(#hz1):not(#hz2):not(#hz3):not(#hz4) body :is(.mini.icon){width:34px;height:34px;min-height:0!important;padding:0!important;border-radius:9999em!important;font-size:18px!important;flex:none}
+
 /* ---------- workspaces: 1px structural frame, no rounded cards ---------- */
 html.hx-framed body.hx-p-poster>main.app,
 html.hx-framed body.hx-p-poster .hx-official,

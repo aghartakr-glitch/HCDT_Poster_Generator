@@ -13,7 +13,7 @@
     var row = el('div', { class: 'ln-row' });
     row.appendChild(K.text(ln.t, function (v) { ln.t = v; onChange(); }));
     row.appendChild(K.select(STYLES, ln.s, function (v) { ln.s = v; onChange(); }));
-    row.appendChild(K.btn('×', onRemove, 'mini', 'Remove line'));
+    row.appendChild(K.btn('×', onRemove, 'mini icon', 'Remove line'));
     row.appendChild(el('div', { class: 'opts' }, [
       K.select(WEIGHTS, ln.w || '', function (v) { ln.w = v ? +v : undefined; onChange(); }),
       K.select([['ac', 'Accent color'], ['fg', 'Text color']], ln.c || 'ac', function (v) { ln.c = v; onChange(); })]));
