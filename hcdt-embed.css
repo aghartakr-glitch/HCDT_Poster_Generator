@@ -21,6 +21,7 @@
   --color-sub:var(--hx-ui,var(--ui,#64D8D8));
   --color-sub-light:color-mix(in srgb,var(--color-sub) 15%,transparent);
   --color-sub-medium:color-mix(in srgb,var(--color-sub) 45%,transparent);
+  --hx-ink:#1a1a1a;   /* the site token --ink (theme text colour); named separately because some tools use --ink for their own navy */
   --text-primary:#000;
   --text-secondary:#5f6066;
   --steps-min-height:90px;
@@ -111,3 +112,16 @@ html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button,html:not(#hxt):
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button:hover:not([aria-pressed=true]):not([aria-checked=true]),html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button:hover:not([aria-pressed=true]):not([aria-checked=true]){background:var(--sub-light,color-mix(in srgb,var(--hx-ui,var(--ui,#64d8d8)) 15%,transparent))!important;color:#000!important}
 html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .seg button[aria-checked=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true],html:not(#hxt):not(#hxt2):not(#hxt3):not(#hxt4) body .hx-toggle-group button[aria-pressed=true][data-m=cmyk]{background:var(--sub-medium,color-mix(in srgb,var(--hx-ui,var(--ui,#64d8d8)) 45%,transparent))!important;box-shadow:inset 0 0 0 1.5px #6b00ff!important;color:#6b00ff!important}
 
+
+/* ===== Fields = Component Library .unist-field: 1.5px purple line, 8px corners (0.5rem), hover = sub-colour 15%, focus = black 2px ring, disabled = grey fill.
+   Size stays compact (the tools are dense editors); everything else follows the component. ===== */
+html:not(#hf1):not(#hf2):not(#hf3):not(#hf4) body :is(input:not([type]),input[type=text],input[type=number],input[type=email],input[type=url],input[type=tel],input[type=date],input[type=search],input[type=password],select,textarea){border:1.5px solid var(--purple,#6B00FF)!important;border-radius:8px!important;color:var(--hx-ink,#1a1a1a)!important;transition:background-color 150ms}
+html:not(#hf1):not(#hf2):not(#hf3):not(#hf4) body :is(input:not([type]),input[type=text],input[type=number],input[type=email],input[type=url],input[type=tel],input[type=date],input[type=search],input[type=password],select,textarea):hover:not(:disabled){background-color:var(--color-sub-light)!important}
+html:not(#hf1):not(#hf2):not(#hf3):not(#hf4) body :is(input:not([type]),input[type=text],input[type=number],input[type=email],input[type=url],input[type=tel],input[type=date],input[type=search],input[type=password],select,textarea):focus-visible{outline:2px solid var(--hx-ink,#1a1a1a)!important;outline-offset:2px!important}
+html:not(#hf1):not(#hf2):not(#hf3):not(#hf4) body :is(input:not([type]),input[type=text],input[type=number],input[type=email],input[type=url],input[type=tel],input[type=date],input[type=search],input[type=password],select,textarea):disabled{background-color:rgba(191,191,191,.3)!important;color:var(--grey-muted,#67635d)!important;cursor:not-allowed}
+
+/* ===== Buttons = Component Library .unist-button: 1.5px line; secondary hover = sub 45% fill + dark purple; every button lifts up-left with a hard sub-colour shadow; black 2px focus ring ===== */
+html:not(#hb1):not(#hb2):not(#hb3):not(#hb4) body :is(.hx-act>button,.hx-act .hx-menu>button,.btn){border-width:1.5px!important}
+html:not(#hb1):not(#hb2):not(#hb3):not(#hb4) body :is(.hx-act>button,.hx-act .hx-menu>button):not(#undo):not(#redo):not(#btn-undo):not(#btn-redo):not(:disabled):hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--color-sub)!important}
+html:not(#hb1):not(#hb2):not(#hb3):not(#hb4) body :is(.hx-act>button,.hx-act .hx-menu>button):not(.primary):not([aria-pressed=true]):not(#undo):not(#redo):not(#btn-undo):not(#btn-redo):not(:disabled):hover{background:var(--color-sub-medium)!important;border-color:#4b00b3!important;color:#4b00b3!important}
+html:not(#hb1):not(#hb2):not(#hb3):not(#hb4) body :is(.hx-act>button,.hx-act .hx-menu>button,.btn):focus-visible{outline:2px solid var(--hx-ink,#1a1a1a)!important;outline-offset:2px!important}
