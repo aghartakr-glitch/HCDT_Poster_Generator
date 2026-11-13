@@ -186,7 +186,6 @@ button{cursor:pointer}
     <div class="hx-menu"><button type="button" class="btn primary" data-hx-menu aria-haspopup="true" aria-expanded="false">Export ▾</button>
       <div class="hx-menu-pop" hidden>
         <button type="button" class="hx-mi" id="savePdf">PDF</button>
-        <button type="button" class="hx-mi" id="savePng">PNG</button>
       </div>
     </div>
   </div>
@@ -322,7 +321,7 @@ body.hx-official-on .hx-official{display:block}
     if(!B.classList.contains('hx-official-on'))return;
     var c=e.target.closest('#hxCmyk button');
     if(c){var cw=fr.contentWindow,ca=cw&&cw.HX_CMYK_API;if(ca)ca.set(c.getAttribute('data-m')==='cmyk');return;}
-    var t=e.target.closest('#undo,#redo,#hxGrid,#saveJson,#openJson,#savePdf,#savePng');if(!t)return;
+    var t=e.target.closest('#undo,#redo,#hxGrid,#saveJson,#openJson,#savePdf');if(!t)return;
     var w=fr.contentWindow,HP=w&&w.HP;if(!HP)return;
     e.preventDefault();e.stopImmediatePropagation();
     var pop=t.closest('.hx-menu-pop');if(pop){pop.hidden=true;var mb=pop.parentNode.querySelector('[data-hx-menu]');if(mb)mb.setAttribute('aria-expanded','false');}
@@ -331,7 +330,6 @@ body.hx-official-on .hx-official{display:block}
     else if(t.id==='hxGrid'){var on=t.getAttribute('aria-pressed')!=='true';t.setAttribute('aria-pressed',String(on));HP.setGrid(on);}
     else if(t.id==='openJson')document.getElementById('jsonFile').click();
     else if(t.id==='savePdf')HP.exportPdf();
-    else if(t.id==='savePng')HP.exportPng();
     else HP.saveProject();
   },true);
   document.addEventListener('change',function(e){
@@ -858,11 +856,6 @@ $("#savePdf").onclick=e=>busy(e.currentTarget,"Rendering PDF…",async()=>{
   pdf.addImage(c,"PNG",0,0,PW,PH,undefined,"FAST");
   pdf.setProperties({title:"HCDT Poster",creator:"HCDT Poster Generator"});
   await saveFile(`HCDT_Poster_${stamp()}.pdf`,pdf.output("blob"));
-});
-$("#savePng").onclick=e=>busy(e.currentTarget,"Rendering PNG…",async()=>{
-  const c=await rasterize(300);
-  const blob=await new Promise(r=>c.toBlob(r,"image/png"));
-  await saveFile(`HCDT_Poster_${stamp()}.png`,blob);
 });
 $("#saveJson").onclick=()=>{endEdit();saveFile(`HCDT_Poster_${stamp()}.json`,new Blob([snapshot()],{type:"application/json"}));};
 

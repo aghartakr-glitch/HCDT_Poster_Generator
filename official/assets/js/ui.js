@@ -5,7 +5,7 @@
 
   K.exportSection = function () {
     return K.section('Export', [
-      el('div', { class: 'row' }, [K.btn('Download PDF', function () { HP.exportPdf(); }, 'pri'), K.btn('Download PNG', function () { HP.exportPng(); })]),
+      el('div', { class: 'row' }, [K.btn('Download PDF', function () { HP.exportPdf(); }, 'pri')]),
       el('div', { class: 'hint', text: 'PDF: choose "Save as PDF" in the print dialog, margins none, background graphics on.' }),
       el('div', { class: 'row' }, [K.btn('Save project', function () { HP.saveProject(); }),
         K.file('Open project', 'application/json,.json', function (f) { HP.openProject(f); })]),

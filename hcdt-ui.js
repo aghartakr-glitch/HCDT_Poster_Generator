@@ -220,7 +220,7 @@
     poster: [
       ['Start', '시작', 'Choose a poster preset, paper size and approved color combination.', '포스터 프리셋, 용지 크기와 승인된 배색 선택.'],
       ['Edit', '편집', 'Edit the headline, speakers, photos and links in the left panel.', '왼쪽 패널에서 제목, 발표자, 사진과 링크 편집.'],
-      ['Export', '내보내기', 'PDF or PNG at the top right.', '오른쪽 위에서 PDF 또는 PNG.']],
+      ['Export', '내보내기', 'PDF at the top right.', '오른쪽 위에서 PDF.']],
     letter: [
       ['Addresses', '주소', 'Fill in To and From. Empty contact rows are not printed.', '받는 사람, 보내는 사람 입력. 빈 연락처 줄은 인쇄 안 됨.'],
       ['Letter', '본문', 'Write the body and closing; add a signature image.', '본문과 맺음말 작성, 서명 이미지 추가.'],
